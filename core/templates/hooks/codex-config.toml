@@ -1,0 +1,8 @@
+# Context7 MCP server for Codex. Merge this table into ~/.codex/config.toml
+# (user scope) or <project>/.codex/config.toml (project scope; Codex asks to
+# trust project config). Skip it when Context7 is already provided by an
+# active plugin or MCP connection: one logical Context7 server per client.
+# Keep authentication, model preferences and sandbox permissions out of this
+# file. Verify with one real documentation query in a new session.
+[mcp_servers.context7]
+url = "https://mcp.context7.com/mcp"

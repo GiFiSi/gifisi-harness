@@ -1,0 +1,43 @@
+# Onboarding for {{PROJECT_NAME}}
+
+<!-- Local preparation for a new developer or agent. Replace each HTML comment with commands that were run and worked. Never record secret values. -->
+
+## Prerequisites
+
+<!-- Runtime and version (for example Node from .nvmrc or package.json engines), package manager ({{PACKAGE_MANAGER}}), and other required tools, each with the command that checks it. Reuse global tools; do not copy another developer's caches. -->
+
+| Tool | Required version | Check command |
+|---|---|---|
+
+## First run
+
+1. Install dependencies with {{PACKAGE_MANAGER}} using the committed lockfile.
+2. Prepare the environment file. <!-- Name each variable, what it is for and where to obtain its value. No values. -->
+3. Start the app: {{DEV_COMMAND}}
+4. Confirm it works: <!-- the URL, command or output that proves the app is up -->
+
+## Database
+
+<!-- How to get a local PostgreSQL or an authorized connection, how to set DATABASE_URL (and DATABASE_URL_UNPOOLED when the provider needs a direct connection), and the generate -> review SQL -> apply sequence against the right target. Production is never a test environment. Delete this section if the product has no database. -->
+
+## Verify
+
+- Tests: {{TEST_COMMAND}}
+- Lint: {{LINT_COMMAND}}
+- Build: {{BUILD_COMMAND}}
+- Live feature checks: `node "{{HARNESS_HOME}}scripts/verify-feature-map.mjs"`
+
+<!-- State which checks run without credentials and which need a service. Record the expected result of each. -->
+
+## Agents
+
+Read `AGENTS.md`; `CLAUDE.md` imports it. Agents also read `.poteto/project.json` for commands and `docs/setup.md` for installed tools and their verified scope.
+
+## Known issues
+
+<!-- Symptom, verified cause and verified fix for each problem someone actually hit. Do not list hypothetical problems. -->
+
+| Symptom | Cause | Fix |
+|---|---|---|
+
+<!-- Adapted from templates/project-docs/onboarding.md.template, Vibe Coding Toolkit by Matheus Gomes (MIT). -->

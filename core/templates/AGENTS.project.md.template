@@ -1,0 +1,65 @@
+# {{PROJECT_NAME}}
+
+<!-- Project section of AGENTS.md. Replace each HTML comment with verified project facts, then delete the comment. Keep this section short: details belong in PRODUCT.md and docs/. -->
+
+## Product and stack
+
+- Product, scope and acceptance criteria: `PRODUCT.md`.
+- Structure and decisions: `docs/architecture.md`. Interface rules: `docs/design.md`. Local preparation: `docs/onboarding.md`. Checks: `docs/quality.md`. Tool setup and evidence: `docs/setup.md`.
+- Package manager: {{PACKAGE_MANAGER}}.
+<!-- Stack: frameworks, runtime and versions observed in the lockfile and config files. Do not list versions you did not read. -->
+
+## Commands
+
+Detected at install on {{DATE}}. A cell that reads "not configured" means the project has no such script. Do not invent one; add a real script first, rerun the harness installer so `.poteto/project.json` picks it up, then update this table to match. The installer writes this section only when it creates `AGENTS.md`; it never rewrites it.
+
+| Purpose | Command |
+|---|---|
+| Develop | {{DEV_COMMAND}} |
+| Test | {{TEST_COMMAND}} |
+| Lint | {{LINT_COMMAND}} |
+| Build | {{BUILD_COMMAND}} |
+| File-size gate (no ESLint needed) | `node "{{HARNESS_HOME}}scripts/quality-gate.mjs"` |
+| Live feature checks | `node "{{HARNESS_HOME}}scripts/verify-feature-map.mjs"` |
+| Decision trail check | `node "{{HARNESS_HOME}}scripts/log-decision.mjs" --check` |
+
+<!-- Add the typecheck command, the local lint-rule self-check and a combined verify command when they exist. Mark an unavailable check with its reason. -->
+
+## Working agreements
+
+- Read the relevant code and instructions before editing. State the assumptions that change behavior or scope.
+- Make the smallest change that completes the request. Reuse existing patterns, components and dependencies.
+- Preserve local changes, validation, error handling, security, accessibility and explicit requirements.
+- Do not add abstractions, options, dependencies or features nobody asked for.
+- Run the checks that cover the change. Test relevant logic and regressions. A trivial change does not need a test that only mirrors the code.
+- Keep "file present", "configured" and "integration tested" separate. Do not report an assumption as a fact or a pending integration as a result.
+- Continue authorized work. Ask only for essential facts or for actions outside the authorization.
+- Publishing, messaging third parties, spending money and destructive actions need their own authorization. Installing a tool does not grant it.
+
+## Continuity
+
+- A blocker stops only the work that depends on it. Finish the independent work that stays safe and authorized.
+- Do not repeat an identical attempt without new evidence. Respect cost, time and retry limits and earlier refusals.
+- When resuming, check the real files, Git state, checks and processes. A summary from an earlier session does not prove the current state.
+- For work that spans sessions, keep a short handoff in `.poteto/handoff.md`, written from `{{HARNESS_HOME}}core/templates/task-handoff.md.template`.
+
+## Standards
+
+- Source files stay at or below 350 lines, counted without blank and comment lines. Split on a real responsibility seam, never at an arbitrary line.
+- Validate input and environment at the boundary. Log on the server through the project logger, without secrets or full request bodies.
+- Presentation code calls feature modules; it does not import the database client.
+- Preserve the existing stack, database and public contracts. A migration is separate, explicitly requested work.
+- Update the document that owns a fact in the same change: `PRODUCT.md` for scope, `docs/architecture.md` for structure, `docs/design.md` for interface, `docs/onboarding.md` for preparation, `docs/quality.md` for checks, `docs/setup.md` for tools and evidence.
+<!-- Add conventions that are true in this codebase: import style, error shape, naming, module layout. Link the file that shows each one. -->
+
+## Git and delegation
+
+- No push blockers on the main branch, mandatory branches or worktrees, or pre-commit/pre-push hooks unless the team asks for them. Lint, types, tests and build are explicit checks.
+- Delegate only when context isolation, specialization or independent parallel work pays for the coordination. Each delegated task gets an objective, minimal context, allowed files, acceptance criteria and checks. One writer per file; parallel reviewers only read.
+- Check the diff and the checks before accepting delegated work.
+
+## poteto-harness
+
+The poteto-harness router follows this section in a block that the installer manages. Do not edit inside that block; the next install overwrites it. Edit the project facts in this section instead. Harness files live under `{{HARNESS_HOME}}`, detected commands in `.poteto/project.json`, live checks in `.poteto/feature-map.json`, the decision trail in `.poteto/decisions.tsv` and enforced rules in `.poteto/corrections.md`.
+
+<!-- Adapted from templates/AGENTS.md.template, Vibe Coding Toolkit by Matheus Gomes (MIT). -->

@@ -1,0 +1,21 @@
+# Task handoff for {{PROJECT_NAME}}
+
+<!-- Write this file at `.poteto/handoff.md` for unfinished work that another session must pick up (core/playbooks/pause-safely.md, core/playbooks/autonomous-run.md); core/playbooks/session-pickup.md and core/skills/recall/SKILL.md read it there. The installer copies this template as is: replace {{PROJECT_NAME}} with the project name and each HTML comment with content; delete a line that has nothing to say. If a handoff for the same task already exists, update it in place. Durable decisions belong in PRODUCT.md and docs/, not here. -->
+
+- Written: <!-- UTC date and time, and who wrote it (person or agent session) -->
+- Goal and Done Predicate: <!-- the requested outcome and the exact command or observation that proves it -->
+- Playbook and current step: <!-- the playbook path (relative to the harness home) and the step number reached -->
+- Verified state: <!-- branch, commit, uncommitted changes as seen in `git status`; separate what you rechecked after the last edit from what you only believe -->
+- Checks: <!-- each command run, its result and the commit it ran on; mark failures and checks not run ("last passed at <commit>") -->
+- Decision trail: <!-- the row range of .poteto/decisions.tsv for this task, by ts; point to it, do not copy it -->
+- Pending: <!-- work not done yet, with its dependencies and known risks -->
+- Blockers: <!-- cause, the work that depends on it, the evidence, and the condition for resuming; "none" when there is none -->
+- Next action: <!-- the first command or step to run on resume -->
+- Key files: <!-- the paths changed or about to change, plus any plan file or PR URL -->
+- Gotchas: <!-- traps a cold-start agent would hit: flaky checks, wrong assumptions already ruled out, sources that may have changed -->
+- Resources: <!-- processes, ports, build directories, scratch databases or worktrees still owned, and their cleanup -->
+- Backlog: <!-- optional: edits queued for a human, such as harness or text-only rule changes proposed by core/skills/reflect/SKILL.md in an unattended run -->
+
+Before resuming, check the files, Git state, checks and live resources again. This record is context, not proof that a check still passes. Do not include secrets, private payloads or full logs.
+
+<!-- Adapted from templates/task-handoff.md.template, Vibe Coding Toolkit by Matheus Gomes (MIT). -->

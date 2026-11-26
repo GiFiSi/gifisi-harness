@@ -1,0 +1,133 @@
+# poteto-harness
+
+This repository is the harness itself. The router block below is generated from `core/harness/`; edit the sources, never the block.
+
+| Task | Command |
+|---|---|
+| Validate everything | `node scripts/validate-harness.mjs` |
+| Unit tests | `node scripts/run-tests.mjs` |
+| Regenerate router files | `node scripts/sync-harnesses.mjs --repo` |
+| Prove install idempotency | `node scripts/check-install.mjs` |
+| Autonomous smoke test | `node scripts/run-autonomous-smoke-test.mjs` |
+
+<!-- poteto-harness:begin (managed by poteto-harness sync-harnesses.mjs; edits inside are overwritten) -->
+<!-- Source: core/harness/router.md + core/harness/routes.json + core/harness/manifest.json. Regenerate with node scripts/sync-harnesses.mjs --repo. -->
+# poteto-harness router (always on)
+
+This router is the only always-on layer. Every other harness file loads on demand: open one playbook per task and each skill or principle only when a step needs it. Harness files live under ``, and every `scripts/`, `core/skills/`, `core/playbooks/`, `core/principles/`, or `core/templates/` path written inside them is relative to that folder: run `scripts/<name>.mjs` as `node "scripts/<name>.mjs"`. Instructions from the user and from the project's own files outside this block take precedence over this router.
+
+## 1. Classify every prompt
+
+**Language rule.** Converse, ask clarifying questions, write the `Reason` and `Done Predicate` lines of the header, and summarize results in the language of the user's prompt (Portuguese when prompted in Portuguese). Keep code, commit messages, and technical identifiers in English unless the user asks otherwise.
+
+Trivial work skips the header: a question answered from what you already know, or one obvious edit with no behavior change (typo, rename in one file, a config value the user dictated).
+
+For anything else, before reading or editing code, pick the route below and print exactly:
+
+```
+[POTETO-HARNESS] Task Type: <category> | Playbook: <selected playbook>
+Reason: <1 sentence why this playbook fits>
+Done Predicate: <exact verifiable condition on the real artifact>
+```
+
+Then open `core/playbooks/<playbook>.md`, copy its numbered `## Steps` verbatim into your todo list, and execute them in order. Load a route's skills from `core/skills/<skill>/SKILL.md` when the step that uses them starts, not before. When two routes fit, `node "scripts/classify-task.mjs" "<prompt>"` ranks them; you make the call. A task that changes type midway gets a new header.
+
+## 2. Routes
+
+| Task type | Signals (examples) | Playbook | Skills |
+|---|---|---|---|
+| Bug fix | bug, broken, regression, crash | Bug fix — `core/playbooks/bug-fix.md` | why, tdd, blast-radius, architect, maintain-verification-skill |
+| Performance | slow, slower, latency, performance | Perf issue — `core/playbooks/perf-issue.md` | benchmark-checklist, how |
+| Metric hillclimb | hillclimb, improve the score, raise the metric, push the number | Hillclimb — `core/playbooks/hillclimb.md` | benchmark-checklist, reflect |
+| Runtime forensics | production logs, stack trace, crash report, core dump | Runtime forensics — `core/playbooks/runtime-forensics.md` | how, why |
+| Trace forensics | trace file, flamegraph, flame graph, agent transcript | Trace forensics — `core/playbooks/trace-forensics.md` | how, benchmark-checklist |
+| Feature | add, implement, build, support for | Feature — `core/playbooks/feature.md` | architect, arena, tdd, create-verification-skill, maintain-verification-skill |
+| Refactoring | refactor, clean up, cleanup, split | Refactoring — `core/playbooks/refactoring.md` | architect, blast-radius, no-comments |
+| Quality gates | lint, eslint, quality gate, max-lines | Refactoring — `core/playbooks/refactoring.md` | quality-gates, correct |
+| Correction | you keep, again you, stop doing, i told you | Refactoring — `core/playbooks/refactoring.md` | correct, reflect |
+| Prototype | prototype, spike, try out, which approach | Prototype — `core/playbooks/prototype.md` | arena, interrogate, reframe |
+| Visual parity | match the design, pixel, screenshot diff, looks different | Visual parity — `core/playbooks/visual-parity.md` | create-verification-skill, benchmark-checklist |
+| Skill authoring | write a skill, new skill, update the skill, edit the playbook | Authoring a skill — `core/playbooks/authoring-a-skill.md` | technical-writing, unslop, sharpen |
+| Eval | eval, evaluation suite, grader, golden set | Eval — `core/playbooks/eval.md` | benchmark-checklist, create-verification-skill |
+| Formal verification | formal verification, model check, model-check, tla+ | Feature — `core/playbooks/feature.md` | create-formal-verification-skill, maintain-formal-verification-skill, tdd |
+| PR babysitting | ci is failing, ci failing, checks failing, review comments | Babysit — `core/playbooks/babysit.md` | blast-radius |
+| Shipping | merge the stack, land the, ship it, ship the | Shipping — `core/playbooks/shipping.md` | blast-radius |
+| Opening a PR | open a pr, open pr, create a pr, pull request | Opening a PR — `core/playbooks/opening-a-pr.md` | technical-writing, no-comments, unslop |
+| Autonomous run | overnight, run until done, unattended, while i sleep | Autonomous run — `core/playbooks/autonomous-run.md` | show-me-your-work, figure-it-out |
+| Autopilot full | end to end, from idea to merged, autopilot, take it all the way | Autopilot-full — `core/playbooks/autopilot-full.md` | figure-it-out, show-me-your-work, interrogate |
+| Autopilot stack | stack of prs, stacked prs, pr stack, stacked diffs | Autopilot-stack — `core/playbooks/autopilot-stack.md` | show-me-your-work, blast-radius |
+| Session pickup | pick up, resume, continue where, where did we leave | Session pickup — `core/playbooks/session-pickup.md` | recall |
+| Pause | pause, stop for now, save state, park this | Pause safely — `core/playbooks/pause-safely.md` | show-me-your-work |
+| Multi-phase plan | migration, migrate, rewrite, roadmap | Multi-phase plan — `core/playbooks/multi-phase-plan.md` | figure-it-out, architect, interrogate, reframe |
+| Machine setup | set up my machine, setup my machine, development environment, install node | Multi-phase plan — `core/playbooks/multi-phase-plan.md` | machine-setup, context-tools |
+| New project | new project, start a project, bootstrap, scaffold | Multi-phase plan — `core/playbooks/multi-phase-plan.md` | project-bootstrap, quality-gates |
+| Project adoption | existing project, adopt the harness, set up this repo, configure this project | Multi-phase plan — `core/playbooks/multi-phase-plan.md` | project-adoption, quality-gates, context-tools |
+| Cleanup | worktree, stale branches, clean up branches, simulators | Worktree cleanup — `core/playbooks/worktree-cleanup.md` |  |
+| Code review | review this, code review, review the diff, review my pr | Investigation — `core/playbooks/investigation.md` | code-review, blast-radius |
+| Security review | security, vulnerability, auth bypass, injection | Investigation — `core/playbooks/investigation.md` | security-review, blast-radius |
+| Investigation | how does, where is, explain, understand | Investigation — `core/playbooks/investigation.md` | how, why, teach, context-tools |
+
+No route fits, or the work is large and cross-cutting: use **Multi-phase plan** and load `core/skills/figure-it-out/SKILL.md`.
+
+## 3. Done Predicate
+
+- Name the real artifact (running app, CLI output, rendered page, generated file, merged PR) and the exact command or observation that proves the outcome.
+- "It compiles" or "unit tests pass" is a predicate only when the artifact is the library itself.
+- Live behavior is checked on the same surface the user uses. `.poteto/feature-map.json` lists those checks and `node "scripts/verify-feature-map.mjs"` runs them against the running app.
+- You are done only after you observed the predicate hold. If you cannot observe it, report `INCONCLUSIVE` with the reason. Never report a guess as a pass.
+
+## 4. Principles
+
+Read a principle's file before you cite it, and name the choice it changed. One line each: when it applies.
+
+- **Laziness Protocol** (Core): Refactoring, sizing a diff, or tempted to add a layer. Bias to deletion and the smallest change that solves it. `core/principles/laziness-protocol.md`
+- **Foundational Thinking** (Core): Before writing logic. Settle core types, data structures, and what concurrent actors share first. `core/principles/foundational-thinking.md`
+- **Redesign from First Principles** (Core): A new requirement lands in an existing design. Redesign as if it had been there from day one. `core/principles/redesign-from-first-principles.md`
+- **Attack the Premise** (Core): Two fixes sharing one premise failed. Write the premise down and test it before a third fix. `core/principles/attack-the-premise.md`
+- **Subtract Before You Add** (Core): Sequencing an addition, refactor, or rewrite. Remove dead weight first, then build on the simpler base. `core/principles/subtract-before-you-add.md`
+- **Minimize Reader Load** (Core): Code is hard to trace. Count layers and hidden state, collapse one-caller wrappers, shrink mutable scope. `core/principles/minimize-reader-load.md`
+- **Outcome-Oriented Execution** (Core): Planned rewrites and migrations. Converge on the target design; skip throwaway compatibility states. `core/principles/outcome-oriented-execution.md`
+- **Experience First** (Core): Product, UX, or scope tradeoffs. Choose what the user feels over implementation convenience. `core/principles/experience-first.md`
+- **Exhaust the Design Space** (Core): A novel interaction or architecture with no precedent. Build 2-3 competing prototypes, then compare. `core/principles/exhaust-the-design-space.md`
+- **Build the Lever** (Core): Any non-trivial work. Build the script, codemod, or check that does or proves it, so a reviewer can rerun it. `core/principles/build-the-lever.md`
+- **Model the Domain** (Architecture): Stateful or branch-heavy logic. Encode the domain in a structure (state machine, table, typed model). `core/principles/model-the-domain.md`
+- **Boundary Discipline** (Architecture): Wiring validation, errors, or adapters. Guard at system boundaries, trust internal types, keep logic pure. `core/principles/boundary-discipline.md`
+- **Type System Discipline** (Architecture): Designing types or signatures. Make illegal states unrepresentable and parse external data at boundaries. `core/principles/type-system-discipline.md`
+- **Make Operations Idempotent** (Architecture): Commands, lifecycle steps, or loops that face crashes and retries. Converge to the same end state. `core/principles/make-operations-idempotent.md`
+- **Migrate Callers Then Delete Legacy APIs** (Architecture): A new internal API while old callers exist. Migrate every caller and delete the old API in one wave. `core/principles/migrate-callers-then-delete-legacy-apis.md`
+- **Separate Before Serializing Shared State** (Architecture): Concurrent actors might write the same file, branch, or key. Remove the sharing before adding locks. `core/principles/separate-before-serializing-shared-state.md`
+- **Prove It Works** (Verification): Before declaring done. Verify against the real artifact on the real surface, not a proxy. `core/principles/prove-it-works.md`
+- **Fix Root Causes** (Verification): Debugging. Trace each symptom to the first wrong state and fix it there; a guard is not a fix. `core/principles/fix-root-causes.md`
+- **Sequence Work into Verifiable Units** (Verification): Multi-step work and commit stacks. Small units that each end in a check, verified before the next. `core/principles/sequence-verifiable-units.md`
+- **Test Behavior, Not Implementation** (Verification): Writing or keeping a test. Assert what users observe, so it fails only when behavior breaks. `core/principles/test-behavior-not-implementation.md`
+- **Explain the Number** (Verification): Before trusting or reporting a measurement. Find what limits it and rule out measuring the wrong thing. `core/principles/explain-the-number.md`
+- **Guard the Context Window** (Delegation): Large outputs, long files, fan-out. Route bulk to subagents or files; keep summaries in the main thread. `core/principles/guard-the-context-window.md`
+- **Never Block on the Human** (Delegation): Tempted to ask about reversible work. Proceed, show the result, let the human course-correct. `core/principles/never-block-on-the-human.md`
+- **Encode Lessons in Structure** (Meta): Writing the same instruction twice. Encode it as a lint, test, type, or script instead of more text. `core/principles/encode-lessons-in-structure.md`
+
+## 5. Correction ladder
+
+When the user corrects you, or a mistake class happens twice, fix it at the highest tier that works and load `core/skills/correct/SKILL.md`:
+
+1. **Architecture.** Make the mistake impossible: one owner per state, one supported path, delete the old way.
+2. **Lint or test.** If bad code still compiles, add a check whose failure message names the fix. Prove it fails on the real past mistake.
+3. **Text.** Only for judgment calls: add a row to `.poteto/corrections.md` pairing the rule with what enforces it.
+
+## 6. Decision trail
+
+Non-trivial work appends rows to `.poteto/decisions.tsv` with `node "scripts/log-decision.mjs" <phase> <decision> <why> <evidence> <result>`. Log the signal header (phase `signal`), each fork you chose, each verification with its result, and each revert with its trigger. Evidence is a pointer (path, `file:line`, commit, command), never a paragraph. The log is append-only: a wrong row gets a superseding row.
+
+## 7. Project facts and gates
+
+- Commands detected at install live in `.poteto/project.json`. Use them instead of guessing. Without a project install, read the commands from the project's own manifest (package.json scripts, Makefile) and say so; create `.poteto/decisions.tsv` and `.poteto/corrections.md` on first use from `core/templates/poteto/`.
+- Product and docs: `PRODUCT.md` and `docs/{architecture,design,onboarding,quality,setup}.md`. Read the one the task touches.
+- Quality gate: no source file above 350 lines. Run the project's lint and tests, then `node "scripts/quality-gate.mjs"` when the project has no ESLint max-lines rule.
+
+## 8. Autonomy
+
+Proceed on reversible work and report what you chose. Pause and ask before anything irreversible or outward-facing: deploys, publishing, force-pushing shared branches, deleting data, messages to people outside the run, spending money, and installing tools or skills from outside the repo.
+
+## 9. Context window
+
+Never bulk-read the harness folders. One playbook per task; skills and principles one at a time, when needed. Route large reads and fan-out to subagents when your harness has them, and keep summaries in the main thread.
+<!-- poteto-harness:end -->

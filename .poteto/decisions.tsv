@@ -1,0 +1,27 @@
+ts	phase	decision	why	evidence	result
+2026-11-26T13:37:47Z	frame	kept exactly the 22 pstack playbooks and 24 principles; toolkit flows became skills and prompts	a 25th playbook would break the all-22 requirement; machine setup, bootstrap and adoption route through multi-phase-plan	harness/manifest.json, harness/routes.json	22 playbooks, 24 principles, 31 skills
+2026-11-26T13:37:47Z	design	one source of truth for the router: harness/router.md + routes.json + manifest.json rendered by sync-harnesses	AGENTS.md, CLAUDE.md and the Cursor rule must never drift apart	scripts/sync-harnesses.mjs, scripts/lib/managed-blocks.mjs	router 118 lines for repo, project and global
+2026-11-26T13:37:48Z	design	CLAUDE.md is only an @AGENTS.md import bridge	avoids loading the router twice in Claude Code and matches the user global rule	CLAUDE.md	validator enforces the import
+2026-11-26T13:37:48Z	design	put each principle applies_when line in the manifest	router rendering must not depend on principle files authored in parallel	harness/manifest.json	validator requires the principle file to match
+2026-11-26T13:37:48Z	contract	wrote the validator and script contracts before fanning out to 15 authors	parallel authors drift on format and dangling references without a checkable contract	scripts/validate-harness.mjs, CONTRIBUTING.md	first full run after authoring: 1 problem (this log missing)
+2026-11-26T13:37:48Z	windows	translate /tmp to os.tmpdir() in node and cygpath -m in install.sh	measured: node resolves /tmp/x to C:\tmp\x while Git Bash /tmp is %TEMP%	scripts/lib/paths.mjs, install.sh	check-install and smoke use the same folder as bash
+2026-11-26T13:37:48Z	fix	validator reports a missing file instead of throwing; .tsv exempt from the 40-byte floor	authors reported ENOENT crash on CLAUDE.md; the decisions header template is 38 bytes by contract	scripts/validate-harness.mjs	validator ran to completion
+2026-11-26T13:37:48Z	honesty	smoke test edits are scripted stand-ins; every check around them runs for real	no LLM runs inside the smoke test, and the user rules forbid presenting simulated results as real	scripts/run-autonomous-smoke-test.mjs, README.md	stated in output and README
+2026-11-26T17:55:05Z	fix	applied 28 confirmed review findings via 4 disjoint fixers	one writer per file set; each fix proven by a reverted-mutation test	scripts/tests/*.test.mjs; scripts/lib/paths.mjs isMain	tests=80 pass
+2026-11-26T17:55:06Z	verify	predicate 1 validate-harness	done predicate	node scripts/validate-harness.mjs	exit 0; drifted=0
+2026-11-26T17:55:06Z	verify	predicate 2 install twice into /tmp/test-harness-target	done predicate	bash install.sh --project /tmp/test-harness-target x2; check-install.mjs	writes 144 then 0; identical sha256; check-install 38/38
+2026-11-26T17:55:06Z	verify	predicate 3 autonomous smoke test	done predicate	node scripts/run-autonomous-smoke-test.mjs	37/37; feature map 1/4 -> 5/0; /tmp cleaned
+2026-11-26T18:04:47Z	revert	supersedes the 28-findings fix row: #13 partial, #25 changed the global contract	accuracy of the trail	scratchpad findings.json #13 #25; scripts/sync-harnesses.mjs globalEntries	#13 end marker inside a code fence still refuses (no corruption); global copy is a runtime subset
+2026-11-26T18:04:48Z	fix	global copy drops README and CONTRIBUTING	they linked to docs/ and repo-only scripts absent from the subset (14 broken refs)	scripts/sync-harnesses.mjs globalEntries	installed links 0 broken
+2026-11-26T18:04:48Z	fix	removed duplicated stale half of docs/architecture.md	a fixer appended an older copy	docs/architecture.md	185 -> 101 lines
+2026-11-26T18:04:48Z	lesson	encoded both defects as checks	correction ladder tier 2	check-install.mjs checkInstalledLinks; content-checks.mjs repeated heading	mutation: check-install FAIL on README in subset; unit test catches pasted section
+2026-11-26T18:04:48Z	verify	all three predicates rerun with unpiped exit codes	done predicate	validate-harness; install.sh x2 + check-install; run-autonomous-smoke-test	exit 0; writes 144/0 identical hash; 41/41; 37/37; /tmp clean
+2026-11-26T19:00:13Z	signal	Refactoring: move content to core/, root docs to docs/	user asked for cleaner repo root	harness/manifest.json	started
+2026-11-26T19:00:13Z	baseline	validate/check-install/smoke green	pre-move ground truth	scratchpad pin/base-*.txt	41/41 37/37 links=992
+2026-11-26T19:00:13Z	pin	router renders + project install file list captured	prove only core/ prefix changes	scratchpad pin/	captured
+2026-11-26T19:21:08Z	refactor	mirror core/ into installed homes	one HOME prefix stays valid in repo, project and global	scripts/lib/paths.mjs CORE	applied
+2026-11-26T19:21:08Z	refactor	codemod prefixes harness refs with core/, skips Source sections and Adapted-from lines	upstream citations must stay byte-identical	scratchpad rewrite.mjs	103 files
+2026-11-26T19:21:09Z	correction	linkChecks drops fences before stripSource; bare content-dir refs still checked	fenced ## Source hid 2 stale refs in docs/CONTRIBUTING.md	scripts/lib/content-checks.mjs; scripts/tests/content-checks.test.mjs	test added
+2026-11-26T19:21:09Z	verify	pin diff: router renders and project file list identical modulo core/	prove prefix-only change	diff vs scratchpad pin/	zero diff
+2026-11-26T19:21:09Z	verify	validate-harness, check-install, smoke	required checks	node scripts/*.mjs	exit 0; 41/41; 37/37; links=989
+2026-11-26T19:21:10Z	verify	install.sh --global twice	global home reflects new layout	~/.claude/CLAUDE.md	writes=256 then 0; outside-block bytes identical

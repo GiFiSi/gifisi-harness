@@ -1,0 +1,48 @@
+# Security review of {{PROJECT_NAME}}
+
+<!-- Private working report. Store it outside the reviewed repository. Redact credentials, personal data and internal endpoints. Replace each HTML comment and delete lines that do not apply before delivery. -->
+
+## Scope
+
+- Date and reviewer or client: <!-- -->
+- Mode: <!-- repository baseline, or diff -->
+- Snapshot: <!-- commit ids, the endpoint or merge-base compared, and whether uncommitted or untracked files are included -->
+- Authorization assumptions and exclusions: <!-- -->
+- Assets, entry points, roles or tenants, and trust boundaries: <!-- -->
+- Deployment assumptions that need confirmation: <!-- -->
+
+## Coverage and evidence
+
+- Paths reviewed and paths excluded, with reasons: <!-- -->
+- Skills, tools and reference versions actually used: <!-- -->
+- Capabilities that were unavailable, or missing history: <!-- -->
+- Commands and tests run, their isolation and results (static, mocked, or end to end): <!-- -->
+- Repository and index left unchanged, and how that was checked: <!-- -->
+
+## Findings
+
+Repeat the block below for each substantiated finding or clearly labeled hypothesis. Number them F-01, F-02 and so on. If there are none, write that none were substantiated within this scope.
+
+### F-01: <!-- short title -->
+
+- Severity and the reasoning behind it: <!-- -->
+- Confidence (high / medium / low) and status (confirmed / needs validation): <!-- -->
+- Origin of the change (introduced / regressed / pre-existing / undetermined / not applicable): <!-- -->
+- Location: <!-- file:line, revision or uncommitted layer -->
+- Redacted evidence and the reachable path from entry point to sensitive operation: <!-- -->
+- Attacker control, required privileges and other prerequisites: <!-- -->
+- Concrete impact and the callers or data affected: <!-- -->
+- Counterevidence considered; reproduction or test result, or the missing proof: <!-- -->
+- Narrowest proposed fix: <!-- -->
+- Next validation: <!-- -->
+
+## Remaining work and limits
+
+- Unverified hypotheses and the evidence each needs: <!-- -->
+- Hardening suggestions, kept apart from vulnerabilities: <!-- -->
+- Coverage gaps and the next validation: <!-- -->
+- Report redacted and stored at a private destination: <!-- -->
+
+This review does not establish that the project is secure and does not certify compliance. Findings and confidence apply only to the recorded scope and evidence. The review applied no fixes.
+
+<!-- Adapted from templates/security-review.md.template, Vibe Coding Toolkit by Matheus Gomes (MIT). -->

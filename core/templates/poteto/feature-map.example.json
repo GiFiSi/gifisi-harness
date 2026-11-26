@@ -1,0 +1,52 @@
+{
+  "app": {
+    "start": ["node", "src/server.mjs"],
+    "cwd": ".",
+    "portEnv": "PORT",
+    "readyPath": "/health",
+    "timeoutMs": 15000
+  },
+  "features": [
+    {
+      "id": "health",
+      "description": "The server answers its readiness probe.",
+      "surface": "http",
+      "checks": [
+        {
+          "name": "health returns ok",
+          "request": { "method": "GET", "path": "/health" },
+          "expect": { "status": 200, "json": { "ok": true } }
+        }
+      ]
+    },
+    {
+      "id": "cart-total",
+      "description": "A shopper sees the numeric total of the prices in the cart.",
+      "surface": "http",
+      "checks": [
+        {
+          "name": "sums numeric prices",
+          "request": { "method": "GET", "path": "/api/cart/total?items=10,5" },
+          "expect": { "status": 200, "json": { "total": 15, "currency": "USD" }, "bodyIncludes": "15" }
+        },
+        {
+          "name": "rejects a non-numeric price",
+          "request": { "method": "GET", "path": "/api/cart/total?items=10,abc" },
+          "expect": { "status": 400 }
+        }
+      ]
+    },
+    {
+      "id": "cli-version",
+      "description": "The command-line tool prints its version.",
+      "surface": "cli",
+      "checks": [
+        {
+          "name": "prints version",
+          "run": ["node", "bin/cli.mjs", "--version"],
+          "expect": { "exitCode": 0, "stdoutIncludes": "1." }
+        }
+      ]
+    }
+  ]
+}

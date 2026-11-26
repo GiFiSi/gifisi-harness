@@ -1,0 +1,66 @@
+# Setup and evidence for {{PROJECT_NAME}}
+
+<!-- How this project and its agent tooling were set up, and the evidence for each claim. Replace each HTML comment with facts. No personal paths, tokens or credentials. -->
+
+## Context
+
+- Harness installed: {{DATE}}, files under `{{HARNESS_HOME}}`.
+- Package manager: {{PACKAGE_MANAGER}}.
+<!-- Agent clients in use, runtime versions, and the date each fact was last verified. -->
+
+## Commands
+
+| Purpose | Command | Last verified result |
+|---|---|---|
+| Install | {{PACKAGE_MANAGER}} install | |
+| Develop | {{DEV_COMMAND}} | |
+| Test | {{TEST_COMMAND}} | |
+| Lint | {{LINT_COMMAND}} | |
+| Build | {{BUILD_COMMAND}} | |
+
+<!-- Fill the last column with the date and the observed outcome of a real run. A command reading "not configured" has no script yet. If the package manager is "none", replace the install row with the real install step. -->
+
+## Decisions and sources
+
+<!-- Each default adopted or adapted: the reason, the official documentation consulted (and its date), the exception and when to revisit it. Separate stable releases from prerelease examples. -->
+
+| Decision | Source | Date | Revisit when |
+|---|---|---|---|
+
+## Components
+
+Keep three states apart: a file is present, a tool is configured, an integration was tested.
+
+| Component | Action and reason | Scope (project / client / user) | State and evidence |
+|---|---|---|---|
+| poteto-harness | Installed router, playbooks, skills and scripts | project | |
+| ESLint quality rules | | project | |
+| Context7 | | client | |
+| Graphify | | client | |
+| RTK | | client | |
+
+<!-- For each adopted tool or skill: source and revision, client, install or update method, scan result for external skills, discovery result, and a live check. Mark a row "absent" or "declined" instead of deleting it. -->
+
+## Hooks and MCP
+
+<!-- Which hook templates from {{HARNESS_HOME}}core/templates/hooks/ were merged, into which client config file, and how each was tested (normal event, malformed event, literal null). Which MCP servers are registered and where. Record backups of client config made before the change. -->
+
+## Memory and context
+
+<!-- Where durable project knowledge lives (this docs/ tree, AGENTS.md, native client memory), how the client loads it, and how stale entries are retired. Task handoffs stay in the task record, not here. -->
+
+## Checks
+
+| Item | State (validated / configured, not run / pending) | Evidence |
+|---|---|---|
+| Harness install | | `node "{{HARNESS_HOME}}scripts/validate-project.mjs"` |
+| File-size gate | | `node "{{HARNESS_HOME}}scripts/quality-gate.mjs"` |
+| Live features | | `node "{{HARNESS_HOME}}scripts/verify-feature-map.mjs"` |
+
+<!-- For an existing project, compare checks before and after adoption and separate pre-existing failures from regressions. Record temporary resources created and their cleanup. -->
+
+## Pending work
+
+<!-- External decisions, known risks, and the next useful check. Publishing and external services need their own authorization. -->
+
+<!-- Adapted from templates/project-docs/setup.md.template, Vibe Coding Toolkit by Matheus Gomes (MIT). -->

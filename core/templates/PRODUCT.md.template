@@ -1,0 +1,55 @@
+# {{PROJECT_NAME}}
+
+<!-- Product definition. Fill it from the user's own description and the code that exists. Replace every HTML comment with facts, delete sections that do not apply, and record assumptions instead of inventing decisions. Created {{DATE}}. -->
+
+## Problem and objective
+
+<!-- Who has which problem, how they solve it today, and the outcome this product must produce. One short paragraph. -->
+
+## Audience and roles
+
+<!-- Primary users, their context of use, and the access differences that actually exist (for example: visitor, member, admin). -->
+
+## Core flows
+
+<!-- The essential flows for the current release. For each: the input, the action, and the expected result. Put first the flows that prove the objective. Each flow should map to one entry in .poteto/feature-map.json. -->
+
+| Flow | Input | Action | Expected result |
+|---|---|---|---|
+
+## MVP
+
+<!-- Features in the first release, in priority order. -->
+
+## Out of scope
+
+<!-- What was explicitly deferred or falls outside the request. -->
+
+## Requirements
+
+<!-- Known business rules, required data, accessibility, languages, devices and security requirements. Cite the source of each (user message, contract, existing code). -->
+
+## Constraints and technical decisions
+
+<!-- Framework, runtime, package manager ({{PACKAGE_MANAGER}}), observed versions and stated limits. New persistence defaults to Drizzle ORM with PostgreSQL; record the reason for any other choice or for a product without a database. An existing project keeps its stack. Authentication and external services need a concrete requirement. -->
+
+## Assumptions and open decisions
+
+<!-- Split reversible assumptions from open decisions that block work. For each: the impact and the next step that resolves it. -->
+
+| Item | Kind (assumption / open decision) | Impact | Next step |
+|---|---|---|---|
+
+## Acceptance criteria
+
+<!-- Observable outcomes for each core flow, written so a command or a person using the running app can confirm them. Keep product criteria apart from technical setup checks. -->
+
+## Next delivery
+
+<!-- The smallest task that moves the MVP forward, with its observable done condition. -->
+
+## Maintenance
+
+Update this file when the objective, scope, constraints or acceptance criteria change. Technical decisions and evidence belong in `docs/architecture.md` and `docs/setup.md`.
+
+<!-- Adapted from templates/product.md.template, Vibe Coding Toolkit by Matheus Gomes (MIT). -->

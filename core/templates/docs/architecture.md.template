@@ -1,0 +1,45 @@
+# Architecture of {{PROJECT_NAME}}
+
+<!-- Structure and technical decisions as they exist in the code. Replace each HTML comment with verified facts. Do not describe future architecture as implemented. -->
+
+## Stack
+
+<!-- Framework, runtime, package manager ({{PACKAGE_MANAGER}}), ORM, database driver and the versions read from the lockfile. Record the reason for each exception to the defaults. -->
+
+| Component | Version (from lockfile) | Why it is here |
+|---|---|---|
+
+## Code map
+
+<!-- A short tree of directories and files that exist today, one responsibility per line. Regenerate it from the file system, not from memory. -->
+
+```text
+```
+
+## Boundaries and data flow
+
+<!-- The real path a request takes: presentation -> validation -> feature logic -> data access. Name the files at each boundary. Server-only code owns environment access, logging and the database client. Presentation never imports the database client. Create a layer only when code needs it. -->
+
+## Data and migrations
+
+<!-- Schema location, inferred types, migration output directory, and the lifecycle: generate SQL, review it, apply it to an authorized target. Record pooling, driver, runtime, bounded queries and transactions where they matter. If the product has no persistence, say why. Migrations never run during a build or a request. -->
+
+## Contracts
+
+<!-- Public interfaces other code or people depend on: HTTP routes, CLI flags, exported modules, events, file formats. For each, the owner file and the test or feature-map check that pins it. -->
+
+| Contract | Owner file | Pinned by |
+|---|---|---|
+
+## Decisions
+
+<!-- One row per decision: what was chosen, why, the main alternative, the source and date, and the condition that would reopen it. Detailed reasoning for a run lives in .poteto/decisions.tsv; link the row instead of copying it. -->
+
+| Decision | Reason | Alternative | Source and date | Revisit when |
+|---|---|---|---|---|
+
+## Maintenance
+
+Update this file when directories, contracts, boundaries or relevant dependencies change. Record verified behavior and remove decisions that no longer apply.
+
+<!-- Adapted from templates/project-docs/architecture.md.template and docs/04-project-bootstrap.md, Vibe Coding Toolkit by Matheus Gomes (MIT). -->

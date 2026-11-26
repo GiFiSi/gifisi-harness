@@ -1,0 +1,473 @@
+{
+  "name": "poteto-harness",
+  "routerMaxLines": 149,
+  "maxLines": 350,
+  "playbooks": [
+    {
+      "name": "authoring-a-skill",
+      "title": "Authoring a skill"
+    },
+    {
+      "name": "autonomous-run",
+      "title": "Autonomous run"
+    },
+    {
+      "name": "autopilot-full",
+      "title": "Autopilot-full"
+    },
+    {
+      "name": "autopilot-stack",
+      "title": "Autopilot-stack"
+    },
+    {
+      "name": "babysit",
+      "title": "Babysit"
+    },
+    {
+      "name": "bug-fix",
+      "title": "Bug fix"
+    },
+    {
+      "name": "eval",
+      "title": "Eval"
+    },
+    {
+      "name": "feature",
+      "title": "Feature"
+    },
+    {
+      "name": "hillclimb",
+      "title": "Hillclimb"
+    },
+    {
+      "name": "investigation",
+      "title": "Investigation"
+    },
+    {
+      "name": "multi-phase-plan",
+      "title": "Multi-phase plan"
+    },
+    {
+      "name": "opening-a-pr",
+      "title": "Opening a PR"
+    },
+    {
+      "name": "pause-safely",
+      "title": "Pause safely"
+    },
+    {
+      "name": "perf-issue",
+      "title": "Perf issue"
+    },
+    {
+      "name": "prototype",
+      "title": "Prototype"
+    },
+    {
+      "name": "refactoring",
+      "title": "Refactoring"
+    },
+    {
+      "name": "runtime-forensics",
+      "title": "Runtime forensics"
+    },
+    {
+      "name": "session-pickup",
+      "title": "Session pickup"
+    },
+    {
+      "name": "shipping",
+      "title": "Shipping"
+    },
+    {
+      "name": "trace-forensics",
+      "title": "Trace forensics"
+    },
+    {
+      "name": "visual-parity",
+      "title": "Visual parity"
+    },
+    {
+      "name": "worktree-cleanup",
+      "title": "Worktree cleanup"
+    }
+  ],
+  "principleGroups": [
+    "Core",
+    "Architecture",
+    "Verification",
+    "Delegation",
+    "Meta"
+  ],
+  "principles": [
+    {
+      "name": "laziness-protocol",
+      "title": "Laziness Protocol",
+      "group": "Core",
+      "applies_when": "Refactoring, sizing a diff, or tempted to add a layer. Bias to deletion and the smallest change that solves it."
+    },
+    {
+      "name": "foundational-thinking",
+      "title": "Foundational Thinking",
+      "group": "Core",
+      "applies_when": "Before writing logic. Settle core types, data structures, and what concurrent actors share first."
+    },
+    {
+      "name": "redesign-from-first-principles",
+      "title": "Redesign from First Principles",
+      "group": "Core",
+      "applies_when": "A new requirement lands in an existing design. Redesign as if it had been there from day one."
+    },
+    {
+      "name": "attack-the-premise",
+      "title": "Attack the Premise",
+      "group": "Core",
+      "applies_when": "Two fixes sharing one premise failed. Write the premise down and test it before a third fix."
+    },
+    {
+      "name": "subtract-before-you-add",
+      "title": "Subtract Before You Add",
+      "group": "Core",
+      "applies_when": "Sequencing an addition, refactor, or rewrite. Remove dead weight first, then build on the simpler base."
+    },
+    {
+      "name": "minimize-reader-load",
+      "title": "Minimize Reader Load",
+      "group": "Core",
+      "applies_when": "Code is hard to trace. Count layers and hidden state, collapse one-caller wrappers, shrink mutable scope."
+    },
+    {
+      "name": "outcome-oriented-execution",
+      "title": "Outcome-Oriented Execution",
+      "group": "Core",
+      "applies_when": "Planned rewrites and migrations. Converge on the target design; skip throwaway compatibility states."
+    },
+    {
+      "name": "experience-first",
+      "title": "Experience First",
+      "group": "Core",
+      "applies_when": "Product, UX, or scope tradeoffs. Choose what the user feels over implementation convenience."
+    },
+    {
+      "name": "exhaust-the-design-space",
+      "title": "Exhaust the Design Space",
+      "group": "Core",
+      "applies_when": "A novel interaction or architecture with no precedent. Build 2-3 competing prototypes, then compare."
+    },
+    {
+      "name": "build-the-lever",
+      "title": "Build the Lever",
+      "group": "Core",
+      "applies_when": "Any non-trivial work. Build the script, codemod, or check that does or proves it, so a reviewer can rerun it."
+    },
+    {
+      "name": "model-the-domain",
+      "title": "Model the Domain",
+      "group": "Architecture",
+      "applies_when": "Stateful or branch-heavy logic. Encode the domain in a structure (state machine, table, typed model)."
+    },
+    {
+      "name": "boundary-discipline",
+      "title": "Boundary Discipline",
+      "group": "Architecture",
+      "applies_when": "Wiring validation, errors, or adapters. Guard at system boundaries, trust internal types, keep logic pure."
+    },
+    {
+      "name": "type-system-discipline",
+      "title": "Type System Discipline",
+      "group": "Architecture",
+      "applies_when": "Designing types or signatures. Make illegal states unrepresentable and parse external data at boundaries."
+    },
+    {
+      "name": "make-operations-idempotent",
+      "title": "Make Operations Idempotent",
+      "group": "Architecture",
+      "applies_when": "Commands, lifecycle steps, or loops that face crashes and retries. Converge to the same end state."
+    },
+    {
+      "name": "migrate-callers-then-delete-legacy-apis",
+      "title": "Migrate Callers Then Delete Legacy APIs",
+      "group": "Architecture",
+      "applies_when": "A new internal API while old callers exist. Migrate every caller and delete the old API in one wave."
+    },
+    {
+      "name": "separate-before-serializing-shared-state",
+      "title": "Separate Before Serializing Shared State",
+      "group": "Architecture",
+      "applies_when": "Concurrent actors might write the same file, branch, or key. Remove the sharing before adding locks."
+    },
+    {
+      "name": "prove-it-works",
+      "title": "Prove It Works",
+      "group": "Verification",
+      "applies_when": "Before declaring done. Verify against the real artifact on the real surface, not a proxy."
+    },
+    {
+      "name": "fix-root-causes",
+      "title": "Fix Root Causes",
+      "group": "Verification",
+      "applies_when": "Debugging. Trace each symptom to the first wrong state and fix it there; a guard is not a fix."
+    },
+    {
+      "name": "sequence-verifiable-units",
+      "title": "Sequence Work into Verifiable Units",
+      "group": "Verification",
+      "applies_when": "Multi-step work and commit stacks. Small units that each end in a check, verified before the next."
+    },
+    {
+      "name": "test-behavior-not-implementation",
+      "title": "Test Behavior, Not Implementation",
+      "group": "Verification",
+      "applies_when": "Writing or keeping a test. Assert what users observe, so it fails only when behavior breaks."
+    },
+    {
+      "name": "explain-the-number",
+      "title": "Explain the Number",
+      "group": "Verification",
+      "applies_when": "Before trusting or reporting a measurement. Find what limits it and rule out measuring the wrong thing."
+    },
+    {
+      "name": "guard-the-context-window",
+      "title": "Guard the Context Window",
+      "group": "Delegation",
+      "applies_when": "Large outputs, long files, fan-out. Route bulk to subagents or files; keep summaries in the main thread."
+    },
+    {
+      "name": "never-block-on-the-human",
+      "title": "Never Block on the Human",
+      "group": "Delegation",
+      "applies_when": "Tempted to ask about reversible work. Proceed, show the result, let the human course-correct."
+    },
+    {
+      "name": "encode-lessons-in-structure",
+      "title": "Encode Lessons in Structure",
+      "group": "Meta",
+      "applies_when": "Writing the same instruction twice. Encode it as a lint, test, type, or script instead of more text."
+    }
+  ],
+  "skills": [
+    {
+      "name": "how",
+      "origin": "pstack"
+    },
+    {
+      "name": "why",
+      "origin": "pstack"
+    },
+    {
+      "name": "teach",
+      "origin": "pstack"
+    },
+    {
+      "name": "recall",
+      "origin": "pstack"
+    },
+    {
+      "name": "architect",
+      "origin": "pstack"
+    },
+    {
+      "name": "arena",
+      "origin": "pstack"
+    },
+    {
+      "name": "swarm",
+      "origin": "pstack"
+    },
+    {
+      "name": "interrogate",
+      "origin": "pstack"
+    },
+    {
+      "name": "blast-radius",
+      "origin": "pstack"
+    },
+    {
+      "name": "tdd",
+      "origin": "pstack"
+    },
+    {
+      "name": "unslop",
+      "origin": "pstack"
+    },
+    {
+      "name": "no-comments",
+      "origin": "pstack"
+    },
+    {
+      "name": "correct",
+      "origin": "pstack"
+    },
+    {
+      "name": "reflect",
+      "origin": "pstack"
+    },
+    {
+      "name": "show-me-your-work",
+      "origin": "pstack"
+    },
+    {
+      "name": "create-verification-skill",
+      "origin": "pstack"
+    },
+    {
+      "name": "maintain-verification-skill",
+      "origin": "pstack"
+    },
+    {
+      "name": "create-formal-verification-skill",
+      "origin": "pstack"
+    },
+    {
+      "name": "maintain-formal-verification-skill",
+      "origin": "pstack"
+    },
+    {
+      "name": "benchmark-checklist",
+      "origin": "pstack"
+    },
+    {
+      "name": "figure-it-out",
+      "origin": "pstack"
+    },
+    {
+      "name": "technical-writing",
+      "origin": "pstack"
+    },
+    {
+      "name": "reframe",
+      "origin": "pstack"
+    },
+    {
+      "name": "sharpen",
+      "origin": "pstack"
+    },
+    {
+      "name": "machine-setup",
+      "origin": "vibe-coding-toolkit"
+    },
+    {
+      "name": "project-bootstrap",
+      "origin": "vibe-coding-toolkit"
+    },
+    {
+      "name": "project-adoption",
+      "origin": "vibe-coding-toolkit"
+    },
+    {
+      "name": "quality-gates",
+      "origin": "vibe-coding-toolkit"
+    },
+    {
+      "name": "context-tools",
+      "origin": "vibe-coding-toolkit"
+    },
+    {
+      "name": "code-review",
+      "origin": "vibe-coding-toolkit"
+    },
+    {
+      "name": "security-review",
+      "origin": "vibe-coding-toolkit"
+    }
+  ],
+  "prompts": [
+    "01-machine-setup.md",
+    "02-new-next-project.md",
+    "03-existing-project-adoption.md",
+    "04-code-review.md",
+    "05-security-review.md",
+    "06-file-size-refactor.md",
+    "07-quality-gates-install.md",
+    "08-brainstorm-to-plan.md",
+    "09-lint-warning-burndown.md"
+  ],
+  "templates": [
+    "AGENTS.project.md.template",
+    "CLAUDE.md.template",
+    "PRODUCT.md.template",
+    "docs/architecture.md.template",
+    "docs/design.md.template",
+    "docs/onboarding.md.template",
+    "docs/quality.md.template",
+    "docs/setup.md.template",
+    "poteto/decisions.tsv",
+    "poteto/corrections.md.template",
+    "poteto/feature-map.example.json",
+    "task-handoff.md.template",
+    "security-review.md.template",
+    "environment-manifest.example.json",
+    "eslint/eslint.config.mjs",
+    "eslint/eslint-rules/index.cjs",
+    "eslint/verify-quality-rules.mjs",
+    "hooks/claude-settings.json",
+    "hooks/hook-io.mjs",
+    "hooks/context7-reminder.mjs",
+    "hooks/graphify-refresh.mjs",
+    "hooks/rtk-rewrite.mjs",
+    "hooks/mcp.json",
+    "hooks/codex-config.toml",
+    "next/src/lib/env-schema.ts",
+    "next/src/lib/env.test.ts",
+    "next/src/lib/logger.ts",
+    "next/src/db/index.ts",
+    "next/src/db/schema/index.ts",
+    "next/drizzle.config.ts",
+    "next/vitest.config.mts"
+  ],
+  "templateTokens": [
+    "PROJECT_NAME",
+    "HARNESS_HOME",
+    "PACKAGE_MANAGER",
+    "TEST_COMMAND",
+    "LINT_COMMAND",
+    "BUILD_COMMAND",
+    "DEV_COMMAND",
+    "DATE"
+  ],
+  "scripts": [
+    "sync-harnesses.mjs",
+    "validate-harness.mjs",
+    "run-autonomous-smoke-test.mjs",
+    "check-install.mjs",
+    "classify-task.mjs",
+    "log-decision.mjs",
+    "verify-feature-map.mjs",
+    "quality-gate.mjs",
+    "validate-project.mjs",
+    "run-tests.mjs",
+    "lib/paths.mjs",
+    "lib/frontmatter.mjs",
+    "lib/content-checks.mjs",
+    "lib/detect-stack.mjs",
+    "lib/install-tree.mjs",
+    "lib/managed-blocks.mjs",
+    "smoke/fixture.mjs",
+    "smoke/edits.mjs",
+    "smoke/steps.mjs"
+  ],
+  "projectScripts": [
+    "classify-task.mjs",
+    "log-decision.mjs",
+    "verify-feature-map.mjs",
+    "quality-gate.mjs",
+    "validate-project.mjs",
+    "lib/paths.mjs",
+    "lib/frontmatter.mjs"
+  ],
+  "docs": [
+    "architecture.md",
+    "design.md",
+    "onboarding.md",
+    "quality.md",
+    "setup.md"
+  ],
+  "decisionColumns": [
+    "ts",
+    "phase",
+    "decision",
+    "why",
+    "evidence",
+    "result"
+  ]
+}

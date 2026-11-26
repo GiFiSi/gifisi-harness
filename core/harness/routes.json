@@ -1,0 +1,635 @@
+{
+  "fallback": "multi-phase",
+  "routes": [
+    {
+      "id": "bug",
+      "taskType": "Bug fix",
+      "playbook": "bug-fix",
+      "skills": [
+        "why",
+        "tdd",
+        "blast-radius",
+        "architect",
+        "maintain-verification-skill"
+      ],
+      "signals": [
+        "bug",
+        "broken",
+        "regression",
+        "crash",
+        "error",
+        "exception",
+        "fails",
+        "failing",
+        "wrong result",
+        "incorrect",
+        "doesn't work",
+        "does not work",
+        "not working",
+        "stopped working",
+        "fix the",
+        "500 error",
+        "returns 500",
+        "throws an error",
+        "corrigir",
+        "erro",
+        "quebrado",
+        "quebrou",
+        "falha",
+        "falhando",
+        "não funciona",
+        "nao funciona",
+        "regressão"
+      ]
+    },
+    {
+      "id": "perf",
+      "taskType": "Performance",
+      "playbook": "perf-issue",
+      "skills": [
+        "benchmark-checklist",
+        "how"
+      ],
+      "signals": [
+        "slow",
+        "slower",
+        "latency",
+        "performance",
+        "perf",
+        "memory leak",
+        "throughput",
+        "cpu",
+        "speed up",
+        "too long to load",
+        "lento",
+        "lentidão",
+        "desempenho",
+        "performance ruim",
+        "lenta"
+      ]
+    },
+    {
+      "id": "hillclimb",
+      "taskType": "Metric hillclimb",
+      "playbook": "hillclimb",
+      "skills": [
+        "benchmark-checklist",
+        "reflect"
+      ],
+      "signals": [
+        "hillclimb",
+        "improve the score",
+        "raise the metric",
+        "push the number",
+        "optimize until",
+        "beat the baseline",
+        "pass rate"
+      ]
+    },
+    {
+      "id": "runtime-forensics",
+      "taskType": "Runtime forensics",
+      "playbook": "runtime-forensics",
+      "skills": [
+        "how",
+        "why"
+      ],
+      "signals": [
+        "production logs",
+        "stack trace",
+        "crash report",
+        "core dump",
+        "flaky",
+        "intermittent",
+        "only in production",
+        "heisenbug"
+      ]
+    },
+    {
+      "id": "trace-forensics",
+      "taskType": "Trace forensics",
+      "playbook": "trace-forensics",
+      "skills": [
+        "how",
+        "benchmark-checklist"
+      ],
+      "signals": [
+        "trace file",
+        "flamegraph",
+        "flame graph",
+        "agent transcript",
+        "replay the trace",
+        "telemetry",
+        "cpu profile",
+        "profile the",
+        "trace span",
+        "perfil de cpu"
+      ]
+    },
+    {
+      "id": "feature",
+      "taskType": "Feature",
+      "playbook": "feature",
+      "skills": [
+        "architect",
+        "arena",
+        "tdd",
+        "create-verification-skill",
+        "maintain-verification-skill"
+      ],
+      "signals": [
+        "add",
+        "implement",
+        "build",
+        "support for",
+        "new endpoint",
+        "new page",
+        "feature",
+        "allow users",
+        "enable",
+        "integrate",
+        "adicionar",
+        "implementar",
+        "criar a funcionalidade",
+        "nova funcionalidade",
+        "suporte a"
+      ]
+    },
+    {
+      "id": "refactor",
+      "taskType": "Refactoring",
+      "playbook": "refactoring",
+      "skills": [
+        "architect",
+        "blast-radius",
+        "no-comments"
+      ],
+      "signals": [
+        "refactor",
+        "clean up",
+        "cleanup",
+        "split",
+        "too long",
+        "350 lines",
+        "messy",
+        "simplify",
+        "rename",
+        "extract",
+        "dedupe",
+        "duplicated",
+        "refatorar",
+        "refatoração",
+        "limpar o código",
+        "dividir o arquivo",
+        "duplicado"
+      ]
+    },
+    {
+      "id": "quality",
+      "taskType": "Quality gates",
+      "playbook": "refactoring",
+      "skills": [
+        "quality-gates",
+        "correct"
+      ],
+      "signals": [
+        "lint",
+        "eslint",
+        "quality gate",
+        "max-lines",
+        "warning burndown",
+        "biome",
+        "code smell",
+        "regras de lint",
+        "portões de qualidade"
+      ]
+    },
+    {
+      "id": "correction",
+      "taskType": "Correction",
+      "playbook": "refactoring",
+      "skills": [
+        "correct",
+        "reflect"
+      ],
+      "signals": [
+        "you keep",
+        "again you",
+        "stop doing",
+        "i told you",
+        "same mistake",
+        "every time you",
+        "don't ever"
+      ]
+    },
+    {
+      "id": "prototype",
+      "taskType": "Prototype",
+      "playbook": "prototype",
+      "skills": [
+        "arena",
+        "interrogate",
+        "reframe"
+      ],
+      "signals": [
+        "prototype",
+        "spike",
+        "try out",
+        "which approach",
+        "compare approaches",
+        "proof of concept",
+        "poc",
+        "tradeoff",
+        "protótipo",
+        "qual abordagem",
+        "comparar abordagens"
+      ]
+    },
+    {
+      "id": "visual-parity",
+      "taskType": "Visual parity",
+      "playbook": "visual-parity",
+      "skills": [
+        "create-verification-skill",
+        "benchmark-checklist"
+      ],
+      "signals": [
+        "match the design",
+        "pixel",
+        "screenshot diff",
+        "looks different",
+        "figma",
+        "visual regression",
+        "match the mock"
+      ]
+    },
+    {
+      "id": "skill-authoring",
+      "taskType": "Skill authoring",
+      "playbook": "authoring-a-skill",
+      "skills": [
+        "technical-writing",
+        "unslop",
+        "sharpen"
+      ],
+      "signals": [
+        "write a skill",
+        "new skill",
+        "update the skill",
+        "edit the playbook",
+        "agent instructions",
+        "skill.md",
+        "prompt file"
+      ]
+    },
+    {
+      "id": "eval",
+      "taskType": "Eval",
+      "playbook": "eval",
+      "skills": [
+        "benchmark-checklist",
+        "create-verification-skill"
+      ],
+      "signals": [
+        "eval",
+        "evaluation suite",
+        "grader",
+        "golden set",
+        "benchmark suite",
+        "score the model"
+      ]
+    },
+    {
+      "id": "formal-verification",
+      "taskType": "Formal verification",
+      "playbook": "feature",
+      "skills": [
+        "create-formal-verification-skill",
+        "maintain-formal-verification-skill",
+        "tdd"
+      ],
+      "signals": [
+        "formal verification",
+        "model check",
+        "model-check",
+        "tla+",
+        "alloy",
+        "prove for all inputs",
+        "state machine invariant",
+        "verificação formal",
+        "invariante"
+      ]
+    },
+    {
+      "id": "babysit",
+      "taskType": "PR babysitting",
+      "playbook": "babysit",
+      "skills": [
+        "blast-radius"
+      ],
+      "signals": [
+        "ci is failing",
+        "ci failing",
+        "checks failing",
+        "review comments",
+        "pr status",
+        "watch the pr",
+        "babysit"
+      ]
+    },
+    {
+      "id": "shipping",
+      "taskType": "Shipping",
+      "playbook": "shipping",
+      "skills": [
+        "blast-radius"
+      ],
+      "signals": [
+        "merge the stack",
+        "land the",
+        "ship it",
+        "ship the",
+        "merge the pr",
+        "cut a release",
+        "release the",
+        "publish the release",
+        "fazer o merge"
+      ]
+    },
+    {
+      "id": "open-pr",
+      "taskType": "Opening a PR",
+      "playbook": "opening-a-pr",
+      "skills": [
+        "technical-writing",
+        "no-comments",
+        "unslop"
+      ],
+      "signals": [
+        "open a pr",
+        "open pr",
+        "create a pr",
+        "pull request",
+        "commit this",
+        "push this"
+      ]
+    },
+    {
+      "id": "autonomous",
+      "taskType": "Autonomous run",
+      "playbook": "autonomous-run",
+      "skills": [
+        "show-me-your-work",
+        "figure-it-out"
+      ],
+      "signals": [
+        "overnight",
+        "run until done",
+        "unattended",
+        "while i sleep",
+        "going to bed",
+        "don't stop",
+        "fully autonomous",
+        "autonomous",
+        "sem parar",
+        "rodar até terminar",
+        "autônomo",
+        "autonomo"
+      ]
+    },
+    {
+      "id": "autopilot-full",
+      "taskType": "Autopilot full",
+      "playbook": "autopilot-full",
+      "skills": [
+        "figure-it-out",
+        "show-me-your-work",
+        "interrogate"
+      ],
+      "signals": [
+        "end to end",
+        "from idea to merged",
+        "autopilot",
+        "take it all the way"
+      ]
+    },
+    {
+      "id": "autopilot-stack",
+      "taskType": "Autopilot stack",
+      "playbook": "autopilot-stack",
+      "skills": [
+        "show-me-your-work",
+        "blast-radius"
+      ],
+      "signals": [
+        "stack of prs",
+        "stacked prs",
+        "pr stack",
+        "stacked diffs"
+      ]
+    },
+    {
+      "id": "pickup",
+      "taskType": "Session pickup",
+      "playbook": "session-pickup",
+      "skills": [
+        "recall"
+      ],
+      "signals": [
+        "pick up",
+        "resume",
+        "continue where",
+        "where did we leave",
+        "last session",
+        "handoff",
+        "retomar",
+        "continuar de onde"
+      ]
+    },
+    {
+      "id": "pause",
+      "taskType": "Pause",
+      "playbook": "pause-safely",
+      "skills": [
+        "show-me-your-work"
+      ],
+      "signals": [
+        "pause",
+        "stop for now",
+        "save state",
+        "park this",
+        "pausar",
+        "parar por agora",
+        "pause the work",
+        "hand off the session",
+        "stop for today"
+      ]
+    },
+    {
+      "id": "multi-phase",
+      "taskType": "Multi-phase plan",
+      "playbook": "multi-phase-plan",
+      "skills": [
+        "figure-it-out",
+        "architect",
+        "interrogate",
+        "reframe"
+      ],
+      "signals": [
+        "migration",
+        "migrate",
+        "rewrite",
+        "roadmap",
+        "multi-pr",
+        "phases",
+        "plan the",
+        "large change",
+        "across the codebase",
+        "migração",
+        "migrar",
+        "reescrever",
+        "plano em fases"
+      ]
+    },
+    {
+      "id": "machine-setup",
+      "taskType": "Machine setup",
+      "playbook": "multi-phase-plan",
+      "skills": [
+        "machine-setup",
+        "context-tools"
+      ],
+      "signals": [
+        "set up my machine",
+        "setup my machine",
+        "development environment",
+        "install node",
+        "configure the computer",
+        "dev environment",
+        "configurar a máquina",
+        "preparar a máquina",
+        "ambiente de desenvolvimento"
+      ]
+    },
+    {
+      "id": "greenfield",
+      "taskType": "New project",
+      "playbook": "multi-phase-plan",
+      "skills": [
+        "project-bootstrap",
+        "quality-gates"
+      ],
+      "signals": [
+        "new project",
+        "start a project",
+        "bootstrap",
+        "scaffold",
+        "create-next-app",
+        "from scratch",
+        "greenfield",
+        "novo projeto",
+        "criar um projeto",
+        "iniciar um projeto"
+      ]
+    },
+    {
+      "id": "brownfield",
+      "taskType": "Project adoption",
+      "playbook": "multi-phase-plan",
+      "skills": [
+        "project-adoption",
+        "quality-gates",
+        "context-tools"
+      ],
+      "signals": [
+        "existing project",
+        "adopt the harness",
+        "set up this repo",
+        "configure this project",
+        "brownfield",
+        "onboard this codebase",
+        "projeto existente",
+        "configurar este projeto",
+        "adotar o harness"
+      ]
+    },
+    {
+      "id": "worktree-cleanup",
+      "taskType": "Cleanup",
+      "playbook": "worktree-cleanup",
+      "skills": [],
+      "signals": [
+        "worktree",
+        "stale branches",
+        "clean up branches",
+        "simulators",
+        "disk space"
+      ]
+    },
+    {
+      "id": "code-review",
+      "taskType": "Code review",
+      "playbook": "investigation",
+      "skills": [
+        "code-review",
+        "blast-radius"
+      ],
+      "signals": [
+        "review this",
+        "code review",
+        "review the diff",
+        "review my pr",
+        "audit the change",
+        "revisar o código",
+        "revisão de código",
+        "revise o pr"
+      ]
+    },
+    {
+      "id": "security",
+      "taskType": "Security review",
+      "playbook": "investigation",
+      "skills": [
+        "security-review",
+        "blast-radius"
+      ],
+      "signals": [
+        "security",
+        "vulnerability",
+        "auth bypass",
+        "injection",
+        "secrets",
+        "owasp",
+        "pentest",
+        "segurança",
+        "vulnerabilidade"
+      ]
+    },
+    {
+      "id": "investigation",
+      "taskType": "Investigation",
+      "playbook": "investigation",
+      "skills": [
+        "how",
+        "why",
+        "teach",
+        "context-tools"
+      ],
+      "signals": [
+        "how does",
+        "where is",
+        "explain",
+        "understand",
+        "why does",
+        "why do we",
+        "what happens when",
+        "walk me through",
+        "teach me",
+        "como funciona",
+        "onde fica",
+        "explique",
+        "por que"
+      ]
+    }
+  ]
+}

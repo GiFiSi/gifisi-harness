@@ -1,0 +1,61 @@
+# Quality for {{PROJECT_NAME}}
+
+<!-- The checks this project runs and what each one proves. Replace each HTML comment with facts. Keep this file in step with package scripts and lint rules. -->
+
+## Commands
+
+| Check | Command | What it proves |
+|---|---|---|
+| Tests | {{TEST_COMMAND}} | Behavior and regressions covered by the suite |
+| Lint | {{LINT_COMMAND}} | Code rules, including the 350-line ceiling when ESLint carries it |
+| Build | {{BUILD_COMMAND}} | The app compiles and bundles |
+| File-size gate | `node "{{HARNESS_HOME}}scripts/quality-gate.mjs"` | No source file above 350 lines; no `debugger` statements |
+| Live features | `node "{{HARNESS_HOME}}scripts/verify-feature-map.mjs"` | Each user-visible feature works on the running app |
+| Decision trail | `node "{{HARNESS_HOME}}scripts/log-decision.mjs" --check` | `.poteto/decisions.tsv` is well formed |
+
+<!-- Add typecheck, the lint-rule self-check (node scripts/verify-quality-rules.mjs, when installed) and the combined verify command. Say when to run a scoped test and when to run the whole suite. A row reading "not configured" means the project has no such script yet. -->
+
+## The 350-line gate
+
+- No source file exceeds 350 lines, counting neither blank lines nor comment lines.
+- ESLint enforces it when the project has the `quality/max-lines` rule (`core/templates/eslint/` in the harness). `node "{{HARNESS_HOME}}scripts/quality-gate.mjs"` uses the same counting method without ESLint, on every `.js`, `.mjs`, `.cjs`, `.jsx`, `.ts`, `.tsx`, `.mts` and `.cts` file outside dependencies and build output. Its scope is wider: the ESLint rule also exempts tests, config and story files, pure re-export modules, and generated or migration directories.
+- A legacy file over the limit is recorded as a baseline with its count and date, then reduced in batches. The baseline only moves down.
+- Split a large file on a real responsibility seam: logic out of a route, repeated UI into a component, data access into an adapter, a helper cluster into a named module. Keep the public exports stable.
+
+<!-- Current baseline: list each file over the limit with its line count and the date measured, or write "none". -->
+
+## Baseline rules
+
+- Strict TypeScript where TypeScript is used, and the framework's official lint presets.
+- Server logging goes through the project logger; no direct console output in production code.
+- Presentation code does not import the database client.
+- Updates and deletes always carry a condition; migrations are reviewed before they run.
+- Input and environment are validated at the boundary; errors never contain secrets.
+
+## Feature Map
+
+`.poteto/feature-map.json` lists every user-visible feature with checks against the live surface (HTTP requests or CLI runs). `node "{{HARNESS_HOME}}scripts/verify-feature-map.mjs"` starts the app, runs each check and exits 1 when any fails. A bug fix adds a check that fails before the fix and passes after it. A new feature adds its entry in the same change.
+
+<!-- List the features the map covers today and any surface it cannot express yet, with the manual check used instead. -->
+
+## Decision trail
+
+`.poteto/decisions.tsv` is an append-only log with the columns `ts`, `phase`, `decision`, `why`, `evidence` and `result`. Append rows with `node "{{HARNESS_HOME}}scripts/log-decision.mjs" <phase> <decision> <why> <evidence> <result>`. Evidence is a pointer: a path, `file:line`, a commit or a command. A wrong row gets a superseding row; rows are never edited.
+
+## Corrections
+
+`.poteto/corrections.md` pairs each recurring mistake with what enforces it: architecture (tier 1), a lint rule or test (tier 2), or text (tier 3). A rule enforced only by text that recurs moves up a tier.
+
+## Testing strategy
+
+<!-- What the tests cover: behavior, decisions, failures and regressions. Name the test runner, the environments, and how external services are isolated. Do not claim coverage, an end-to-end suite or a security guarantee that does not exist. -->
+
+## Review
+
+Scope a review to the risk and the actual diff. Use an independent reviewer for non-trivial work when one is available. Record the exact target, the callers, contracts and tests inspected, the findings and their outcome. Finish when relevant findings are resolved or have an explicit destination and the affected checks pass.
+
+## Dependencies
+
+<!-- Audit command, date of the last run, open advisories and their disposition. A passing lint or build does not mean a clean audit. -->
+
+<!-- Adapted from templates/project-docs/quality.md.template, Vibe Coding Toolkit by Matheus Gomes (MIT), and the Feature Map and decision log from pstack by Lauren Tan (MIT). -->

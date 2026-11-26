@@ -1,0 +1,13 @@
+# Corrections for {{PROJECT_NAME}}
+
+Each row pairs a rule learned from a real mistake with what enforces it. Fix a mistake class at the highest tier that works:
+
+1. **Architecture.** The mistake becomes impossible: one owner per state, one supported path, the old way deleted.
+2. **Lint or test.** A check fails on the mistake and its message names the fix. It was observed failing on the real past mistake.
+3. **Text.** Judgment calls only. The row below is the enforcement, so a repeat moves the rule up a tier.
+
+Load `{{HARNESS_HOME}}core/skills/correct/SKILL.md` before adding or moving a row. Log each change with `node "{{HARNESS_HOME}}scripts/log-decision.mjs" correction <decision> <why> <evidence> <result>`. Delete a row once tier 1 makes the mistake impossible, and log the deletion.
+
+| Rule | Enforced by | Tier | Evidence |
+|---|---|---|---|
+| No source file above 350 lines, counted without blank and comment lines | `node "{{HARNESS_HOME}}scripts/quality-gate.mjs"` (exit 1 on a violation); ESLint `quality/max-lines` when the project installs it | 2 Lint/Test | Seeded at install on {{DATE}}; the gate reports each file over the limit as `file: N lines (max 350)` |

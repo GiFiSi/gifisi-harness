@@ -1,0 +1,59 @@
+{
+  "format_version": 1,
+  "template": true,
+  "generated_at": null,
+  "environment": {
+    "os": null,
+    "os_version": null,
+    "distribution": null,
+    "architecture": null,
+    "execution_context": null,
+    "shell": null,
+    "terminals": []
+  },
+  "components": [
+    {"id":"system-prerequisites","name":"System prerequisites","required":true,"status":"pending","version_or_revision":null,"source":null,"scope":null,"path":null,"install_method":null,"update_method":null,"notes":["Certificates, download and extraction tools, compilers or Python that the chosen installers need."]},
+    {"id":"system-package-manager","name":"System package manager","required":true,"status":"pending","version_or_revision":null,"source":null,"scope":null,"path":null,"install_method":null,"update_method":null,"notes":["Record the real manager (winget, Homebrew, apt, dnf) and its version."]},
+    {"id":"git","name":"Git","required":true,"status":"pending","version_or_revision":null,"source":"https://git-scm.com/","scope":null,"path":null,"install_method":null,"update_method":null,"notes":[]},
+    {"id":"github-cli","name":"GitHub CLI","required":false,"status":"pending","version_or_revision":null,"source":"https://cli.github.com/","scope":"machine","path":null,"install_method":null,"update_method":null,"notes":["Needed for PR and CI playbooks. Authenticate through the CLI; never record tokens."]},
+    {"id":"node-version-manager","name":"Node version manager","required":true,"status":"pending","version_or_revision":null,"source":"https://github.com/Schniz/fnm","scope":null,"path":null,"install_method":null,"update_method":null,"notes":["fnm is the default; record the real tool if another one is used."]},
+    {"id":"node","name":"Node.js LTS (>= 18)","required":true,"status":"pending","version_or_revision":null,"source":"https://nodejs.org/","scope":null,"path":null,"install_method":null,"update_method":null,"notes":["poteto-harness scripts need Node 18 or newer and no npm packages."]},
+    {"id":"npm","name":"npm","required":true,"status":"pending","version_or_revision":null,"source":"https://docs.npmjs.com/","scope":null,"path":null,"install_method":null,"update_method":null,"notes":[]},
+    {"id":"pnpm","name":"pnpm","required":false,"status":"pending","version_or_revision":null,"source":"https://pnpm.io/installation","scope":null,"path":null,"install_method":null,"update_method":null,"notes":["Only when a project uses pnpm. Prefer the version pinned by the project's packageManager field."]},
+    {"id":"ripgrep","name":"ripgrep","required":true,"status":"pending","version_or_revision":null,"source":"https://github.com/BurntSushi/ripgrep","scope":null,"path":null,"install_method":null,"update_method":null,"notes":[]},
+    {"id":"fd","name":"fd","required":false,"status":"pending","version_or_revision":null,"source":"https://github.com/sharkdp/fd","scope":null,"path":null,"install_method":null,"update_method":null,"notes":[]},
+    {"id":"jq","name":"jq","required":false,"status":"pending","version_or_revision":null,"source":"https://jqlang.org/","scope":null,"path":null,"install_method":null,"update_method":null,"notes":[]},
+    {"id":"docker","name":"Docker client and engine","required":false,"status":"pending","version_or_revision":null,"source":"https://docs.docker.com/get-started/get-docker/","scope":null,"path":null,"install_method":null,"update_method":null,"notes":["Needed for a local PostgreSQL or other services in containers."]},
+    {"id":"claude-code","name":"Claude Code CLI","required":false,"status":"pending","version_or_revision":null,"source":"https://code.claude.com/docs/en/overview","scope":null,"path":null,"install_method":null,"update_method":null,"notes":["Record the version and whether it loads ~/.claude/CLAUDE.md with the poteto-harness block."]},
+    {"id":"codex","name":"Codex CLI","required":false,"status":"pending","version_or_revision":null,"source":"https://learn.chatgpt.com/docs/codex/cli","scope":null,"path":null,"install_method":null,"update_method":null,"notes":["Record the version and whether it loads ~/.codex/AGENTS.md with the poteto-harness block."]},
+    {"id":"cursor","name":"Cursor","required":false,"status":"pending","version_or_revision":null,"source":"https://cursor.com/","scope":null,"path":null,"install_method":null,"update_method":null,"notes":["Record whether .cursor/rules/poteto-harness.mdc is listed as an always-applied rule in a new chat."]},
+    {"id":"poteto-harness","name":"poteto-harness","required":true,"status":"pending","version_or_revision":null,"source":null,"scope":null,"path":null,"install_method":null,"update_method":null,"notes":["Record the install mode (global or project), the harness home, and the result of validate-project.mjs."]},
+    {"id":"context7","name":"Context7 MCP","required":false,"status":"pending","version_or_revision":null,"source":"https://github.com/upstash/context7","scope":null,"path":null,"install_method":null,"update_method":null,"notes":["Remote MCP server: record the URL, the client config file, and one real query. There is no local package version."]},
+    {"id":"graphify","name":"Graphify (package: graphifyy)","required":false,"status":"pending","version_or_revision":null,"source":"https://github.com/Graphify-Labs/graphify","scope":null,"path":null,"install_method":null,"update_method":null,"notes":["Record the executable path and one code-only extraction with no model call."]},
+    {"id":"rtk","name":"RTK","required":false,"status":"pending","version_or_revision":null,"source":"https://github.com/rtk-ai/rtk","scope":null,"path":null,"install_method":null,"update_method":null,"notes":["Record the binary, the active hook (native or the harness template, never both) and one rewritten command."]},
+    {"id":"eslint-quality-rules","name":"ESLint quality rules","required":false,"status":"pending","version_or_revision":null,"source":null,"scope":"project","path":null,"install_method":null,"update_method":null,"notes":["Per project: eslint.config.mjs, eslint-rules/index.cjs and the self-check result."]},
+    {"id":"agent-browser","name":"Browser automation for live checks","required":false,"status":"pending","version_or_revision":null,"source":null,"scope":"machine","path":null,"install_method":null,"update_method":null,"notes":["Only when a project's Feature Map needs a browser surface. Record the tool actually installed."]},
+    {"id":"external-skills","name":"External skills and plugins","required":false,"status":"pending","version_or_revision":null,"source":null,"scope":null,"path":null,"install_method":null,"update_method":null,"notes":["One entry per installed external skill: source, revision, scan result, approval, and discovery check."]}
+  ],
+  "configuration": {
+    "shell_init_files": [],
+    "path_entries": [],
+    "node_default_version": null,
+    "node_project_auto_switch": null,
+    "preferences": {
+      "conversation_language": "user-preference",
+      "context7_no_secrets": true,
+      "rtk_single_rewrite_hook": true
+    },
+    "agent_clients": {
+      "authentication": "existing-session-authentication",
+      "model": "current-session",
+      "allow_provider_model_billing_or_proxy_switch": false,
+      "permission_mode": "as authorized by the user; record the effective value, never loosen it to make a tool work"
+    },
+    "client_config_backups": []
+  },
+  "integrations": [],
+  "validation": [],
+  "pending_actions": []
+}

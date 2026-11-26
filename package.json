@@ -1,0 +1,18 @@
+{
+  "name": "poteto-harness",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Harness-agnostic engineering harness for Claude Code, Codex and Cursor: an always-on router, 22 playbooks, 24 principles, on-demand skills, installer and validators.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "validate": "node scripts/validate-harness.mjs",
+    "test": "node scripts/run-tests.mjs",
+    "sync": "node scripts/sync-harnesses.mjs --repo",
+    "check-install": "node scripts/check-install.mjs",
+    "smoke": "node scripts/run-autonomous-smoke-test.mjs"
+  }
+}

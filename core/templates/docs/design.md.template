@@ -1,0 +1,39 @@
+# Design and accessibility for {{PROJECT_NAME}}
+
+<!-- Interface rules for this product. Replace each HTML comment with facts from PRODUCT.md and the code. Label anything the code does not do yet as direction. Delete this file's visual sections if the product has no user interface, and keep the interaction rules that apply to its CLI or API. -->
+
+## Direction
+
+<!-- Audience, language, devices and visual tone, tied to PRODUCT.md. -->
+
+## Existing system
+
+<!-- Tokens, typography, colors, spacing and components that exist today. Point to the files that are the source of truth (theme file, CSS variables, component library). Do not copy values here; copies drift. -->
+
+| Element | Source of truth |
+|---|---|
+
+## Interaction rules
+
+- Use semantic HTML, full keyboard navigation and a visible focus indicator.
+- Meet WCAG AA contrast. Label every control and field.
+- Show validation errors next to the field that caused them.
+- Asynchronous actions show progress, then a result or an error the user can act on.
+- Respect reduced-motion preferences.
+
+## Layout and states
+
+<!-- Breakpoints in use and how each key screen reads on mobile and desktop. List the empty, loading and error state of each core flow. -->
+
+| Screen or flow | Empty state | Loading state | Error state |
+|---|---|---|---|
+
+## Reviews
+
+<!-- Interface reviews that were run: date, scope, tool or checklist used, findings and their status. Say what has not been reviewed yet. -->
+
+## Maintenance
+
+A visual or interaction change updates the token or component source first, and this file only when a rule changes. Run the installed interface review skill, if any, for relevant changes.
+
+<!-- Adapted from templates/project-docs/design.md.template, Vibe Coding Toolkit by Matheus Gomes (MIT). -->
