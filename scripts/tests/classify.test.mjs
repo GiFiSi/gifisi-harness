@@ -127,3 +127,21 @@ test("publishing a repository in Portuguese routes to shipping, not the fallback
     assert.ok(result.score > 0, prompt);
   }
 });
+
+test("Portuguese status, design, setting and release prompts get a real route, not the fallback", () => {
+  const cases = [
+    ["Qual a saúde atual do projeto?", "investigation"],
+    ["Falta o que agora?", "investigation"],
+    ["Liga o relato privado então", "feature"],
+    ["Faz um design bonito para o repositório", "feature"],
+    ["Pode fazer a imagem de pré-visualização social", "feature"],
+    ["Ok, programe a medição", "feature"],
+    ["Pode trocar o nome do repositório para minúsculo", "refactor"],
+    ["Pode fazer a primeira versão no GitHub", "shipping"],
+  ];
+  for (const [prompt, id] of cases) {
+    const result = top(prompt);
+    assert.equal(result.id, id, prompt);
+    assert.ok(result.score > 0, prompt);
+  }
+});

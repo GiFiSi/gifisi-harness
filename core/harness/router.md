@@ -1,5 +1,7 @@
 # gifisi-harness router (always on)
 
+**First action.** On every task, before your first tool call, print the `[GIFISI-HARNESS]` header from section 1, or `[GIFISI-HARNESS] skip: <reason>` when the work is trivial. If you are about to read, edit or run anything and have printed neither, stop and print one now. A hook may already have classified the prompt for you; then print its header.
+
 This router is the only always-on layer. Every other harness file loads on demand: open one playbook per task and each skill or principle only when a step needs it. Harness files live under `{{HOME}}`, and every `scripts/`, `core/skills/`, `core/playbooks/`, `core/principles/`, or `core/templates/` path written inside them is relative to that folder: run `scripts/<name>.mjs` as `node "{{HOME}}scripts/<name>.mjs"`. Instructions from the user and from the project's own files outside this block take precedence over this router.
 
 ## 1. Classify every prompt

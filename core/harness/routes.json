@@ -152,7 +152,24 @@
         "implementar",
         "criar a funcionalidade",
         "nova funcionalidade",
-        "suporte a"
+        "suporte a",
+        "design",
+        "banner",
+        "logo",
+        "criar uma imagem",
+        "gerar uma imagem",
+        "fazer uma imagem",
+        "fazer a imagem",
+        "imagem de pré-visualização",
+        "relato privado",
+        "ligar",
+        "habilitar",
+        "ativar",
+        "programe",
+        "programar",
+        "programa a",
+        "create an image",
+        "design a"
       ]
     },
     {
@@ -181,7 +198,11 @@
         "refatoração",
         "limpar o código",
         "dividir o arquivo",
-        "duplicado"
+        "duplicado",
+        "renomear",
+        "trocar o nome",
+        "mudar o nome",
+        "renomeie"
       ]
     },
     {
@@ -363,7 +384,15 @@
         "enviar ao github",
         "publish the repo",
         "publish the repository",
-        "push to github"
+        "push to github",
+        "primeira versão",
+        "criar uma release",
+        "criar a release",
+        "fazer a release",
+        "fazer uma release",
+        "create a release",
+        "first release",
+        "tag v"
       ]
     },
     {
@@ -638,7 +667,20 @@
         "como funciona",
         "onde fica",
         "explique",
-        "por que"
+        "por que",
+        "saúde do projeto",
+        "saude do projeto",
+        "saúde atual",
+        "estado do projeto",
+        "como está o projeto",
+        "falta o que",
+        "o que falta",
+        "o que está faltando",
+        "status do projeto",
+        "me explica",
+        "por que precisamos",
+        "what is missing",
+        "project health"
       ]
     }
   ]

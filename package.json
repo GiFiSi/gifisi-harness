@@ -22,6 +22,7 @@
     "test": "node scripts/run-tests.mjs",
     "sync": "node scripts/sync-harnesses.mjs --repo",
     "check-install": "node scripts/check-install.mjs",
-    "smoke": "node scripts/run-autonomous-smoke-test.mjs"
+    "smoke": "node scripts/run-autonomous-smoke-test.mjs",
+    "usage": "node scripts/harness-usage.mjs"
   }
 }

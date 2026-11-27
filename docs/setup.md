@@ -41,6 +41,10 @@ The router is text, and an agent can ignore text. The gate hook removes that cho
 
 It is off until you register it, because it edits agent settings. In a project install, merge the `UserPromptSubmit` entry from `core/templates/hooks/claude-settings.json` into `.claude/settings.json`; the command is `node "$CLAUDE_PROJECT_DIR/.gifisi/scripts/harness-gate.mjs"`. For every project, register `node "<home>/.gifisi-harness/scripts/harness-gate.mjs"` in `~/.claude/settings.json` the same way. Set `GIFISI_GATE=0` to turn it off without editing settings. Codex and Cursor still rely on the router text.
 
+## Measure whether the harness fires
+
+`node scripts/harness-usage.mjs` reads your Claude Code transcripts (`~/.claude/projects`) and counts the real, non-trivial prompts that got a `[GIFISI-HARNESS]` header, a visible `skip:` line, or neither. It prints counts only, never prompt text. `rate` is (header + skip) / eligible. Use `--since 2026-11-27T19:43:39Z` to measure from the moment you registered the gate hook, and `--json` for a machine-readable report. From the global install, run `node ~/.gifisi-harness/scripts/harness-usage.mjs`. It covers Claude Code only; Codex and Cursor sessions are not read.
+
 ## Windows and Git Bash notes
 
 - Git Bash maps `/tmp` to your user temp directory (`%TEMP%`). Node on Windows resolves a bare `/tmp/x` to `C:\tmp\x`, a different place. `install.sh` converts path arguments with `cygpath -m` before passing them to Node, so `./install.sh --project /tmp/test-harness-target` writes to the same directory bash sees.

@@ -432,6 +432,7 @@
     "check-install.mjs",
     "classify-task.mjs",
     "harness-gate.mjs",
+    "harness-usage.mjs",
     "log-decision.mjs",
     "verify-feature-map.mjs",
     "quality-gate.mjs",
