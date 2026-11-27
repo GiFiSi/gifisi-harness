@@ -79,6 +79,7 @@ The installer also creates `PRODUCT.md` and the five `docs/*.md` files from `cor
 | `scripts/run-autonomous-smoke-test.mjs` | Repository | Autonomous improvement cycle on a broken app (predicate 3) |
 | `scripts/run-tests.mjs` | Repository | Run `scripts/tests/*.test.mjs` with an explicit file list; `npm test` calls it |
 | `scripts/classify-task.mjs` | Repository, project, global | Rank routes for a prompt; print a suggested header |
+| `scripts/harness-gate.mjs` | Repository, project, global | UserPromptSubmit hook: classify each real prompt and put the header in the agent's context; silent for acknowledgements and slash commands; `GIFISI_GATE=0` turns it off |
 | `scripts/log-decision.mjs` | Repository, project, global | Append to or check `.gifisi/decisions.tsv` |
 | `scripts/verify-feature-map.mjs` | Repository, project, global | Start the app on a free port and run Feature Map checks live |
 | `scripts/quality-gate.mjs` | Repository, project, global | 350-line and `debugger` gate, counting lines the way ESLint `max-lines` does |

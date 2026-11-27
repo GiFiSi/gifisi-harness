@@ -20,7 +20,7 @@ This router is the only always-on layer. Every other harness file loads on deman
 
 **Language rule.** Converse, ask clarifying questions, write the `Reason` and `Done Predicate` lines of the header, and summarize results in the language of the user's prompt (Portuguese when prompted in Portuguese). Keep code, commit messages, and technical identifiers in English unless the user asks otherwise.
 
-Trivial work skips the header: a question answered from what you already know, or one obvious edit with no behavior change (typo, rename in one file, a config value the user dictated).
+Trivial work skips the header but never silently: print `[GIFISI-HARNESS] skip: <reason>` first. Trivial means a question you can answer from what you already know, or one obvious edit with no behavior change (typo, rename in one file, a config value the user dictated). When unsure, activate. If a gate hook already put a classified header in your context, print that header instead of classifying again.
 
 For anything else, before reading or editing code, pick the route below and print exactly:
 

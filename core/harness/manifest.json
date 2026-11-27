@@ -431,6 +431,7 @@
     "run-autonomous-smoke-test.mjs",
     "check-install.mjs",
     "classify-task.mjs",
+    "harness-gate.mjs",
     "log-decision.mjs",
     "verify-feature-map.mjs",
     "quality-gate.mjs",
@@ -448,6 +449,7 @@
   ],
   "projectScripts": [
     "classify-task.mjs",
+    "harness-gate.mjs",
     "log-decision.mjs",
     "verify-feature-map.mjs",
     "quality-gate.mjs",

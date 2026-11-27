@@ -35,6 +35,12 @@ With only a global install, a project has no `.gifisi/project.json`. The router 
 
 A project install and a global install can coexist. Instructions in the project's own files outside the managed block take precedence over the router.
 
+## Make the router fire on every task (Claude Code)
+
+The router is text, and an agent can ignore text. The gate hook removes that choice: on every real prompt Claude Code runs `scripts/harness-gate.mjs`, which classifies the prompt with the same classifier and puts the `[GIFISI-HARNESS]` header and the playbook path in the agent's context. It costs no model tokens to decide, adds about five lines per task, and stays silent for slash commands and replies like "ok" or "sim". A prompt that is only conversation gets a visible `[GIFISI-HARNESS] skip: <reason>` line instead of a silent skip.
+
+It is off until you register it, because it edits agent settings. In a project install, merge the `UserPromptSubmit` entry from `core/templates/hooks/claude-settings.json` into `.claude/settings.json`; the command is `node "$CLAUDE_PROJECT_DIR/.gifisi/scripts/harness-gate.mjs"`. For every project, register `node "<home>/.gifisi-harness/scripts/harness-gate.mjs"` in `~/.claude/settings.json` the same way. Set `GIFISI_GATE=0` to turn it off without editing settings. Codex and Cursor still rely on the router text.
+
 ## Windows and Git Bash notes
 
 - Git Bash maps `/tmp` to your user temp directory (`%TEMP%`). Node on Windows resolves a bare `/tmp/x` to `C:\tmp\x`, a different place. `install.sh` converts path arguments with `cygpath -m` before passing them to Node, so `./install.sh --project /tmp/test-harness-target` writes to the same directory bash sees.

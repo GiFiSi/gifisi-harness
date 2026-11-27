@@ -5,6 +5,15 @@
         "hooks": [
           {
             "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.gifisi/scripts/harness-gate.mjs\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
             "command": "node \"$CLAUDE_PROJECT_DIR/.gifisi/core/templates/hooks/context7-reminder.mjs\"",
             "timeout": 10
           }

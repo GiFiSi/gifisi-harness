@@ -119,3 +119,11 @@ test("CLI without a prompt exits 2 with usage", () => {
   assert.equal(result.status, 2);
   assert.match(result.stderr, /Usage:/);
 });
+
+test("publishing a repository in Portuguese routes to shipping, not the fallback", () => {
+  for (const prompt of ["publicar o repositório no GitHub", "subir no github e dar push", "publish the repo and push to github"]) {
+    const result = top(prompt);
+    assert.equal(result.id, "shipping", prompt);
+    assert.ok(result.score > 0, prompt);
+  }
+});
