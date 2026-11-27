@@ -18,8 +18,15 @@ function normalize(prompt) {
 }
 
 // Index of the first match of a signal that is not glued to other letters or digits on either side; -1 if none.
+// A "*" inside a word matches any letters at that spot, so "troc*" covers trocar, troque and troca
+// without listing each inflection. The match still has to start and end on a word boundary.
+function signalPattern(signal) {
+  const body = signal.toLowerCase().split("*").map(escapeRegex).join("[\\p{L}]*");
+  return new RegExp("(?<![\\p{L}\\p{N}])" + body + "(?![\\p{L}\\p{N}])", "u");
+}
+
 function matchIndex(text, signal) {
-  const pattern = new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegex(signal.toLowerCase())}(?![\\p{L}\\p{N}])`, "u");
+  const pattern = signalPattern(signal);
   const found = pattern.exec(text);
   return found ? found.index : -1;
 }
@@ -28,8 +35,23 @@ function matchIndex(text, signal) {
 // Ranking is score descending; among equal scores the route whose earliest matched signal occurs
 // first in the prompt wins (a leading verb such as "add" or "fix"), then file order.
 // With no match the fallback route leads with score 0.
+// The user's own words: markdown quote lines ("> ..."), HTML comments and image references are
+// replies, markers and attachments, not the request. If nothing else is left, keep the whole text.
+export function ownText(prompt) {
+  const text = String(prompt ?? "");
+  const own = text
+    .replace(/<!--[\s\S]*?-->/g, " ")
+    .replace(/\[Image:[^\]]*\]/g, " ")
+    .split(/\r?\n/)
+    .filter((line) => !/^\s*>/.test(line))
+    .join("\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+  return own || text;
+}
+
 export function classify(prompt, routesData) {
-  const text = normalize(prompt);
+  const text = normalize(ownText(prompt));
   const scored = routesData.routes.map((route, order) => {
     const hits = route.signals.map((signal) => [signal, matchIndex(text, signal)]).filter(([, index]) => index >= 0);
     const matched = hits.map(([signal]) => signal);

@@ -5,7 +5,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { buildSignal, classify, donePredicateOf } from "../classify-task.mjs";
+import { buildSignal, classify, donePredicateOf, ownText } from "../classify-task.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const SCRIPT = path.join(ROOT, "scripts", "classify-task.mjs");
@@ -144,4 +144,37 @@ test("Portuguese status, design, setting and release prompts get a real route, n
     assert.equal(result.id, id, prompt);
     assert.ok(result.score > 0, prompt);
   }
+});
+
+const golden = JSON.parse(readFileSync(path.join(ROOT, "core", "harness", "golden-prompts.json"), "utf8")).prompts;
+
+test("the golden set of real prompts routes to the expected route", () => {
+  assert.ok(golden.length >= 15);
+  const routeIds = new Set(routes.routes.map((r) => r.id));
+  const wrong = [];
+  for (const { prompt, route } of golden) {
+    assert.ok(routeIds.has(route), `golden route ${route} does not exist`);
+    const got = top(prompt);
+    if (got.id !== route) wrong.push(`${JSON.stringify(prompt)} -> ${got.id}, want ${route}`);
+  }
+  assert.deepEqual(wrong, []);
+});
+
+test("quoted reply text and comment markers do not decide the route, only the user's own words do", () => {
+  const prompt = [
+    "<!-- reply 3 -->",
+    "> Classificador em português. Qual a saúde do projeto? Falta o que agora? status do projeto",
+    "",
+    "Pode proteger a branch main",
+  ].join("\n");
+  assert.equal(ownText(prompt), "Pode proteger a branch main");
+  assert.notEqual(top(prompt).id, "investigation");
+  assert.equal(ownText("> só citação"), "> só citação");
+  assert.equal(ownText("fix the login\n> old quote"), "fix the login");
+});
+
+test("a trailing * in a signal matches the stem, and only at a word start", () => {
+  const stem = { fallback: "x", routes: [{ id: "x", taskType: "X", playbook: "p", skills: [], signals: ["troc*", "troqu*"] }] };
+  for (const word of ["trocar", "troque", "troca o nome"]) assert.ok(classify(word, stem)[0].score >= 1, word);
+  assert.equal(classify("retroceder", stem)[0].score, 0);
 });

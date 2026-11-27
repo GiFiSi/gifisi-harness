@@ -202,7 +202,11 @@
         "renomear",
         "trocar o nome",
         "mudar o nome",
-        "renomeie"
+        "renomeie",
+        "troc*",
+        "renom*",
+        "refator*",
+        "troqu*"
       ]
     },
     {

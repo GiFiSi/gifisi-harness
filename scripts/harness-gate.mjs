@@ -7,7 +7,7 @@
 // when GIFISI_GATE=0, and on any error: a gate never blocks the agent.
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { classify, buildSignal } from "./classify-task.mjs";
+import { classify, buildSignal, ownText } from "./classify-task.mjs";
 import { CORE, HARNESS_ROOT, isMain } from "./lib/paths.mjs";
 
 const ACKNOWLEDGEMENTS = new Set([
@@ -16,7 +16,7 @@ const ACKNOWLEDGEMENTS = new Set([
 ]);
 
 export function needsGate(prompt) {
-  const text = String(prompt ?? "").trim();
+  const text = ownText(prompt).trim();
   if (!text || text.startsWith("/")) return false;
   const flat = text.toLowerCase().replace(/[.!?,;:]+$/g, "").replace(/\s+/g, " ");
   if (ACKNOWLEDGEMENTS.has(flat)) return false;
@@ -25,11 +25,17 @@ export function needsGate(prompt) {
 
 export function gateMessage(prompt, { root = HARNESS_ROOT, cwd = process.cwd() } = {}) {
   const routes = JSON.parse(readFileSync(path.join(root, CORE, "harness", "routes.json"), "utf8"));
-  const { header, load } = buildSignal(classify(prompt, routes), { root, cwd });
+  const ranked = classify(prompt, routes);
+  const { header, load } = buildSignal(ranked, { root, cwd });
+  const tie = ranked[1] && ranked[0].score > 0 && ranked[1].score === ranked[0].score;
+  const confidence = ranked[0].score === 0
+    ? "Low confidence: no route matched, so the route below is only the fallback. Choose the closest playbook yourself, say why in Reason, and print that header."
+    : tie ? `Low confidence: ${ranked[0].taskType} and ${ranked[1].taskType} tie. Pick the one that fits the request and say why in Reason.` : null;
   return [
     "[gifisi-harness gate] The harness is active for this prompt. Before reading or editing anything, print this header, writing Reason and Done Predicate in the user's language, then follow the playbook:",
     header,
     load,
+    ...(confidence ? [confidence] : []),
     "If this prompt is only conversation, or one obvious edit with no behavior change, print `[GIFISI-HARNESS] skip: <reason>` instead of the header. Never skip silently.",
   ].join("\n");
 }

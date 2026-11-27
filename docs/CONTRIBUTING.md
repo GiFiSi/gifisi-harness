@@ -20,6 +20,16 @@ A path that only exists in a target project, not in this repository, starts with
 
 Project artifacts are written with their `.gifisi/` prefix: `.gifisi/decisions.tsv`, `.gifisi/feature-map.json`, `.gifisi/project.json`, `.gifisi/corrections.md`.
 
+## Changing routes and signals
+
+The classifier is a ranked keyword match, so it is only as good as its checks. A signal added to fix one prompt is a patch, not a design. Follow this order:
+
+1. Add the prompt that failed, with the route a person would pick, to `core/harness/golden-prompts.json`. Run `node scripts/run-tests.mjs` and watch the golden test fail.
+2. Prefer a stem over a list of inflections: a `*` inside a signal matches any letters at that spot, so `renom*` covers renomear, renomeie and renomeia. Portuguese verbs can change stem (trocar, troque), so give each stem its own entry.
+3. Add the signal to `core/harness/routes.json` and confirm the golden test and every older test still pass. A signal that fixes one prompt and breaks another is rejected by the same test.
+4. Only the user's own words are classified: quoted lines (`> ...`), HTML comments and image references are dropped by `ownText` in `scripts/classify-task.mjs`.
+
+When no route matches, or two routes tie, the gate hook tells the agent the confidence is low so the agent picks the playbook itself and says why, instead of obeying a weak guess.
 ## Playbook format (`core/playbooks/<name>.md`)
 
 ```markdown

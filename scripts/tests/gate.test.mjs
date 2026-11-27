@@ -48,3 +48,19 @@ test("GIFISI_GATE=0 turns the hook off", () => {
   assert.equal(status, 0);
   assert.equal(out, "");
 });
+
+test("a prompt that matches no route is flagged as low confidence so the agent picks the playbook itself", () => {
+  const { out } = gate({ prompt: "preciso de ajuda com uma coisa grande e vaga no sistema" });
+  assert.match(out, /Low confidence: no route matched/);
+});
+
+test("a clear match carries no low-confidence warning", () => {
+  const { out } = gate({ prompt: "corrigir o bug do carrinho que retorna 500 error" });
+  assert.doesNotMatch(out, /Low confidence/);
+});
+
+test("quoted text in the prompt is ignored by the gate", () => {
+  const prompt = "> Qual a saúde do projeto? falta o que? status do projeto\n\nPode proteger a branch main";
+  const { out } = gate({ prompt });
+  assert.doesNotMatch(out, /Task Type: Investigation/);
+});

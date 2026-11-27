@@ -1,0 +1,23 @@
+{
+  "note": "Real prompts with the route a person would pick. scripts/tests/classify.test.mjs requires every entry to route correctly. Add the prompt that failed here before you add a signal to routes.json.",
+  "prompts": [
+    { "prompt": "The /api/cart/total endpoint is broken and returns a 500 error", "route": "bug" },
+    { "prompt": "corrigir o bug do carrinho que retorna 500 error", "route": "bug" },
+    { "prompt": "add coupon support", "route": "feature" },
+    { "prompt": "adicionar suporte a cupom no carrinho", "route": "feature" },
+    { "prompt": "refactor the 400 line module", "route": "refactor" },
+    { "prompt": "the checkout page is slow", "route": "perf" },
+    { "prompt": "Qual a saúde atual do projeto?", "route": "investigation" },
+    { "prompt": "Falta o que agora?", "route": "investigation" },
+    { "prompt": "Liga o relato privado então", "route": "feature" },
+    { "prompt": "Faz um design bonito para o repositório", "route": "feature" },
+    { "prompt": "Pode fazer a imagem de pré-visualização social", "route": "feature" },
+    { "prompt": "Ok, programe a medição", "route": "feature" },
+    { "prompt": "Pode trocar o nome do repositório para minúsculo", "route": "refactor" },
+    { "prompt": "Pode fazer a primeira versão no GitHub", "route": "shipping" },
+    { "prompt": "publicar o repositório no GitHub e dar push", "route": "shipping" },
+    { "prompt": "Quero que troque toda referência de Potato por GiFiSi", "route": "refactor" },
+    { "prompt": "review this diff for security problems", "route": "code-review" },
+    { "prompt": "resume where we left off last session", "route": "pickup" }
+  ]
+}
