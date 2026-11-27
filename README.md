@@ -1,4 +1,10 @@
-# gifisi-harness
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="docs/assets/banner-light.svg">
+    <img alt="gifisi-harness: one router picks a playbook, skills load on demand, the work ends at a done predicate" src="docs/assets/banner-dark.svg" width="100%">
+  </picture>
+</p>
 
 **English** · [Português (Brasil)](README.pt-BR.md)
 
@@ -14,11 +20,7 @@ It combines two MIT projects: the playbooks, principles and skills of [Lauren Ta
 
 ## How it works
 
-```text
-prompt ──> router ──> playbook ──> skills (when a step needs one) ──> done predicate
-             │                                                          │
-             └── header printed first                       observed on the real artifact
-```
+<p align="center"><img alt="From prompt to done predicate: the router prints a header and picks one playbook, the steps become todos, skills load on demand, and the predicate is observed live." src="docs/assets/flow.svg" width="100%"></p>
 
 For any non-trivial task the agent prints this header before it reads or edits code:
 

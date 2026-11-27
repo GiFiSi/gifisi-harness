@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" width="1200" height="340" role="img" aria-labelledby="t d">
+<title id="t">gifisi-harness</title><desc id="d">One router picks a playbook; skills load on demand; the work ends at a done predicate observed on the real artifact.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1020"/><stop offset="1" stop-color="#171d3d"/></linearGradient>
+<linearGradient id="ac" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+<pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#ffffff" fill-opacity="0.05"/></pattern>
+</defs>
+<rect width="1200" height="340" rx="20" fill="url(#bg)"/>
+<rect width="1200" height="340" rx="20" fill="url(#dots)"/>
+<rect x="0" y="318" width="1200" height="22" rx="0" fill="url(#ac)" fill-opacity="0.9" clip-path="inset(0 round 0 0 20px 20px)"/>
+<g transform="translate(64 96)" fill="none" stroke-linecap="round">
+<circle cx="14" cy="74" r="9" fill="#2dd4bf"/>
+<path d="M23 74 C 70 74, 70 22, 118 22" stroke="#9aa4c7" stroke-opacity="0.6" stroke-width="3"/>
+<path d="M23 74 L 118 74" stroke="url(#ac)" stroke-width="5"/>
+<path d="M23 74 C 70 74, 70 126, 118 126" stroke="#9aa4c7" stroke-opacity="0.6" stroke-width="3"/>
+<circle cx="128" cy="22" r="8" stroke="#9aa4c7" stroke-opacity="0.7" stroke-width="3"/>
+<circle cx="128" cy="74" r="11" fill="#a78bfa"/>
+<circle cx="128" cy="126" r="8" stroke="#9aa4c7" stroke-opacity="0.7" stroke-width="3"/>
+</g>
+<text x="244" y="168" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="58" font-weight="700" fill="#f5f7ff" letter-spacing="-1">gifisi-harness</text>
+<text x="246" y="212" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="22" fill="#9aa4c7">One router. 22 playbooks. Skills on demand.</text>
+<g><rect x="246" y="240" width="130" height="34" rx="17" fill="none" stroke="#9aa4c7" stroke-opacity="0.55"/><text x="311" y="262" text-anchor="middle" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="15" fill="#9aa4c7">Claude Code</text></g><g><rect x="388" y="240" width="78" height="34" rx="17" fill="none" stroke="#9aa4c7" stroke-opacity="0.55"/><text x="427" y="262" text-anchor="middle" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="15" fill="#9aa4c7">Codex</text></g><g><rect x="478" y="240" width="88" height="34" rx="17" fill="none" stroke="#9aa4c7" stroke-opacity="0.55"/><text x="522" y="262" text-anchor="middle" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="15" fill="#9aa4c7">Cursor</text></g>
+<g><rect x="870" y="46" width="270" height="62" rx="12" fill="#ffffff" fill-opacity="0.06" stroke="#2dd4bf" stroke-opacity="0.8" stroke-width="1.5"/><rect x="870" y="46" width="6" height="62" rx="3" fill="#2dd4bf"/><text x="900" y="84" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="21" font-weight="600" fill="#f5f7ff">router</text></g><path d="M1005 110 v16" stroke="#8b94b5" stroke-width="2" stroke-linecap="round"/><path d="M999 120 l6 7 l6 -7" fill="none" stroke="#8b94b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><g><rect x="870" y="130" width="270" height="62" rx="12" fill="#ffffff" fill-opacity="0.06" stroke="#a78bfa" stroke-opacity="0.8" stroke-width="1.5"/><rect x="870" y="130" width="6" height="62" rx="3" fill="#a78bfa"/><text x="900" y="168" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="21" font-weight="600" fill="#f5f7ff">playbook</text></g><path d="M1005 194 v16" stroke="#8b94b5" stroke-width="2" stroke-linecap="round"/><path d="M999 204 l6 7 l6 -7" fill="none" stroke="#8b94b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><g><rect x="870" y="214" width="270" height="62" rx="12" fill="#ffffff" fill-opacity="0.06" stroke="#2dd4bf" stroke-opacity="0.8" stroke-width="1.5"/><rect x="870" y="214" width="6" height="62" rx="3" fill="#2dd4bf"/><text x="900" y="252" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="21" font-weight="600" fill="#f5f7ff">done predicate</text><path d="M1096 246 l9 9 l19 -20" fill="none" stroke="#2dd4bf" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+</svg>

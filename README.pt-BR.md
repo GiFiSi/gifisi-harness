@@ -1,4 +1,10 @@
-# gifisi-harness
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="docs/assets/banner-light.svg">
+    <img alt="gifisi-harness: one router picks a playbook, skills load on demand, the work ends at a done predicate" src="docs/assets/banner-dark.svg" width="100%">
+  </picture>
+</p>
 
 [English](README.md) · **Português (Brasil)**
 
@@ -14,11 +20,7 @@ O projeto junta dois projetos MIT: os playbooks, princípios e skills do [pstack
 
 ## Como funciona
 
-```text
-pedido ──> roteador ──> playbook ──> skills (quando um passo precisa) ──> predicado de pronto
-              │                                                            │
-              └── cabeçalho impresso primeiro                observado no artefato real
-```
+<p align="center"><img alt="Do pedido ao predicado de pronto: o roteador imprime um cabeçalho e escolhe um playbook, os passos viram tarefas, as skills carregam sob demanda e o predicado é observado ao vivo." src="docs/assets/flow.svg" width="100%"></p>
 
 Em qualquer tarefa que não seja trivial, o agente imprime este cabeçalho antes de ler ou editar código:
 
