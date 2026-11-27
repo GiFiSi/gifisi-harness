@@ -2,7 +2,7 @@
 
 The router classifies ordinary requests on its own, so you never need these to get work done. A prompt here is for a task a person starts on purpose and wants run the same way every time: setting up a machine, starting or adopting a project, a review, a refactor batch, a lint burndown. Each one is paste-ready. Copy its `## Prompt` block into the agent conversation (not the terminal), then add the input its `## When to use` section asks for, if any.
 
-Every prompt makes the agent follow the router: print the `[POTETO-HARNESS]` header, open the named playbook and copy its steps into the todo list, load skills by path when a step needs them, and log to `.poteto/decisions.tsv`. Prompts refer to the installed harness generically: `.poteto/` in a project install, `~/.poteto-harness/` in a global install.
+Every prompt makes the agent follow the router: print the `[GIFISI-HARNESS]` header, open the named playbook and copy its steps into the todo list, load skills by path when a step needs them, and log to `.gifisi/decisions.tsv`. Prompts refer to the installed harness generically: `.gifisi/` in a project install, `~/.gifisi-harness/` in a global install.
 
 ## Catalog
 

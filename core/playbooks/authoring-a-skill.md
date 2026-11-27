@@ -14,7 +14,7 @@ You own the skill's voice. A skill is loaded into an agent's context on demand, 
 
 - The user asks for a new skill, or to change an existing skill, playbook, principle, or prompt file.
 - A workflow keeps recurring and is not captured anywhere: propose a skill for it.
-- A correction keeps recurring and `core/skills/correct/SKILL.md` placed it at the text tier: the text belongs in a skill or in `.poteto/corrections.md`.
+- A correction keeps recurring and `core/skills/correct/SKILL.md` placed it at the text tier: the text belongs in a skill or in `.gifisi/corrections.md`.
 - Not for agent instructions that a lint, test, or type could enforce. Encode those as checks instead (`core/principles/encode-lessons-in-structure.md`).
 
 ## Done Predicate
@@ -32,7 +32,7 @@ For a skill that lives in a target project instead of this harness, replace the 
 ## Steps
 
 1. Name the decision the skill changes and the prompt that should load it; if an existing skill or playbook already covers it, edit that file instead of adding one.
-2. Write the file in the format from `docs/CONTRIBUTING.md` in the poteto-harness repository: frontmatter `name`, a one-line `description`, `origin`, then When to use, Procedure, Output, and Source.
+2. Write the file in the format from `docs/CONTRIBUTING.md` in the gifisi-harness repository: frontmatter `name`, a one-line `description`, `origin`, then When to use, Procedure, Output, and Source.
 3. Cut every line that changes no decision with `core/skills/unslop/SKILL.md` and `core/skills/sharpen/SKILL.md`, and point at structural sources (types, config, scripts) instead of restating them.
 4. Put supporting files under the skill's own `references/` or `scripts/` folder and make every path the skill names resolve.
 5. Register a new harness skill in `core/harness/manifest.json`, add a route to `core/harness/routes.json` if prompts should reach it, and run `node scripts/sync-harnesses.mjs --repo`.
@@ -42,7 +42,7 @@ For a skill that lives in a target project instead of this harness, replace the 
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the global harness home (for example `~/.poteto-harness/`) when only a global install exists, the repository root here. Run them as `node "<harness-home>/scripts/<name>.mjs"` from the project root, so `.poteto/decisions.tsv` lands in the project.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the global harness home (for example `~/.gifisi-harness/`) when only a global install exists, the repository root here. Run them as `node "<harness-home>/scripts/<name>.mjs"` from the project root, so `.gifisi/decisions.tsv` lands in the project.
 
 **Step 1.** One skill, one job. Write the trigger as the words a user would type, because the router and `node scripts/classify-task.mjs` match on them. A skill nobody's prompt would reach is dead weight.
 
@@ -52,7 +52,7 @@ Script paths are relative to the harness home: `.poteto/` in an installed projec
 
 **Step 4.** Every file a skill names must exist. Scripts are Node 18 ESM with zero npm dependencies, at most 350 lines, and work on Windows and POSIX. A script that does the work beats prose that describes it (`core/principles/build-the-lever.md`).
 
-**Step 5.** The manifest is the canonical list; the validator rejects a skill folder that the manifest does not name. Routes hold the classifier signals and the playbook each task type loads. Never edit generated router blocks in `AGENTS.md`, `CLAUDE.md`, or `.cursor/rules/poteto-harness.mdc` by hand.
+**Step 5.** The manifest is the canonical list; the validator rejects a skill folder that the manifest does not name. Routes hold the classifier signals and the playbook each task type loads. Never edit generated router blocks in `AGENTS.md`, `CLAUDE.md`, or `.cursor/rules/gifisi-harness.mdc` by hand.
 
 **Step 6.** The validator checks frontmatter, required sections, path references, slash invocations, vendor terms, unfinished-work markers, and the router line budget. Do not weaken a check to make it pass; fix the content.
 

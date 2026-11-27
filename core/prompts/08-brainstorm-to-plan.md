@@ -10,14 +10,14 @@ Write the request after the prompt exactly as it reached you, loose wording incl
 
 ```text
 Turn the request I write after this prompt into a verified plan by following
-the poteto-harness router. Do not write code until I say go. The harness
-files are under `.poteto/` in this project (or `~/.poteto-harness/` for a
+the gifisi-harness router. Do not write code until I say go. The harness
+files are under `.gifisi/` in this project (or `~/.gifisi-harness/` for a
 global install); paths below are relative to that home.
 
 1. Before reading code, print the task-start signal exactly in this shape:
-   [POTETO-HARNESS] Task Type: Multi-phase plan | Playbook: Multi-phase plan
+   [GIFISI-HARNESS] Task Type: Multi-phase plan | Playbook: Multi-phase plan
    Reason: <one sentence on why this request needs clarifying and planning>
-   Done Predicate: <`.poteto/plans/<slug>.md` exists, every unit in it has a
+   Done Predicate: <`.gifisi/plans/<slug>.md` exists, every unit in it has a
    runnable verification, and I have answered go or given corrections>
 2. Open `core/playbooks/multi-phase-plan.md`, take the plan branch, and copy its
    numbered Steps verbatim into your todo list. Execute them in order.
@@ -34,16 +34,16 @@ global install); paths below are relative to that home.
    one silently.
 5. Settle what a run can settle by running it (a spike or a quick check)
    instead of asking me. Ask me only about product calls no run can decide.
-6. Write the plan to .poteto/plans/<slug>.md: what changes, units in landing
+6. Write the plan to .gifisi/plans/<slug>.md: what changes, units in landing
    order, the dependency graph, and the files each unit may touch. Each unit
    ends in a verification: a command to run, a test to pass, or a behavior
    to observe on the real surface, never "should work". A unit with no
    check is too vague; split it.
 7. For units that change user-visible behavior, add a check to
-   .poteto/feature-map.json so `node .poteto/scripts/verify-feature-map.mjs`
+   .gifisi/feature-map.json so `node .gifisi/scripts/verify-feature-map.mjs`
    can run it.
-8. Log the plan with `node .poteto/scripts/log-decision.mjs design "<slug>"
-   "<chosen reading>" ".poteto/plans/<slug>.md" "awaiting go"`.
+8. Log the plan with `node .gifisi/scripts/log-decision.mjs design "<slug>"
+   "<chosen reading>" ".gifisi/plans/<slug>.md" "awaiting go"`.
 9. Show me the plan and stop. A correction updates only the parts it
    touches; re-confirm only those.
 10. After I say go, implement unit by unit. Each unit starts with its own
@@ -54,10 +54,10 @@ global install); paths below are relative to that home.
 
 ## Expected result
 
-- The `[POTETO-HARNESS]` header and the plan-branch steps as the todo list.
+- The `[GIFISI-HARNESS]` header and the plan-branch steps as the todo list.
 - Pointed questions, or competing readings shown side by side, before any plan when the request is ambiguous.
-- A plan at `.poteto/plans/<slug>.md` with units in landing order, files per unit, and a runnable verification per unit.
-- A `design` row in `.poteto/decisions.tsv`, then a stop until you say go.
+- A plan at `.gifisi/plans/<slug>.md` with units in landing order, files per unit, and a runnable verification per unit.
+- A `design` row in `.gifisi/decisions.tsv`, then a stop until you say go.
 - After go: one header per unit and each unit's verification output shown before it is marked done.
 
 ## Source

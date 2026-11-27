@@ -9,8 +9,8 @@ Write the target after the prompt: a branch, a PR number, a commit range, or not
 ## Prompt
 
 ```text
-Review a change by following the poteto-harness router. The harness files
-are under `.poteto/` in this project (or `~/.poteto-harness/` for a global
+Review a change by following the gifisi-harness router. The harness files
+are under `.gifisi/` in this project (or `~/.gifisi-harness/` for a global
 install); paths below are relative to that home.
 
 Target: the branch, PR, commit range or diff I name after this prompt. If I
@@ -19,7 +19,7 @@ default branch, plus staged, unstaged and relevant untracked changes as
 separate layers. If the default branch is ambiguous, ask me once.
 
 1. Before reading code, print the task-start signal exactly in this shape:
-   [POTETO-HARNESS] Task Type: Code review | Playbook: Investigation
+   [GIFISI-HARNESS] Task Type: Code review | Playbook: Investigation
    Reason: <one sentence on why this is a read-only review>
    Done Predicate: <a ranked findings report where every finding has
    file:line, a failure scenario and the command or reading that confirmed
@@ -41,7 +41,7 @@ separate layers. If the default branch is ambiguous, ask me once.
    remaining finding against the frozen diff and the connected code, run
    the cheap confirming check when one exists, and drop findings the code
    refutes. Deduplicate by root cause and rank critical, high, medium, low.
-7. Log the review with `node .poteto/scripts/log-decision.mjs review
+7. Log the review with `node .gifisi/scripts/log-decision.mjs review
    "<target>" "<lenses run>" "<diff command; checks run>" "<counts by
    severity>"`.
 
@@ -52,12 +52,12 @@ the playbook it needs instead of making it.
 
 ## Expected result
 
-- The `[POTETO-HARNESS]` header and the investigation steps as the todo list.
+- The `[GIFISI-HARNESS]` header and the investigation steps as the todo list.
 - A report with the frozen base and head IDs, then findings most severe first. Each finding has `file:line`, the failure scenario, the confirming command or reading, and the lenses that raised it.
 - A "checked and clean" list, unreviewed scope and residual risks. An empty critical and high list is a valid result.
-- One `review` row in `.poteto/decisions.tsv` and no source change.
+- One `review` row in `.gifisi/decisions.tsv` and no source change.
 
 ## Source
 
 - `docs/prompts/03-multi-agent-code-review.md` and section 10 of `docs/prompts/12-existing-project-setup.md`, Vibe Coding Toolkit by Matheus Gomes (MIT).
-- Adapted for poteto-harness: routed through `playbooks/investigation.md` and `skills/code-review/SKILL.md`.
+- Adapted for gifisi-harness: routed through `playbooks/investigation.md` and `skills/code-review/SKILL.md`.

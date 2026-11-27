@@ -25,7 +25,7 @@ Order work as small units that each end in a state you can check. Do not start t
 3. **Run the per-unit check even when a tool did the edit.** A codemod that touched 40 files still needs the type checker before the next batch.
 4. **Stop on red.** A failed check means fix or revert this unit. Do not stack the next change on top of a broken state.
 5. **Order delivery to prove itself.** The failing test before the fix. The subtraction before the reshape. The baseline measurement before the treatment. Each commit builds and passes on its own.
-6. **Log the boundary.** Record each completed unit with `node scripts/log-decision.mjs` so `.poteto/decisions.tsv` shows what was verified and when.
+6. **Log the boundary.** Record each completed unit with `node scripts/log-decision.mjs` so `.gifisi/decisions.tsv` shows what was verified and when.
 
 Worked example. Renaming `price` to `priceCents` across 60 files in one pass produced 200 type errors and no clear starting point. Sequenced:
 

@@ -1,4 +1,4 @@
-// Shared helpers for poteto-harness hook scripts.
+// Shared helpers for gifisi-harness hook scripts.
 //
 // Contract: a hook reads one JSON event on stdin and answers with its exit
 // code, optionally with text or JSON on stdout. These hooks only add

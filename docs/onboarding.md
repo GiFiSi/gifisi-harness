@@ -5,8 +5,8 @@ This page is for people who change the harness itself. To use the harness in a p
 ## Working in this repository
 
 1. Read [CONTRIBUTING.md](CONTRIBUTING.md). It defines the file formats, the path convention and the content the validator rejects.
-2. The router in `AGENTS.md` applies here too. Non-trivial changes get the `[POTETO-HARNESS]` header, a playbook and rows in this repository's `.poteto/decisions.tsv`.
-3. Edit sources, never generated output. The managed block in `AGENTS.md`, all of `CLAUDE.md` and `.cursor/rules/poteto-harness.mdc` are generated from `core/harness/router.md`, `core/harness/routes.json` and `core/harness/manifest.json`.
+2. The router in `AGENTS.md` applies here too. Non-trivial changes get the `[GIFISI-HARNESS]` header, a playbook and rows in this repository's `.gifisi/decisions.tsv`.
+3. Edit sources, never generated output. The managed block in `AGENTS.md`, all of `CLAUDE.md` and `.cursor/rules/gifisi-harness.mdc` are generated from `core/harness/router.md`, `core/harness/routes.json` and `core/harness/manifest.json`.
 4. Before you hand back a change, run `node scripts/validate-harness.mjs`. Run `node scripts/check-install.mjs` when you touch the installer or anything it copies, and `node scripts/run-autonomous-smoke-test.mjs` when you touch routes, playbook steps or the project scripts.
 
 ## Add a playbook
@@ -21,7 +21,7 @@ Follow `core/playbooks/authoring-a-skill.md` for the writing itself. It applies 
 
 ## Add a skill
 
-1. Add `{ "name": "<name>", "origin": "<origin>" }` to `skills` in `core/harness/manifest.json`. Origin is `pstack`, `vibe-coding-toolkit` or `poteto-harness`.
+1. Add `{ "name": "<name>", "origin": "<origin>" }` to `skills` in `core/harness/manifest.json`. Origin is `pstack`, `vibe-coding-toolkit` or `gifisi-harness`.
 2. Write `core/skills/<name>/SKILL.md` with frontmatter (`name`, a one-line `description` under 400 characters, `origin`) and the sections `When to use`, `Procedure` (at least three numbered steps), `Output`, `Source`.
 3. Put supporting files in `core/skills/<name>/references/` or `core/skills/<name>/scripts/`. Every file the skill names must exist.
 4. Wire it in: list it in the `skills` of the routes or playbooks whose steps load it. A skill nothing loads is dead weight.

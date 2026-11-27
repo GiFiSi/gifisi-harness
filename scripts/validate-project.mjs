@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Check that a project has a complete, uncorrupted poteto-harness install.
+// Check that a project has a complete, uncorrupted gifisi-harness install.
 // Usage: node scripts/validate-project.mjs [--root DIR]
 // The manifest comes from the harness home this script runs from (HARNESS_ROOT/core/harness/manifest.json).
 // Only lib/paths.mjs and log-decision.mjs are imported, because an installed copy ships only project scripts.
@@ -10,8 +10,8 @@ import { CORE, HARNESS_ROOT, findProjectRoot, isMain, resolveUserPath } from "./
 
 // Same tolerance as lib/managed-blocks.mjs (not shipped to projects): a UTF-8 BOM before a
 // marker on line 1 and trailing spaces or tabs after the end marker.
-const BEGIN_LINE = /^\uFEFF?<!-- poteto-harness:begin\b.*?\r?$/gm;
-const END_LINE = /^<!-- poteto-harness:end -->[ \t]*\r?$/gm;
+const BEGIN_LINE = /^\uFEFF?<!-- gifisi-harness:begin\b.*?\r?$/gm;
+const END_LINE = /^<!-- gifisi-harness:end -->[ \t]*\r?$/gm;
 const AGENTS_IMPORT = /^\uFEFF?@AGENTS\.md[ \t]*\r?$/m;
 const ALWAYS_APPLY = /^alwaysApply:[ \t]*true[ \t]*\r?$/m;
 const USAGE = "Usage: node scripts/validate-project.mjs [--root DIR]";
@@ -22,8 +22,8 @@ const countMatches = (text, pattern) => [...text.matchAll(pattern)].length;
 // Lines of the managed block, begin and end marker included. Null when the block is not well formed.
 export function managedBlockLines(text) {
   const lines = text.split(/\r?\n/);
-  const begin = lines.findIndex((line) => /^\uFEFF?<!-- poteto-harness:begin\b/.test(line));
-  const end = lines.findIndex((line, i) => i > begin && /^<!-- poteto-harness:end -->[ \t]*$/.test(line));
+  const begin = lines.findIndex((line) => /^\uFEFF?<!-- gifisi-harness:begin\b/.test(line));
+  const end = lines.findIndex((line, i) => i > begin && /^<!-- gifisi-harness:end -->[ \t]*$/.test(line));
   if (begin === -1 || end === -1) return null;
   return lines.slice(begin, end + 1);
 }
@@ -47,7 +47,7 @@ export function validateProject({ root, manifest }) {
   const results = [];
   const add = (name, pass, detail) => results.push({ name, pass, detail });
   const at = (...parts) => path.join(root, ...parts);
-  const home = at(".poteto");
+  const home = at(".gifisi");
   const read = (file) => readFileSync(file, "utf8").replace(/^\uFEFF/, "");
 
   const agents = at("AGENTS.md");
@@ -73,8 +73,8 @@ export function validateProject({ root, manifest }) {
     add("CLAUDE.md imports @AGENTS.md", ok, ok ? "has an @AGENTS.md line" : imports ? markerCheck(text) : "no @AGENTS.md line");
   }
 
-  const mdc = at(".cursor", "rules", "poteto-harness.mdc");
-  if (!isFile(mdc)) add("Cursor rule", false, ".cursor/rules/poteto-harness.mdc is missing");
+  const mdc = at(".cursor", "rules", "gifisi-harness.mdc");
+  if (!isFile(mdc)) add("Cursor rule", false, ".cursor/rules/gifisi-harness.mdc is missing");
   else {
     const text = read(mdc);
     const apply = ALWAYS_APPLY.test(text);
@@ -90,31 +90,31 @@ export function validateProject({ root, manifest }) {
     ["principles", checkTree(path.join(home, CORE, "principles"), "principles", principles, (n) => `${n}.md`)],
     ["skills", checkTree(path.join(home, CORE, "skills"), "skills", skills, (n) => path.join(n, "SKILL.md"))],
   ];
-  for (const [name, result] of trees) add(`.poteto/${CORE}/${name}`, result.pass, result.detail);
+  for (const [name, result] of trees) add(`.gifisi/${CORE}/${name}`, result.pass, result.detail);
 
   const routes = path.join(home, CORE, "harness", "routes.json");
   try {
     const data = JSON.parse(read(routes));
     const ok = Array.isArray(data.routes) && data.routes.length > 0 && typeof data.fallback === "string";
-    add(".poteto/core/harness/routes.json", ok, ok ? `${data.routes.length} routes` : "routes or fallback missing");
+    add(".gifisi/core/harness/routes.json", ok, ok ? `${data.routes.length} routes` : "routes or fallback missing");
   } catch (error) {
-    add(".poteto/core/harness/routes.json", false, isFile(routes) ? `invalid JSON: ${error.message}` : "missing");
+    add(".gifisi/core/harness/routes.json", false, isFile(routes) ? `invalid JSON: ${error.message}` : "missing");
   }
 
   const projectJson = path.join(home, "project.json");
   try {
     const data = JSON.parse(read(projectJson));
     const ok = typeof data.packageManager === "string" && data.packageManager.length > 0;
-    add(".poteto/project.json", ok, ok ? `packageManager=${data.packageManager}` : "packageManager is missing");
+    add(".gifisi/project.json", ok, ok ? `packageManager=${data.packageManager}` : "packageManager is missing");
   } catch (error) {
-    add(".poteto/project.json", false, isFile(projectJson) ? `invalid JSON: ${error.message}` : "missing");
+    add(".gifisi/project.json", false, isFile(projectJson) ? `invalid JSON: ${error.message}` : "missing");
   }
 
   const log = checkLog(path.join(home, "decisions.tsv"));
-  add(".poteto/decisions.tsv", log.ok, log.ok ? `rows=${log.rows}` : log.problems.slice(0, 3).join("; "));
+  add(".gifisi/decisions.tsv", log.ok, log.ok ? `rows=${log.rows}` : log.problems.slice(0, 3).join("; "));
 
   const corrections = path.join(home, "corrections.md");
-  add(".poteto/corrections.md", isFile(corrections), isFile(corrections) ? "present" : "missing");
+  add(".gifisi/corrections.md", isFile(corrections), isFile(corrections) ? "present" : "missing");
 
   add("PRODUCT.md", isFile(at("PRODUCT.md")), isFile(at("PRODUCT.md")) ? "present" : "missing");
   const docs = manifest.docs.filter((doc) => !isFile(at("docs", doc)));

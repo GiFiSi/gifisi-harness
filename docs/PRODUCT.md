@@ -1,4 +1,4 @@
-# PRODUCT: poteto-harness
+# PRODUCT: gifisi-harness
 
 ## Problem
 
@@ -13,7 +13,7 @@ Coding agents drift on non-trivial work. They start editing before they know wha
 
 ## Outcome
 
-A user writes a plain request. The agent classifies it, prints a visible `[POTETO-HARNESS]` header with a verifiable done predicate, follows one playbook step by step, loads only the skills that step needs, proves the outcome on the real artifact and leaves an auditable row trail in `.poteto/decisions.tsv`.
+A user writes a plain request. The agent classifies it, prints a visible `[GIFISI-HARNESS]` header with a verifiable done predicate, follows one playbook step by step, loads only the skills that step needs, proves the outcome on the real artifact and leaves an auditable row trail in `.gifisi/decisions.tsv`.
 
 ## MVP scope
 
@@ -23,7 +23,7 @@ In scope:
 - 22 playbooks, 24 principles and 31 skills, each complete and loaded by path on demand.
 - Nine paste-ready prompts and the project templates: `PRODUCT.md`, the five-file `docs/` tree, the ESLint gate with `max-lines` at 350, hook templates for Context7, Graphify and RTK, and the Next.js foundation.
 - `install.sh` with `--project <path>` and `--global [--home DIR]`, idempotent through managed markers and write-if-different copies.
-- Project artifacts: `.poteto/decisions.tsv`, `.poteto/feature-map.json`, `.poteto/project.json`, `.poteto/corrections.md`.
+- Project artifacts: `.gifisi/decisions.tsv`, `.gifisi/feature-map.json`, `.gifisi/project.json`, `.gifisi/corrections.md`.
 - Scripts that classify a prompt, append to the decision log, run Feature Map checks against a live app, enforce the 350-line gate and validate an install.
 - Three proof commands: repository validation, install idempotency and an autonomous smoke test.
 
@@ -49,7 +49,7 @@ The work is done only when all three hold, each observed from a real run:
 
 1. `node scripts/validate-harness.mjs` exits 0. It verifies the 22 playbooks, 24 principles, every skill, every template, prompt and script, all links and path references, the router size for repo, project and global renders, router drift, banned content, syntax and the unit tests.
 2. `install.sh` run twice against `/tmp/test-harness-target` gives a clean install on run 1 and, on run 2, `writes=0`, identical file hashes, exactly one begin and one end marker per managed file, and no duplicated or corrupted content. `node scripts/check-install.mjs` runs this and the brownfield and global variants.
-3. `node scripts/run-autonomous-smoke-test.mjs` builds a broken app in `/tmp/poteto-smoke-app` with an intentional bug, a missing feature and a messy module over 350 lines, runs the cycle (signal header, reproduce, root-cause fix, feature, refactor, the 350-line quality gate run by `scripts/quality-gate.mjs`, tests and live verification, decision trail), prints measured before and after results, exits 0 and removes its temporary directory.
+3. `node scripts/run-autonomous-smoke-test.mjs` builds a broken app in `/tmp/gifisi-smoke-app` with an intentional bug, a missing feature and a messy module over 350 lines, runs the cycle (signal header, reproduce, root-cause fix, feature, refactor, the 350-line quality gate run by `scripts/quality-gate.mjs`, tests and live verification, decision trail), prints measured before and after results, exits 0 and removes its temporary directory.
 
 ## Risks
 

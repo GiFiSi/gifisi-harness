@@ -135,7 +135,7 @@ function lastLine(text) {
 }
 
 function validateProject(fixture, root) {
-  const script = path.join(root, ".poteto", "scripts", "validate-project.mjs");
+  const script = path.join(root, ".gifisi", "scripts", "validate-project.mjs");
   if (!existsSync(script)) return record(fixture, "validate-project exits 0", false, "installed validate-project.mjs is missing");
   const result = spawnSync(process.execPath, [script, "--root", root], { cwd: root, encoding: "utf8" });
   const failures = (result.stdout + result.stderr).split("\n").filter((l) => /FAIL/.test(l)).slice(0, 3).join("; ");
@@ -166,10 +166,10 @@ function checkEmptyTarget(install) {
   const root = path.join(tmpRoot(), name);
   rmSync(root, { recursive: true, force: true });
   if (!twoRuns(name, root, ["--project", `/tmp/${name}`], install)) return;
-  checkMarkers(name, root, ["AGENTS.md", ".cursor/rules/poteto-harness.mdc"]);
+  checkMarkers(name, root, ["AGENTS.md", ".cursor/rules/gifisi-harness.mdc"]);
   record(name, "CLAUDE.md imports @AGENTS.md", /^@AGENTS\.md\r?$/m.test(read(root, "CLAUDE.md") ?? ""));
   record(name, "CLAUDE.md has exactly one @AGENTS.md line", (read(root, "CLAUDE.md") ?? "").split(/\r?\n/).filter((l) => l.replace(/^﻿/, "") === "@AGENTS.md").length === 1);
-  checkInstalledLinks(name, path.join(root, ".poteto"));
+  checkInstalledLinks(name, path.join(root, ".gifisi"));
   validateProject(name, root);
 }
 
@@ -179,7 +179,7 @@ function checkBrownfield(install) {
   rmSync(root, { recursive: true, force: true });
   for (const [rel, content] of Object.entries(BROWNFIELD)) put(root, rel, content);
   if (!twoRuns(name, root, ["--project", `/tmp/${name}`], install)) return;
-  checkMarkers(name, root, ["AGENTS.md", "CLAUDE.md", ".cursor/rules/poteto-harness.mdc"]);
+  checkMarkers(name, root, ["AGENTS.md", "CLAUDE.md", ".cursor/rules/gifisi-harness.mdc"]);
   for (const rel of ["AGENTS.md", "CLAUDE.md"]) {
     const [ok, detail] = preservedOutside(BROWNFIELD[rel], read(root, rel));
     record(name, `${rel} bytes outside markers preserved`, ok, detail);
@@ -189,7 +189,7 @@ function checkBrownfield(install) {
   }
   let project = null;
   try {
-    project = JSON.parse(read(root, ".poteto/project.json") ?? "null");
+    project = JSON.parse(read(root, ".gifisi/project.json") ?? "null");
   } catch {
     project = null;
   }
@@ -204,14 +204,14 @@ function checkGlobal(install) {
   rmSync(root, { recursive: true, force: true });
   for (const [rel, content] of Object.entries(HOME_FILES)) put(root, rel, content);
   if (!twoRuns(name, root, ["--global", "--home", `/tmp/${name}`], install)) return;
-  checkMarkers(name, root, [".claude/CLAUDE.md", ".codex/AGENTS.md", ".cursor/rules/poteto-harness.mdc"]);
+  checkMarkers(name, root, [".claude/CLAUDE.md", ".codex/AGENTS.md", ".cursor/rules/gifisi-harness.mdc"]);
   const [ok, detail] = preservedOutside(HOME_FILES[".claude/CLAUDE.md"], read(root, ".claude/CLAUDE.md"));
   record(name, ".claude/CLAUDE.md bytes outside markers preserved", ok, detail);
   record(name, ".claude/settings.json byte-identical", read(root, ".claude/settings.json") === HOME_FILES[".claude/settings.json"]);
-  const home = `${toPosix(root)}/.poteto-harness/`;
+  const home = `${toPosix(root)}/.gifisi-harness/`;
   record(name, "router points at the global harness home", (read(root, ".codex/AGENTS.md") ?? "").includes(`\`${home}core/playbooks/`), home);
-  record(name, "harness copied", existsSync(path.join(root, ".poteto-harness", "core", "harness", "routes.json")));
-  checkInstalledLinks(name, path.join(root, ".poteto-harness"));
+  record(name, "harness copied", existsSync(path.join(root, ".gifisi-harness", "core", "harness", "routes.json")));
+  checkInstalledLinks(name, path.join(root, ".gifisi-harness"));
 }
 
 // A global home with a space (C:/Users/John Smith): the router's commands must survive a shell.
@@ -231,7 +231,7 @@ function checkSpaceHome(install) {
   const result = bash
     ? spawnSync(bash.bash, ["-c", command], { cwd: root, encoding: "utf8" })
     : spawnSync(command, { cwd: root, encoding: "utf8", shell: true });
-  const ok = result.status === 0 && /\[POTETO-HARNESS\] Task Type:/.test(result.stdout);
+  const ok = result.status === 0 && /\[GIFISI-HARNESS\] Task Type:/.test(result.stdout);
   const shell = bash ? "bash -c" : "platform shell";
   const detail = ok ? result.stdout.split(/\r?\n/)[0] : (result.stderr || result.stdout).trim().split(/\r?\n/)[0];
   record(name, `rendered command runs (${shell})`, ok, detail);

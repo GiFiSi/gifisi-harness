@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 const CONTENT_DIRS = ["playbooks/", "principles/", "skills/", "prompts/", "templates/", "harness/"].map((dir) => `core/${dir}`);
-const GENERATED = ["AGENTS.md", "CLAUDE.md", ".cursor/rules/poteto-harness.mdc"];
+const GENERATED = ["AGENTS.md", "CLAUDE.md", ".cursor/rules/gifisi-harness.mdc"];
 // The router renders tokens; the contributing guide lists the allowed ones.
 const TOKEN_DOCS = ["core/harness/router.md", "docs/CONTRIBUTING.md"];
 const SELF = ["scripts/validate-harness.mjs", "scripts/lib/content-checks.mjs"];
@@ -18,7 +18,7 @@ const FILLER = [/lorem ipsum/i, /coming soon/i, /not yet implemented/i, /insert 
 const PLACEHOLDER_WORD = new RegExp(["place", "holder"].join(""), "i");
 
 const VENDOR = [
-  "subagent_type", "poteto-agent", "cursor-team-kit", "control-ui", "control-cli", "generalPurpose",
+  "subagent_type", "gifisi-agent", "cursor-team-kit", "control-ui", "control-cli", "generalPurpose",
   "setup-pstack", "pstack-models", "watch-pr", "run_in_background", "agent-transcripts", "poteto-mode",
   "claude-opus-", "claude-fable-", "claude-sonnet-", "claude-haiku-", "gemini-", "gpt-5",
 ];

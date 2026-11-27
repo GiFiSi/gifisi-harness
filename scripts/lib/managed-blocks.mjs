@@ -4,37 +4,37 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { CORE, HARNESS_ROOT } from "./paths.mjs";
 
-export const BEGIN = "<!-- poteto-harness:begin (managed by poteto-harness sync-harnesses.mjs; edits inside are overwritten) -->";
-export const END = "<!-- poteto-harness:end -->";
+export const BEGIN = "<!-- gifisi-harness:begin (managed by gifisi-harness sync-harnesses.mjs; edits inside are overwritten) -->";
+export const END = "<!-- gifisi-harness:end -->";
 const SOURCE = "Source: core/harness/router.md + core/harness/routes.json + core/harness/manifest.json.";
 export const NOTE = `<!-- ${SOURCE} Regenerate with node scripts/sync-harnesses.mjs --repo. -->`;
-export const MDC_FRONTMATTER = "---\ndescription: poteto-harness always-on router\nalwaysApply: true\n---\n";
+export const MDC_FRONTMATTER = "---\ndescription: gifisi-harness always-on router\nalwaysApply: true\n---\n";
 
 // sync-harnesses.mjs is not installed in a project, and a global copy would re-render from its
-// own stale sources, so installed targets point back at the poteto-harness checkout.
+// own stale sources, so installed targets point back at the gifisi-harness checkout.
 export function noteFor(home) {
   if (home === "") return NOTE;
-  const mode = home === ".poteto/" ? "--project <this project>" : "--global";
-  return `<!-- ${SOURCE} Regenerate by re-running install.sh ${mode} from the poteto-harness checkout. -->`;
+  const mode = home === ".gifisi/" ? "--project <this project>" : "--global";
+  return `<!-- ${SOURCE} Regenerate by re-running install.sh ${mode} from the gifisi-harness checkout. -->`;
 }
 
 // A UTF-8 BOM may precede a marker on line 1 (Windows editors, PowerShell 5.1 re-saves), and a
 // marker line may carry trailing spaces or tabs.
-const BEGIN_LINE = /^\uFEFF?<!-- poteto-harness:begin\b.*$/gm;
-const END_LINE = /^<!-- poteto-harness:end -->[ \t]*\r?$/gm;
+const BEGIN_LINE = /^\uFEFF?<!-- gifisi-harness:begin\b.*$/gm;
+const END_LINE = /^<!-- gifisi-harness:end -->[ \t]*\r?$/gm;
 export const AGENTS_IMPORT = /^\uFEFF?@AGENTS\.md[ \t]*\r?$/m;
 
 function readJson(root, rel) {
   return JSON.parse(readFileSync(path.join(root, rel), "utf8"));
 }
 
-// HOME prefix per target: repo -> "", project -> ".poteto/", global -> "<abs home>/.poteto-harness/".
+// HOME prefix per target: repo -> "", project -> ".gifisi/", global -> "<abs home>/.gifisi-harness/".
 export function homeFor(target, homeDir) {
   if (target === "repo") return "";
-  if (target === "project") return ".poteto/";
+  if (target === "project") return ".gifisi/";
   if (target === "global") {
     if (!homeDir) throw new Error("global target needs a home directory");
-    return `${path.resolve(homeDir).split(path.sep).join("/").replace(/\/$/, "")}/.poteto-harness/`;
+    return `${path.resolve(homeDir).split(path.sep).join("/").replace(/\/$/, "")}/.gifisi-harness/`;
   }
   throw new Error(`unknown target "${target}" (want repo, project or global)`);
 }

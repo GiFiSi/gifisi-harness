@@ -3,8 +3,8 @@
 // Usage:
 //   node scripts/log-decision.mjs [--log FILE] <phase> <decision> <why> <evidence> <result>
 //   node scripts/log-decision.mjs --check [--log FILE]
-// Default log: <project root>/.poteto/decisions.tsv, where the project root is the nearest
-// ancestor of the current directory holding .poteto/ or .git.
+// Default log: <project root>/.gifisi/decisions.tsv, where the project root is the nearest
+// ancestor of the current directory holding .gifisi/ or .git.
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { findProjectRoot, isMain, resolveUserPath } from "./lib/paths.mjs";
@@ -18,7 +18,7 @@ const USAGE = [
 ].join("\n");
 
 export function defaultLog(cwd = process.cwd()) {
-  return path.join(findProjectRoot(cwd), ".poteto", "decisions.tsv");
+  return path.join(findProjectRoot(cwd), ".gifisi", "decisions.tsv");
 }
 
 export function formatTimestamp(now = new Date()) {

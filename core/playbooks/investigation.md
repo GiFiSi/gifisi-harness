@@ -29,7 +29,7 @@ Template by mode:
 - Decision: a recommendation plus a tradeoffs table whose rows come from traced code or a run, not from memory.
 - Code review: findings ranked by severity, each with `file:line`, the failure scenario, and the command or reading that confirms it. An empty list is a valid result and says what was checked.
 - Security review: a report following `core/templates/security-review.md.template`, each finding with severity, location, exploit path, and the evidence.
-- `git status --porcelain` shows no source change made by the investigation. The only writes are rows in `.poteto/decisions.tsv` and, for a security review, the report file.
+- `git status --porcelain` shows no source change made by the investigation. The only writes are rows in `.gifisi/decisions.tsv` and, for a security review, the report file.
 
 ## Steps
 
@@ -45,7 +45,7 @@ Template by mode:
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the global harness home (for example `~/.poteto-harness/`) when only a global install exists, the repository root here. Run them as `node "<harness-home>/scripts/<name>.mjs"` from the project root, so `.poteto/decisions.tsv` lands in the project.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the global harness home (for example `~/.gifisi-harness/`) when only a global install exists, the repository root here. Run them as `node "<harness-home>/scripts/<name>.mjs"` from the project root, so `.gifisi/decisions.tsv` lands in the project.
 
 **Step 1.** A question that hides a fix request ("why is checkout broken, and fix it") is two tasks. Run this one first, then re-route. Keep the restated question in view; it is what the reply must answer.
 

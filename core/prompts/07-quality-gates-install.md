@@ -9,14 +9,14 @@ Projects without JavaScript use their native linter. The prompt does not install
 ## Prompt
 
 ```text
-Install this project's quality gates by following the poteto-harness
-router. The harness files are under `.poteto/` in this project (or
-`~/.poteto-harness/` for a global install); paths below are relative to that
+Install this project's quality gates by following the gifisi-harness
+router. The harness files are under `.gifisi/` in this project (or
+`~/.gifisi-harness/` for a global install); paths below are relative to that
 home.
 
 1. Before reading or editing code, print the task-start signal exactly in
    this shape:
-   [POTETO-HARNESS] Task Type: Quality gates | Playbook: Refactoring
+   [GIFISI-HARNESS] Task Type: Quality gates | Playbook: Refactoring
    Reason: <one sentence on why this installs and measures a lint gate>
    Done Predicate: <the rule self-check exits 0, the lint command runs and
    reports a per-rule violation count with each new rule's severity set from
@@ -35,8 +35,8 @@ home.
    ESLint version and existing config, TypeScript and path aliases, source
    root, presentation directories, the data client module and binding, and
    the log adapter. On ESLint 8 or older, stop and report instead of
-   upgrading silently. Take commands from .poteto/project.json.
-5. Baseline with no install: `node .poteto/scripts/quality-gate.mjs --root .`
+   upgrading silently. Take commands from .gifisi/project.json.
+5. Baseline with no install: `node .gifisi/scripts/quality-gate.mjs --root .`
    and the existing lint command. Record the counts.
 6. Copy the rule files byte for byte; do not reformat, convert or improve
    them. Merge into an existing eslint.config.mjs instead of replacing it,
@@ -52,7 +52,7 @@ home.
    count written beside it as the baseline.
 10. Log the baseline and the measure as `baseline` rows, the install as a
     `setup` row and the self-check as a `verify` row, each with
-    `node .poteto/scripts/log-decision.mjs <phase> "<decision>" "<why>"
+    `node .gifisi/scripts/log-decision.mjs <phase> "<decision>" "<why>"
     "<command>" "<counts>"`.
 
 Do not fix any violation. Do not raise the 350 ceiling, add broad ignores
@@ -61,7 +61,7 @@ or disable comments, or delete tests. Do not add Git hooks. Do not push.
 
 ## Expected result
 
-- The `[POTETO-HARNESS]` header and the refactoring steps as the todo list, with steps 4 to 7 marked not applicable.
+- The `[GIFISI-HARNESS]` header and the refactoring steps as the todo list, with steps 4 to 7 marked not applicable.
 - The rule files copied, the config merged, dev dependencies installed with matching majors, and the self-check exiting 0.
 - A report: rules installed, rules removed and why, violation count per rule with its severity and baseline, files over 350 lines largest first, and the commands to run the gate.
 - Decision-log rows for baseline, install, self-check and measure, and no change to application source.
@@ -69,4 +69,4 @@ or disable comments, or delete tests. Do not add Git hooks. Do not push.
 ## Source
 
 - `docs/prompts/08-eslint-quality-gates-install.md` and `docs/tools/06-eslint-biome-quality-gates.md`, Vibe Coding Toolkit by Matheus Gomes (MIT).
-- Adapted for poteto-harness: routed through `playbooks/refactoring.md` (the quality gates route) and `skills/quality-gates/SKILL.md`.
+- Adapted for gifisi-harness: routed through `playbooks/refactoring.md` (the quality gates route) and `skills/quality-gates/SKILL.md`.

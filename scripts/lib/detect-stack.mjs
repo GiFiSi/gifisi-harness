@@ -1,4 +1,4 @@
-// Detect a target project's stack for .poteto/project.json.
+// Detect a target project's stack for .gifisi/project.json.
 // Output is deterministic: fixed key order, sorted frameworks, no timestamps.
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
@@ -104,7 +104,7 @@ export function detectStack(root) {
     commands: detectCommands(packageManager, pkg),
     frameworks: detectFrameworks(root, pkg),
     eslint: detectEslint(root),
-    harnessHome: ".poteto/",
+    harnessHome: ".gifisi/",
   };
 }
 

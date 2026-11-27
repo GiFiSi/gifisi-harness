@@ -1,6 +1,6 @@
 "use strict";
 
-// Local ESLint plugin from poteto-harness: three quality rules with no
+// Local ESLint plugin from gifisi-harness: three quality rules with no
 // dependency beyond ESLint itself. Copy this file byte for byte to
 // <project>/eslint-rules/index.cjs and register it in eslint.config.mjs as
 // the "quality" plugin. Prove it with scripts/verify-quality-rules.mjs.
@@ -19,7 +19,7 @@ const NON_SOURCE_BASENAME = /[.-](stories|config|conf)\.[^.]+$/;
 // Directories that hold generated, vendored or fixture code.
 const IGNORED_PATH_SEGMENTS = new Set([
   "node_modules", "dist", "build", ".next", "out", "coverage", "generated", "__generated__",
-  "migrations", "migration", "drizzle", "locales", "__tests__", "__mocks__", "fixtures", "mocks", ".poteto",
+  "migrations", "migration", "drizzle", "locales", "__tests__", "__mocks__", "fixtures", "mocks", ".gifisi",
 ]);
 
 const TEST_FILE = /(^|\/)(__tests__|__mocks__|fixtures|mocks)(\/|$)|[.-](test|spec)\.[cm]?[jt]sx?$/;

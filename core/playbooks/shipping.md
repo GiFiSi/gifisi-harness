@@ -41,7 +41,7 @@ Done Predicate: gh pr view <pr> --json state,mergedAt,baseRefName shows MERGED i
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`.
 
 **Step 1.** A single PR is a stack of one; every step still applies. Find the trunk with `gh repo view --json defaultBranchRef` and check it against the bottom PR's base. If the forge is not GitHub or `gh` is not authenticated, stop and say which tool is missing; do not invent a merge path.
 

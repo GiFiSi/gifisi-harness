@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"$CLAUDE_PROJECT_DIR/.poteto/core/templates/hooks/context7-reminder.mjs\"",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.gifisi/core/templates/hooks/context7-reminder.mjs\"",
             "timeout": 10
           }
         ]
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"$CLAUDE_PROJECT_DIR/.poteto/core/templates/hooks/rtk-rewrite.mjs\"",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.gifisi/core/templates/hooks/rtk-rewrite.mjs\"",
             "timeout": 10
           }
         ]
@@ -29,7 +29,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"$CLAUDE_PROJECT_DIR/.poteto/core/templates/hooks/graphify-refresh.mjs\"",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.gifisi/core/templates/hooks/graphify-refresh.mjs\"",
             "timeout": 10
           }
         ]

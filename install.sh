@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# poteto-harness installer. Thin wrapper around scripts/sync-harnesses.mjs.
+# gifisi-harness installer. Thin wrapper around scripts/sync-harnesses.mjs.
 #   ./install.sh --project <path> [--dry-run]   install into a project (brownfield-safe, idempotent)
 #   ./install.sh --global [--home <dir>] [--dry-run]   install into ~/.claude, ~/.codex and ~/.cursor
 #   ./install.sh -h
@@ -7,16 +7,16 @@ set -euo pipefail
 
 usage() {
   cat <<'USAGE'
-poteto-harness installer
+gifisi-harness installer
 
   ./install.sh --project <path> [--dry-run]
-      Copy the harness into <path>/.poteto/, detect the stack into .poteto/project.json,
-      and splice the router into AGENTS.md, CLAUDE.md and .cursor/rules/poteto-harness.mdc.
+      Copy the harness into <path>/.gifisi/, detect the stack into .gifisi/project.json,
+      and splice the router into AGENTS.md, CLAUDE.md and .cursor/rules/gifisi-harness.mdc.
       Existing files keep every byte outside the managed markers.
 
   ./install.sh --global [--home <dir>] [--dry-run]
-      Copy the harness into <dir>/.poteto-harness/ (default dir: $HOME) and splice the router
-      into <dir>/.claude/CLAUDE.md, <dir>/.codex/AGENTS.md and <dir>/.cursor/rules/poteto-harness.mdc.
+      Copy the harness into <dir>/.gifisi-harness/ (default dir: $HOME) and splice the router
+      into <dir>/.claude/CLAUDE.md, <dir>/.codex/AGENTS.md and <dir>/.cursor/rules/gifisi-harness.mdc.
 
   Running either mode twice changes nothing the second time (writes=0).
 USAGE

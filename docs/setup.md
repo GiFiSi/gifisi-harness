@@ -15,11 +15,11 @@
 ./install.sh --project /path/to/project --dry-run  # print actions only
 ```
 
-The target directory is created if it does not exist. The installer copies the harness to `.poteto/`, detects the stack into `.poteto/project.json`, creates `.poteto/decisions.tsv` and `.poteto/corrections.md`, splices the router into `AGENTS.md`, makes sure `CLAUDE.md` imports `@AGENTS.md`, writes `.cursor/rules/poteto-harness.mdc`, and creates `PRODUCT.md` and the five `docs/` files only when they are missing. It never edits `package.json`, lockfiles, tests, lint configs, source files or `.gitignore`.
+The target directory is created if it does not exist. The installer copies the harness to `.gifisi/`, detects the stack into `.gifisi/project.json`, creates `.gifisi/decisions.tsv` and `.gifisi/corrections.md`, splices the router into `AGENTS.md`, makes sure `CLAUDE.md` imports `@AGENTS.md`, writes `.cursor/rules/gifisi-harness.mdc`, and creates `PRODUCT.md` and the five `docs/` files only when they are missing. It never edits `package.json`, lockfiles, tests, lint configs, source files or `.gitignore`.
 
 To update, pull this repository and run the same command again. Only files whose bytes changed are rewritten.
 
-Commit `.poteto/` with the project if you want teammates and CI to share the decision trail and the Feature Map. Nothing in the harness requires it.
+Commit `.gifisi/` with the project if you want teammates and CI to share the decision trail and the Feature Map. Nothing in the harness requires it.
 
 ## Install globally
 
@@ -29,9 +29,9 @@ Commit `.poteto/` with the project if you want teammates and CI to share the dec
 ./install.sh --global --dry-run
 ```
 
-This copies the run-time part of the harness to `<home>/.poteto-harness/`: `core/` (playbooks, principles, skills, prompts, templates, harness data), the runtime scripts with all of `scripts/lib/`, LICENSE and `docs/THIRD_PARTY_NOTICES.md`. It leaves out `README.md`, the rest of `docs/`, `install.sh`, `package.json`, `scripts/tests/`, `scripts/smoke/` and the repository-only scripts (`validate-harness.mjs`, `check-install.mjs`, `run-autonomous-smoke-test.mjs`, `run-tests.mjs`), so run those proof commands from a checkout of this repository. It then splices the router into `<home>/.claude/CLAUDE.md` and `<home>/.codex/AGENTS.md`, and writes `<home>/.cursor/rules/poteto-harness.mdc`. Your own text in those files is kept. Cursor may only load user-level rules that you add in its Settings; the file is written, but loading it is not verified.
+This copies the run-time part of the harness to `<home>/.gifisi-harness/`: `core/` (playbooks, principles, skills, prompts, templates, harness data), the runtime scripts with all of `scripts/lib/`, LICENSE and `docs/THIRD_PARTY_NOTICES.md`. It leaves out `README.md`, the rest of `docs/`, `install.sh`, `package.json`, `scripts/tests/`, `scripts/smoke/` and the repository-only scripts (`validate-harness.mjs`, `check-install.mjs`, `run-autonomous-smoke-test.mjs`, `run-tests.mjs`), so run those proof commands from a checkout of this repository. It then splices the router into `<home>/.claude/CLAUDE.md` and `<home>/.codex/AGENTS.md`, and writes `<home>/.cursor/rules/gifisi-harness.mdc`. Your own text in those files is kept. Cursor may only load user-level rules that you add in its Settings; the file is written, but loading it is not verified.
 
-With only a global install, a project has no `.poteto/project.json`. The router then tells the agent to read the project's commands from its own manifest (`package.json` scripts, Makefile) and to create `.poteto/decisions.tsv` and `.poteto/corrections.md` from `<home>/.poteto-harness/core/templates/poteto/` the first time it needs them.
+With only a global install, a project has no `.gifisi/project.json`. The router then tells the agent to read the project's commands from its own manifest (`package.json` scripts, Makefile) and to create `.gifisi/decisions.tsv` and `.gifisi/corrections.md` from `<home>/.gifisi-harness/core/templates/gifisi/` the first time it needs them.
 
 A project install and a global install can coexist. Instructions in the project's own files outside the managed block take precedence over the router.
 
@@ -46,10 +46,10 @@ A project install and a global install can coexist. Instructions in the project'
 ## Verify an install
 
 ```bash
-node <project>/.poteto/scripts/validate-project.mjs --root <project>
+node <project>/.gifisi/scripts/validate-project.mjs --root <project>
 ```
 
-It checks the managed blocks, the Cursor rule, the copied playbooks, principles and skills, `.poteto/project.json`, `.poteto/decisions.tsv`, `.poteto/corrections.md`, `PRODUCT.md`, the five docs and the router size, and exits 1 on any failure.
+It checks the managed blocks, the Cursor rule, the copied playbooks, principles and skills, `.gifisi/project.json`, `.gifisi/decisions.tsv`, `.gifisi/corrections.md`, `PRODUCT.md`, the five docs and the router size, and exits 1 on any failure.
 
 ## Uninstall
 
@@ -57,17 +57,17 @@ The harness writes only inside managed markers, its own directories and files it
 
 Project install:
 
-1. In `AGENTS.md`, delete everything from the line that starts with `<!-- poteto-harness:begin` through the line `<!-- poteto-harness:end -->`, inclusive. If the installer created `AGENTS.md` from the template and you never edited it, delete the file instead.
+1. In `AGENTS.md`, delete everything from the line that starts with `<!-- gifisi-harness:begin` through the line `<!-- gifisi-harness:end -->`, inclusive. If the installer created `AGENTS.md` from the template and you never edited it, delete the file instead.
 2. In `CLAUDE.md`, delete the managed block the same way. If the installer created the file (a source comment plus `@AGENTS.md`), delete the file.
-3. Delete `.cursor/rules/poteto-harness.mdc`.
-4. Delete `.poteto/`. It contains project data: `.poteto/decisions.tsv`, `.poteto/corrections.md` and `.poteto/feature-map.json`. Copy them elsewhere first if you want to keep the decision trail or the Feature Map.
+3. Delete `.cursor/rules/gifisi-harness.mdc`.
+4. Delete `.gifisi/`. It contains project data: `.gifisi/decisions.tsv`, `.gifisi/corrections.md` and `.gifisi/feature-map.json`. Copy them elsewhere first if you want to keep the decision trail or the Feature Map.
 5. Keep `PRODUCT.md` and `docs/`. They were created from templates, but they are your documents now.
 
 Global install:
 
 1. Delete the managed block from `<home>/.claude/CLAUDE.md` and `<home>/.codex/AGENTS.md`. Delete either file if it held nothing else.
-2. Delete `<home>/.cursor/rules/poteto-harness.mdc`, and remove the rule from Cursor Settings if you added it there.
-3. Delete `<home>/.poteto-harness/`.
+2. Delete `<home>/.cursor/rules/gifisi-harness.mdc`, and remove the rule from Cursor Settings if you added it there.
+3. Delete `<home>/.gifisi-harness/`.
 
 Running the installer again after an uninstall recreates everything from scratch.
 

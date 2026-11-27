@@ -39,7 +39,7 @@ Done Predicate: git worktree list shows only <kept set>; removed <N> worktrees (
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`.
 
 **Step 1.** Measure folders, not the whole disk: `du -sh` works in Git Bash, Linux, and macOS. Take paths from `git worktree list --porcelain`, never from memory or a typed guess, because worktrees live in different places (a sibling folder, a hidden tool folder, a temp dir) and a hand-typed path misses some (`core/principles/encode-lessons-in-structure.md`). Each porcelain entry has `worktree <path>`, `HEAD <sha>`, `branch refs/heads/<name>` or `detached`, and optional `locked` or `prunable` lines. A `prunable` entry's folder is already gone; `git worktree prune` handles it.
 
@@ -54,7 +54,7 @@ Script paths are relative to the harness home: `.poteto/` in an installed projec
 
 Without `gh`, the PR column is unknown and squash-merged branches look unmerged; they fall into `review`, which is the safe side.
 
-**Step 3.** Bucket precedence, first match wins: tracked edits -> `hold-wip`; open or draft PR -> `hold-open-pr`; commits not on any remote and not merged -> `hold-unpushed`; activity in the last four days -> `verify-in-use`; merged or PR merged, clean -> `safe`; anything else -> `review`. The bucket is advice, not permission. Keep the table in a file under `<project>/.poteto/` if it is long, and summarize in the conversation (`core/principles/guard-the-context-window.md`).
+**Step 3.** Bucket precedence, first match wins: tracked edits -> `hold-wip`; open or draft PR -> `hold-open-pr`; commits not on any remote and not merged -> `hold-unpushed`; activity in the last four days -> `verify-in-use`; merged or PR merged, clean -> `safe`; anything else -> `review`. The bucket is advice, not permission. Keep the table in a file under `<project>/.gifisi/` if it is long, and summarize in the conversation (`core/principles/guard-the-context-window.md`).
 
 **Step 4.** The in-use set is the real artifact (`core/principles/prove-it-works.md`). An automated audit has marked `safe` a worktree that an active session was using. Check for processes holding the folder (a dev server started there, an editor window) and ask the user for the in-use list. If your harness can spawn subagents, they can check each candidate's recent activity in parallel; otherwise check inline.
 

@@ -12,7 +12,7 @@ const SCRIPT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", 
 const NOW = new Date(Date.UTC(2026, 10, 26, 9, 5, 7, 123));
 
 function withTemp(fn) {
-  const dir = mkdtempSync(path.join(os.tmpdir(), "poteto-log-"));
+  const dir = mkdtempSync(path.join(os.tmpdir(), "gifisi-log-"));
   try {
     return fn(dir);
   } finally {
@@ -23,7 +23,7 @@ function withTemp(fn) {
 const row = (overrides = {}) => ({ phase: "fix", decision: "parse at boundary", why: "root cause", evidence: "test red", result: "green", now: NOW, ...overrides });
 
 test("creates missing dirs and the header, then appends rows", () => withTemp((dir) => {
-  const log = path.join(dir, "nested", ".poteto", "decisions.tsv");
+  const log = path.join(dir, "nested", ".gifisi", "decisions.tsv");
   appendDecision({ log, ...row() });
   appendDecision({ log, ...row({ phase: "verify" }) });
   const lines = readFileSync(log, "utf8").split("\n");
@@ -103,7 +103,7 @@ test("CLI appends with --log and --check fails on a malformed row", () => withTe
 }));
 
 test("CLI run through a junction or symlink to the scripts folder really appends", () => withTemp((dir) => {
-  const link = path.join(os.tmpdir(), `poteto-loglink-${process.pid}-${Date.now()}`);
+  const link = path.join(os.tmpdir(), `gifisi-loglink-${process.pid}-${Date.now()}`);
   symlinkSync(path.dirname(SCRIPT), link, process.platform === "win32" ? "junction" : "dir");
   try {
     assert.ok(lstatSync(link).isSymbolicLink());

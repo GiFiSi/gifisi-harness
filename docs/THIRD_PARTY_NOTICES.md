@@ -1,6 +1,6 @@
 # Third-party notices
 
-poteto-harness is MIT licensed (see [LICENSE](../LICENSE)). It adapts material from two MIT-licensed projects. Adapted text was rewritten in our own words and stripped of vendor-specific details (model names, vendor plugin names, vendor commands, slash-command invocations). Every adapted Markdown file in `core/playbooks/`, `core/principles/`, `core/skills/`, `core/prompts/` and `docs/` names its upstream file in its `## Source` section. Files under `core/templates/` are copied into user projects as they are, so they carry no `## Source` section; their upstream paths are listed under [Template sources](#template-sources) below.
+gifisi-harness is MIT licensed (see [LICENSE](../LICENSE)). It adapts material from two MIT-licensed projects. Adapted text was rewritten in our own words and stripped of vendor-specific details (model names, vendor plugin names, vendor commands, slash-command invocations). Every adapted Markdown file in `core/playbooks/`, `core/principles/`, `core/skills/`, `core/prompts/` and `docs/` names its upstream file in its `## Source` section. Files under `core/templates/` are copied into user projects as they are, so they carry no `## Source` section; their upstream paths are listed under [Template sources](#template-sources) below.
 
 ## pstack
 
@@ -80,7 +80,7 @@ Upstream paths start with `vibe-coding-toolkit/`, the root of the Vibe Coding To
 | `next/src/db/index.ts`, `next/src/db/schema/index.ts` | `vibe-coding-toolkit/templates/next/src/db/index.ts.example`, `vibe-coding-toolkit/templates/next/src/db/schema/index.ts.example` |
 | `next/src/lib/env-schema.ts`, `next/src/lib/env.test.ts`, `next/src/lib/logger.ts` | `vibe-coding-toolkit/templates/next/src/lib/env-schema.ts.example`, `env.test.ts.example` and `logger.ts.example` in the same folder |
 
-The files in `core/templates/poteto/` (decision log header, corrections file, example Feature Map) are original to poteto-harness. Their formats follow the pstack decision log and Feature Map listed above.
+The files in `core/templates/gifisi/` (decision log header, corrections file, example Feature Map) are original to gifisi-harness. Their formats follow the pstack decision log and Feature Map listed above.
 
 ### License text
 

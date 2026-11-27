@@ -18,7 +18,7 @@ const manifest = {
 };
 
 function fixture(files, fn) {
-  const root = mkdtempSync(path.join(os.tmpdir(), "poteto-content-"));
+  const root = mkdtempSync(path.join(os.tmpdir(), "gifisi-content-"));
   try {
     const abs = Object.entries(files).map(([rel, text]) => {
       const file = path.join(root, ...rel.split("/"));

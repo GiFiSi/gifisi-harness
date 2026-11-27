@@ -26,7 +26,7 @@ It does not apply when the codebase already has a pattern for the problem. Follo
 3. Build two or three variants that differ in approach, not in detail. Keep them throwaway, in a scratch directory, with the lightest stack that shows the idea.
 4. For a visual decision, put the variants behind one switcher (buttons or a key) so they can be compared in place. For a behavioral decision, run the same script against each variant.
 5. Observe each variant on the real surface: screenshots, timings, output. Score each against the criteria.
-6. Choose one, record why in `.poteto/decisions.tsv`, and delete the others. Build the chosen direction properly through `core/playbooks/feature.md`.
+6. Choose one, record why in `.gifisi/decisions.tsv`, and delete the others. Build the chosen direction properly through `core/playbooks/feature.md`.
 
 If your harness can spawn subagents, `core/skills/arena/SKILL.md` runs the variants in parallel and compares them. Otherwise build them one after another inline.
 

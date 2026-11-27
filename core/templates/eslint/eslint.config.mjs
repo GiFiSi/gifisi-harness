@@ -1,4 +1,4 @@
-// ESLint 9 flat config with the poteto-harness quality gates.
+// ESLint 9 flat config with the gifisi-harness quality gates.
 // Copy to <project>/eslint.config.mjs and eslint-rules/index.cjs beside it.
 // If the project already has a config, merge the "quality" blocks into it and
 // keep every existing rule and severity. Later blocks override earlier ones,
@@ -42,7 +42,7 @@ export default [
   {
     ignores: [
       "**/node_modules/**", "**/dist/**", "**/build/**", "**/out/**", "**/.next/**", "**/coverage/**",
-      "**/.turbo/**", "**/drizzle/**", "**/graphify-out/**", "**/.poteto/**", "**/.claude/**",
+      "**/.turbo/**", "**/drizzle/**", "**/graphify-out/**", "**/.gifisi/**", "**/.claude/**",
       "**/.codex/**", "**/.cursor/**", "**/*.d.ts", "next-env.d.ts",
     ],
   },

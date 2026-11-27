@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Autonomous improvement cycle on a deliberately broken app.
-// Builds <tmp>/poteto-smoke-app with a bug, a missing feature and an over-350-line module,
+// Builds <tmp>/gifisi-smoke-app with a bug, a missing feature and an over-350-line module,
 // installs the harness into it, then runs three routed tasks (bug fix, feature, refactor):
 // signal header -> reproduce -> failing test -> fix -> verify live -> decision trail.
 // Usage: node scripts/run-autonomous-smoke-test.mjs [--keep]
@@ -19,7 +19,7 @@ import {
   playbookSteps, qualityGate, runTests, sha256, snapshot, validateProject,
 } from "./smoke/steps.mjs";
 
-const APP_NAME = "poteto-smoke-app";
+const APP_NAME = "gifisi-smoke-app";
 const NOTE = "Edits are scripted stand-ins for an agent's changes; every check, run, and log row around them is real.";
 const expectations = [];
 
@@ -45,11 +45,11 @@ function signal(app, key) {
   expect(`prompt routes to playbook ${task.expectedPlaybook}`, playbook === task.expectedPlaybook,
     `${routed.top.taskType} score ${routed.top.score}${routed.runnerUp ? `; runner-up ${routed.runnerUp.taskType} ${routed.runnerUp.score}` : ""}`);
   const steps = playbookSteps(app, playbook);
-  console.log(`\nTodo list (verbatim from .poteto/core/playbooks/${playbook}.md ## Steps):`);
+  console.log(`\nTodo list (verbatim from .gifisi/core/playbooks/${playbook}.md ## Steps):`);
   steps.forEach((step, i) => console.log(`  [ ] ${i + 1}. ${step}`));
   expect(`playbook ${playbook} has 3 to 12 steps`, steps.length >= 3 && steps.length <= 12, `${steps.length} steps`);
   logDecision(app, "signal", `Task Type: ${routed.top.taskType} | Playbook: ${playbook}`, `classified: ${task.prompt}`,
-    ".poteto/scripts/classify-task.mjs --json", `score ${routed.top.score}; ${steps.length} steps loaded`);
+    ".gifisi/scripts/classify-task.mjs --json", `score ${routed.top.score}; ${steps.length} steps loaded`);
   console.log("");
 }
 
@@ -174,10 +174,10 @@ function run(app) {
 
   const install = installHarness(app, HARNESS_ROOT, literalTarget);
   console.log(`Install: ${install.method}`);
-  console.log(install.output.trim().split("\n").filter((l) => /poteto-harness:/.test(l)).join("\n"));
+  console.log(install.output.trim().split("\n").filter((l) => /gifisi-harness:/.test(l)).join("\n"));
   expect("harness installed", install.status === 0, `exit ${install.status}`);
   for (const { file, hash } of pinned) expect(`install left ${file} byte-identical`, sha256(path.join(app, file)) === hash);
-  writeFiles(app, { ".poteto/feature-map.json": `${JSON.stringify(FEATURE_MAP, null, 2)}\n` });
+  writeFiles(app, { ".gifisi/feature-map.json": `${JSON.stringify(FEATURE_MAP, null, 2)}\n` });
 
   section("BEFORE snapshot (real runs)");
   const before = snapshot(app);
@@ -209,16 +209,16 @@ function run(app) {
 
   section("Before / after");
   console.log(table(before, after));
-  section(".poteto/decisions.tsv");
+  section(".gifisi/decisions.tsv");
   const trail = checkDecisions(app);
   console.log(`(${trail.output})`);
-  return path.join(app, ".poteto", "decisions.tsv");
+  return path.join(app, ".gifisi", "decisions.tsv");
 }
 
 function main() {
   const keep = process.argv.includes("--keep");
   const app = path.join(tmpRoot(), APP_NAME);
-  console.log("poteto-harness autonomous smoke test");
+  console.log("gifisi-harness autonomous smoke test");
   console.log(NOTE);
   let crashed = null;
   try {

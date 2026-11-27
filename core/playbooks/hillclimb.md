@@ -20,8 +20,8 @@ The frozen measurement command `<command>` reports a median at or past `<target>
 
 Template:
 
-- Artifact: the metric printed by one repeatable command, plus the regression gate (project tests and lint from `.poteto/project.json`, `node scripts/quality-gate.mjs`, and `node scripts/verify-feature-map.mjs` when `.poteto/feature-map.json` exists).
-- Observation: baseline and final medians from the same frozen command, with the percent delta, and every `attempt-N` row present in `.poteto/decisions.tsv`.
+- Artifact: the metric printed by one repeatable command, plus the regression gate (project tests and lint from `.gifisi/project.json`, `node scripts/quality-gate.mjs`, and `node scripts/verify-feature-map.mjs` when `.gifisi/feature-map.json` exists).
+- Observation: baseline and final medians from the same frozen command, with the percent delta, and every `attempt-N` row present in `.gifisi/decisions.tsv`.
 - The attempt floor stops a lucky early win from ending the run. "At least 50% better than baseline and at least 10 attempts" is the right shape.
 - If the target is not reached, the result is `NOT MET` with the best number and the reason, never a relaxed predicate.
 
@@ -30,8 +30,8 @@ Template:
 1. Trace the target code with `core/skills/how/SKILL.md` and pick a workload case that reproduces the user's complaint; if no case reproduces it, fix the repro before climbing.
 2. Fix one metric, the direction that counts as better, and a stop predicate pairing a target with a minimum attempt count; log it as phase `signal` with `scripts/log-decision.mjs`.
 3. Build one repeatable measurement command that prints the median of N runs, its error count, and the work done; prove it separates contrasting workloads, vet it with `core/skills/benchmark-checklist/SKILL.md`, then freeze it.
-4. Run the regression gate green (tests and lint from `.poteto/project.json`, `scripts/quality-gate.mjs`, `scripts/verify-feature-map.mjs` when a Feature Map exists), record the baseline median, and log a `baseline` row.
-5. Read the earlier `attempt-*` rows in `.poteto/decisions.tsv`, then write the next hypothesis naming one specific mechanism from the traced architecture.
+4. Run the regression gate green (tests and lint from `.gifisi/project.json`, `scripts/quality-gate.mjs`, `scripts/verify-feature-map.mjs` when a Feature Map exists), record the baseline median, and log a `baseline` row.
+5. Read the earlier `attempt-*` rows in `.gifisi/decisions.tsv`, then write the next hypothesis naming one specific mechanism from the traced architecture.
 6. Make exactly one change for that hypothesis, delegating it with a tight scope if your harness can spawn subagents, review the diff, then measure with the frozen command and run the regression gate.
 7. Keep the change only if the metric moves past noise and the gate stays green, otherwise revert it fully; commit a kept change alone with `git add <files>` and log an `attempt-N` row either way.
 8. On a plateau or a run of rejects, pivot category, combine near-misses, reread the source, or try a radical idea; revert any win that breaks behavior and keep simplifications that hold the number.
@@ -40,7 +40,7 @@ Template:
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the global harness home (for example `~/.poteto-harness/`) when only a global install exists, the repository root here. Run them as `node "<harness-home>/scripts/<name>.mjs"` from the project root, so `.poteto/decisions.tsv` lands in the project.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the global harness home (for example `~/.gifisi-harness/`) when only a global install exists, the repository root here. Run them as `node "<harness-home>/scripts/<name>.mjs"` from the project root, so `.gifisi/decisions.tsv` lands in the project.
 
 **Step 1.** Name the workload dimensions that can move the result: data size, history length, cached state, concurrency, cold versus warm start. A hillclimb on a case that does not show the user's symptom optimizes the wrong thing. If the complaint cannot be reproduced, the honest output is a better repro, not a faster benchmark.
 
@@ -53,7 +53,7 @@ Script paths are relative to the harness home: `.poteto/` in an installed projec
 - Print the error count and a count of work done, so a "faster" run that silently did less work is caught (`core/principles/explain-the-number.md`).
 - Once frozen, changing the harness resets the baseline. Log that as its own row.
 
-**Step 4.** The regression gate is the set of checks that must stay green on every kept attempt. Read the commands from `.poteto/project.json`. Run `node scripts/quality-gate.mjs` when the project has no ESLint `max-lines` rule, so no attempt sneaks a file over 350 lines.
+**Step 4.** The regression gate is the set of checks that must stay green on every kept attempt. Read the commands from `.gifisi/project.json`. Run `node scripts/quality-gate.mjs` when the project has no ESLint `max-lines` rule, so no attempt sneaks a file over 350 lines.
 
 **Step 5.** A hypothesis names a mechanism: "move the schema parse off the request path because it runs per call and its input never changes". "Try memoizing something" is not a hypothesis. For a speed metric, order hypotheses by the performance mantras in `core/playbooks/perf-issue.md`, cheapest first. Borrow only their order, not that playbook's stop rule. Never retry a hypothesis a prior row already rejected unless you name what changed.
 
@@ -79,8 +79,8 @@ Example: `node scripts/log-decision.mjs attempt-4 "cache parsed schema per proce
 
 ## Reply
 
-The metric and target, baseline to final with the percent delta, attempts run (kept and reverted), each kept change on one line, the `.poteto/decisions.tsv` rows that record them, and the best untried idea if the climb continued.
+The metric and target, baseline to final with the percent delta, attempts run (kept and reverted), each kept change on one line, the `.gifisi/decisions.tsv` rows that record them, and the best untried idea if the climb continued.
 
 ## Source
 
-Adapted from `skills/poteto-mode/playbooks/hillclimb.md` in pstack by Lauren Tan (cursor/plugins, MIT). Decision-trail and quality-gate mechanics from poteto-harness. Regression-gate practice from `docs/prompts/08-eslint-quality-gates-install.md` in Vibe Coding Toolkit by Matheus Gomes (MIT).
+Adapted from `skills/poteto-mode/playbooks/hillclimb.md` in pstack by Lauren Tan (cursor/plugins, MIT). Decision-trail and quality-gate mechanics from gifisi-harness. Regression-gate practice from `docs/prompts/08-eslint-quality-gates-install.md` in Vibe Coding Toolkit by Matheus Gomes (MIT).

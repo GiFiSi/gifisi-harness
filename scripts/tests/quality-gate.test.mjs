@@ -11,7 +11,7 @@ import { countCodeLines, runQualityGate, scanSource, summaryLine } from "../qual
 const GATE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "quality-gate.mjs");
 
 function withTree(files, fn) {
-  const root = mkdtempSync(path.join(os.tmpdir(), "poteto-gate-"));
+  const root = mkdtempSync(path.join(os.tmpdir(), "gifisi-gate-"));
   try {
     for (const [file, text] of Object.entries(files)) {
       mkdirSync(path.dirname(path.join(root, file)), { recursive: true });
@@ -81,7 +81,7 @@ test("the gate flags oversized files and debugger statements and skips vendored 
     "src/small.ts": "export const ok = true;\n",
     "src/debug.js": "export function f() {\n  debugger;\n}\n",
     "node_modules/pkg/huge.js": big,
-    ".poteto/scripts/huge.mjs": big,
+    ".gifisi/scripts/huge.mjs": big,
     "README.md": big,
   }, (root) => {
     const result = runQualityGate({ root, maxLines: 10 });

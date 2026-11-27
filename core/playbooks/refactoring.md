@@ -30,11 +30,11 @@ Template for the signal header:
 Done Predicate: <characterization command> prints output identical to the pre-refactor capture; node scripts/quality-gate.mjs reports no file over 350 lines among <touched files>; <project test command> passes with the same count as before.
 ```
 
-For a correction route, the artifact is the new guard: the lint rule, test, or type that fails on the old mistake and passes on the corrected code, plus a row in `.poteto/corrections.md`. "It compiles" and "lint is clean" are not a pin. They do not show that callers see the same results.
+For a correction route, the artifact is the new guard: the lint rule, test, or type that fails on the old mistake and passes on the corrected code, plus a row in `.gifisi/corrections.md`. "It compiles" and "lint is clean" are not a pin. They do not show that callers see the same results.
 
 ## Steps
 
-1. Run the ground truth now: project lint and tests from `.poteto/project.json` and `node scripts/quality-gate.mjs`; record file sizes, test count, and violations, and log phase `baseline`.
+1. Run the ground truth now: project lint and tests from `.gifisi/project.json` and `node scripts/quality-gate.mjs`; record file sizes, test count, and violations, and log phase `baseline`.
 2. Pin the behavior contract with a characterization test, snapshot, or script that records every public export's output for representative inputs, save the capture, and log phase `pin`.
 3. Name the target shape: the responsibility of each module, its public exports, and the seam you will cut on; use `core/skills/architect/SKILL.md` when the shape crosses a function boundary.
 4. Subtract first: delete dead code, one-caller wrappers, duplicated branches, and orphan references, rerun the pin, and commit the subtraction on its own.
@@ -42,14 +42,14 @@ For a correction route, the artifact is the new guard: the lint rule, test, or t
 6. Move in small behavior-preserving steps, one file per commit, rerunning the pin, typecheck, tests, and lint after each, and log phase `refactor`; migrate every caller and delete the old API in the same wave.
 7. Prove equivalence: rerun the characterization capture, diff it against the saved one, require zero difference, and log phase `verify` with the diff command and result.
 8. Run `node scripts/quality-gate.mjs` and the project lint and tests; confirm no file exceeds 350 lines and no new violation appeared anywhere, and check callers with `core/skills/blast-radius/SKILL.md`.
-9. When a mistake class repeated, climb the correction ladder in `core/skills/correct/SKILL.md`: structure first, then a lint or test, then a row in `.poteto/corrections.md`, and log phase `correction`.
+9. When a mistake class repeated, climb the correction ladder in `core/skills/correct/SKILL.md`: structure first, then a lint or test, then a row in `.gifisi/corrections.md`, and log phase `correction`.
 10. Check the diff lowers reader load somewhere, revert any change that does not, then run `core/playbooks/opening-a-pr.md` with subtraction, reshape, and cleanup as separate commits.
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`. Evidence is a pointer (path, command, commit), never a paragraph.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`. Evidence is a pointer (path, command, commit), never a paragraph.
 
-**Step 1.** Use the commands recorded in `.poteto/project.json`; do not guess them. If a wrapper truncates lint output, run the linter directly until you have the full per-file list. Sort oversized files largest first. Numbers come from this run, never from memory or an earlier message. If the project has an ESLint config with a `max-lines` rule (`.poteto/project.json` field `eslint.maxLinesRule`), its count is authoritative; `node scripts/quality-gate.mjs` applies the same counting (blank and comment lines skipped) for projects without one.
+**Step 1.** Use the commands recorded in `.gifisi/project.json`; do not guess them. If a wrapper truncates lint output, run the linter directly until you have the full per-file list. Sort oversized files largest first. Numbers come from this run, never from memory or an earlier message. If the project has an ESLint config with a `max-lines` rule (`.gifisi/project.json` field `eslint.maxLinesRule`), its count is authoritative; `node scripts/quality-gate.mjs` applies the same counting (blank and comment lines skipped) for projects without one.
 
 **Step 2.** Trace the affected subsystem first (`core/skills/how/SKILL.md` if it is unfamiliar). The pin covers what callers observe: return values, thrown errors, HTTP responses, CLI output, written files. For a module of pure functions, a script that imports every export, calls it with a fixed input set, and prints JSON lines is enough; save that output to a file outside the edit set. If the area has no tests, the pin is a prerequisite, not a follow-up. Follow `core/skills/tdd/SKILL.md` for test shape and assert behavior, not internals.
 
@@ -72,7 +72,7 @@ A file named `helpers`, `utils`, `misc`, or `common` holding whatever was left o
 
 **Step 8.** "No new violation anywhere" matters: extraction often trades one warning for another. Blast radius covers importers, dynamic lookups, and re-exports that the type checker cannot see.
 
-**Step 9.** The ladder from `core/skills/correct/SKILL.md`, strongest first: change the architecture so the mistake cannot be expressed; else add a lint rule or test that fails on it; else write the rule as text in `.poteto/corrections.md`. Text is the last resort (`core/principles/encode-lessons-in-structure.md`). Use `core/skills/reflect/SKILL.md` to name the mistake class from the session's evidence before choosing a rung.
+**Step 9.** The ladder from `core/skills/correct/SKILL.md`, strongest first: change the architecture so the mistake cannot be expressed; else add a lint rule or test that fails on it; else write the rule as text in `.gifisi/corrections.md`. Text is the last resort (`core/principles/encode-lessons-in-structure.md`). Use `core/skills/reflect/SKILL.md` to name the mistake class from the session's evidence before choosing a rung.
 
 **Step 10.** Success is reduced reader load (`core/principles/minimize-reader-load.md`): fewer layers, less hidden state, shorter call paths, smaller files with one job. Record the delta you measured (lines, functions, branches, files over the gate). Commit order: subtraction, reshape, follow-on cleanup. Each commit ends in a check you ran.
 

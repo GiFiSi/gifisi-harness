@@ -1,5 +1,5 @@
 {
-  "name": "poteto-harness",
+  "name": "gifisi-harness",
   "routerMaxLines": 149,
   "maxLines": 350,
   "playbooks": [
@@ -391,9 +391,9 @@
     "docs/onboarding.md.template",
     "docs/quality.md.template",
     "docs/setup.md.template",
-    "poteto/decisions.tsv",
-    "poteto/corrections.md.template",
-    "poteto/feature-map.example.json",
+    "gifisi/decisions.tsv",
+    "gifisi/corrections.md.template",
+    "gifisi/feature-map.example.json",
     "task-handoff.md.template",
     "security-review.md.template",
     "environment-manifest.example.json",

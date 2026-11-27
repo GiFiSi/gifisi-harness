@@ -26,7 +26,7 @@ Climb the correction ladder from the top. Stop at the first tier that makes the 
 2. **Tier 2, Lint and test.** If the bad code still compiles, add a lint rule or CI check whose error message names the file, type, or function to use instead. If the pattern is already common, fail only when a change adds more. Add a behavior test that fails on the real past mistake.
 3. **Tier 3, Text.** Only for lessons that need judgment. Make the rule prominent, keep it short, and add an example of the failure. Nothing fails when an agent skips text, so it is the weakest tier.
 
-Prove each tier 1 or tier 2 fix by showing the new check fails on the real past mistake. Record the class, the tier chosen, and why a higher tier did not work in `.poteto/corrections.md`, and log the decision with `node scripts/log-decision.mjs`. For a full repository pass, load `core/skills/correct/SKILL.md`, which finds the recurring mistake classes and applies this ladder to each.
+Prove each tier 1 or tier 2 fix by showing the new check fails on the real past mistake. Record the class, the tier chosen, and why a higher tier did not work in `.gifisi/corrections.md`, and log the decision with `node scripts/log-decision.mjs`. For a full repository pass, load `core/skills/correct/SKILL.md`, which finds the recurring mistake classes and applies this ladder to each.
 
 Worked example. Agents twice added files over 350 lines after being told not to.
 

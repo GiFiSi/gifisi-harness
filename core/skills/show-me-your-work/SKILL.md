@@ -1,6 +1,6 @@
 ---
 name: show-me-your-work
-description: Keep the reviewable decision trail in .poteto/decisions.tsv (ts phase decision why evidence result), appended with scripts/log-decision.mjs. Owns start rows, the append-only supersede rule, the end-of-run audit of the log against what happened, and the closing Attention section from an independent reviewer. Load for any non-trivial, long, or unattended run.
+description: Keep the reviewable decision trail in .gifisi/decisions.tsv (ts phase decision why evidence result), appended with scripts/log-decision.mjs. Owns start rows, the append-only supersede rule, the end-of-run audit of the log against what happened, and the closing Attention section from an independent reviewer. Load for any non-trivial, long, or unattended run.
 origin: pstack
 ---
 
@@ -19,7 +19,7 @@ Other skills and playbooks route their audit trail here. They name this skill an
 
 ## The format
 
-One TSV file, `.poteto/decisions.tsv` in the project root. One row per decision. Cells stay on one line. Evidence is a pointer, never prose. The header row is in `core/templates/poteto/decisions.tsv` and the installer creates the file.
+One TSV file, `.gifisi/decisions.tsv` in the project root. One row per decision. Cells stay on one line. Evidence is a pointer, never prose. The header row is in `core/templates/gifisi/decisions.tsv` and the installer creates the file.
 
 Columns, in order:
 
@@ -34,8 +34,8 @@ Example, written the way you would tell a teammate:
 
 ```
 ts	phase	decision	why	evidence	result
-2026-11-26T09:02:00Z	signal	Bug fix, playbook bug-fix	cart total returns "0105" for items 10,5	node .poteto/scripts/classify-task.mjs	route matched
-2026-11-26T09:05:00Z	reproduce	ran the cart-total live check before changing code	confirm the bug on the real server	.poteto/feature-map.json cart-total	FAIL, got "0105"
+2026-11-26T09:02:00Z	signal	Bug fix, playbook bug-fix	cart total returns "0105" for items 10,5	node .gifisi/scripts/classify-task.mjs	route matched
+2026-11-26T09:05:00Z	reproduce	ran the cart-total live check before changing code	confirm the bug on the real server	.gifisi/feature-map.json cart-total	FAIL, got "0105"
 2026-11-26T09:12:00Z	failing-test	added test for numeric totals	pin the behavior before the fix	test/cart-total.test.mjs	fails as expected
 2026-11-26T09:20:00Z	fix	parse prices to numbers at the request boundary	strings reached the sum, root cause is the missing parse	src/cart.mjs:12	tests green, live check PASS
 2026-11-26T09:40:00Z	verify	threw out a helper's summary that claimed the UI was fixed	its screenshot was blank	shots/cart.png	superseded by the next row
@@ -62,7 +62,7 @@ One act, one phase name, so `core/playbooks/session-pickup.md` can map each play
 | `attempt-N` | One measured or iterated change, kept or reverted, N counting from 1 | hillclimb step 7, perf-issue step 6, autonomous-run step 5 |
 | `verify` | A check run on the real artifact, with its result | bug-fix step 6, feature step 7, refactoring step 7, hillclimb step 9, perf-issue step 8, visual-parity step 6, authoring-a-skill step 7, babysit reruns, `core/skills/tdd/SKILL.md`, `core/skills/blast-radius/SKILL.md`, `core/skills/benchmark-checklist/SKILL.md`, `core/skills/swarm/SKILL.md`, the verification skills |
 | `review` | A review verdict: code, security, adversarial, eval, or a dismissed review comment | `core/skills/code-review/SKILL.md`, `core/skills/security-review/SKILL.md`, `core/skills/interrogate/SKILL.md`, eval step 8, babysit step 7 |
-| `correction` | A correction-ladder fix at tier 1, 2, or 3 | `core/skills/correct/SKILL.md`, refactoring step 9, `.poteto/corrections.md` |
+| `correction` | A correction-ladder fix at tier 1, 2, or 3 | `core/skills/correct/SKILL.md`, refactoring step 9, `.gifisi/corrections.md` |
 | `reflect` | A lesson moved to its destination | `core/skills/reflect/SKILL.md` |
 | `revert` | A change undone, with its trigger | Any playbook, outside an `attempt-N` row |
 | `blocker` | A dead end or a decision only a human can make | babysit step 7, any unattended run |
@@ -74,7 +74,7 @@ One act, one phase name, so `core/playbooks/session-pickup.md` can map each play
 
 ## Procedure
 
-1. Append rows only through the script: `node scripts/log-decision.mjs <phase> <decision> <why> <evidence> <result>`. In an installed project run `node .poteto/scripts/log-decision.mjs ...`. Pass `--log FILE` only for a separate trail. The script stamps `ts`, creates the file and header when missing, turns tabs and newlines into spaces, and prefixes a cell starting with `=`, `+`, `-`, or `@` with a single quote so a spreadsheet does not run it as a formula. A hand-written append must apply the same cleaning.
+1. Append rows only through the script: `node scripts/log-decision.mjs <phase> <decision> <why> <evidence> <result>`. In an installed project run `node .gifisi/scripts/log-decision.mjs ...`. Pass `--log FILE` only for a separate trail. The script stamps `ts`, creates the file and header when missing, turns tabs and newlines into spaces, and prefixes a cell starting with `=`, `+`, `-`, or `@` with a single quote so a spreadsheet does not run it as a formula. A hand-written append must apply the same cleaning.
 2. Open the run correctly. A run is one agent conversation, including its later turns and any summary of it. A pickup, a replacement agent, or a new chat is a new run. Before writing, read the last rows of the log. If the log already has rows this run did not write, the run's first row has phase `start`. Its decision names the `ts` range of the earlier rows this run did not write, and its evidence names this run, such as the session or agent id your harness shows. Write another `start` row the first time this run writes after a `start` row from a different run. Use phase `start` for nothing else.
 3. Log the signal header as a `signal` row: task type, playbook, and the Done Predicate.
 4. Log decision points and checkpoints, not every action: a fork chosen, a unit completed with its verification result, a pivot or revert with its trigger, a blocker found, a gate fixed. In a loop, one row per iteration. Skip the trivial.
@@ -96,7 +96,7 @@ One act, one phase name, so `core/playbooks/session-pickup.md` can map each play
 
 ## Reading the trail
 
-Read top to bottom, follow the evidence pointers, spot-check. Git forges render a committed TSV as a table. In a terminal, `column -s "$(printf '\t')" -t .poteto/decisions.tsv` aligns it.
+Read top to bottom, follow the evidence pointers, spot-check. Git forges render a committed TSV as a table. In a terminal, `column -s "$(printf '\t')" -t .gifisi/decisions.tsv` aligns it.
 
 ## Output
 

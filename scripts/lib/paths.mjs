@@ -33,12 +33,12 @@ export function toPosix(value) {
   return value.split(path.sep).join("/");
 }
 
-// Find the project root for a project-scoped artifact (.poteto/...).
-// Walks up from `start` to the first directory holding `.poteto/` or `.git`; falls back to `start`.
+// Find the project root for a project-scoped artifact (.gifisi/...).
+// Walks up from `start` to the first directory holding `.gifisi/` or `.git`; falls back to `start`.
 export function findProjectRoot(start = process.cwd()) {
   let current = path.resolve(start);
   for (;;) {
-    for (const marker of [".poteto", ".git"]) {
+    for (const marker of [".gifisi", ".git"]) {
       const candidate = path.join(current, marker);
       if (existsSync(candidate) && statSync(candidate).isDirectory()) return current;
     }

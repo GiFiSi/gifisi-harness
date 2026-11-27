@@ -21,11 +21,11 @@ Verify every output by checking the real thing directly: run the feature, read t
 ## How to apply
 
 1. **Name the real artifact and surface.** The page a user opens, the endpoint a client calls, the file a downstream tool reads, the row in the database. Write it into the Done Predicate before starting.
-2. **Exercise it the way a user would.** Start the app and hit the route. Run the CLI with real arguments. Read the written record back. For a project with `.poteto/feature-map.json`, run `node scripts/verify-feature-map.mjs` and read each feature's PASS or FAIL against the live surface.
+2. **Exercise it the way a user would.** Start the app and hit the route. Run the CLI with real arguments. Read the written record back. For a project with `.gifisi/feature-map.json`, run `node scripts/verify-feature-map.mjs` and read each feature's PASS or FAIL against the live surface.
 3. **Compare against the expected value, not against "no error".** Print the actual value next to the expected one.
 4. **Script the check when you can.** A deterministic command that reruns the comparison beats a one-time look. A reviewer can rerun it.
 5. **Suspect the observation first.** When a check fails, confirm you looked at the right process, port, build, file, and environment before changing the system.
-6. **Record the evidence.** Put the command and its output in the reply. Log the result with `node scripts/log-decision.mjs verify "<what>" "<why>" "<command and output>" pass` so `.poteto/decisions.tsv` keeps the trail. Load `core/skills/show-me-your-work/SKILL.md` when the reader needs the full trace.
+6. **Record the evidence.** Put the command and its output in the reply. Log the result with `node scripts/log-decision.mjs verify "<what>" "<why>" "<command and output>" pass` so `.gifisi/decisions.tsv` keeps the trail. Load `core/skills/show-me-your-work/SKILL.md` when the reader needs the full trace.
 
 Worked example. A fix makes the cart total include tax. The unit test passes. That proves the helper, not the page:
 

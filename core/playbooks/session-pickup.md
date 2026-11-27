@@ -8,14 +8,14 @@ principles: [prove-it-works, guard-the-context-window, sequence-verifiable-units
 
 # Session pickup
 
-You own the resume point. Read the prior trail; do not redo it. The counterpart is `core/playbooks/pause-safely.md`, which writes the trail this playbook reads: `.poteto/handoff.md` (from `core/templates/task-handoff.md.template`), `.poteto/decisions.tsv`, and the commits on the branch.
+You own the resume point. Read the prior trail; do not redo it. The counterpart is `core/playbooks/pause-safely.md`, which writes the trail this playbook reads: `.gifisi/handoff.md` (from `core/templates/task-handoff.md.template`), `.gifisi/decisions.tsv`, and the commits on the branch.
 
 The trail is authoritative input for what was done and decided. It is not proof that the result works. Recheck inherited claims on the real artifact before building on them; do not re-run work the trail shows as finished.
 
 ## When to use
 
 - The user says pick up, resume, continue where we left off, or points to a handoff, branch, or PR from an earlier session.
-- A new session starts in a project whose `.poteto/handoff.md` names unfinished work.
+- A new session starts in a project whose `.gifisi/handoff.md` names unfinished work.
 - An earlier agent run failed or stopped and the user wants it ratified, finished, or postmortemed.
 - Not for starting fresh work (route the prompt normally) or for pausing (`core/playbooks/pause-safely.md`).
 
@@ -26,14 +26,14 @@ The resume point is named from the handoff, decision log, and git state, every i
 Template for the signal header:
 
 ```
-Done Predicate: resume point <step of playbook X> identified from .poteto/handoff.md and .poteto/decisions.tsv rows <range>; inherited checks <commands> rerun on <commit> with <results>; remaining work routed to <playbook>.
+Done Predicate: resume point <step of playbook X> identified from .gifisi/handoff.md and .gifisi/decisions.tsv rows <range>; inherited checks <commands> rerun on <commit> with <results>; remaining work routed to <playbook>.
 ```
 
 ## Steps
 
-1. Locate the trail in this project only: `.poteto/handoff.md`, `.poteto/decisions.tsv`, the branch and its commits, and any PR or plan file the handoff names; never read another project's session history.
+1. Locate the trail in this project only: `.gifisi/handoff.md`, `.gifisi/decisions.tsv`, the branch and its commits, and any PR or plan file the handoff names; never read another project's session history.
 2. Validate the decision log with `node scripts/log-decision.mjs --check`, then read its last rows and the handoff's goal, Done Predicate, verified state, pending work, blockers, and next action.
-3. Reconstruct operational state: `git status --porcelain`, `git log --oneline <base>..HEAD`, `git diff <base> --stat`, the worktree in use, and the commands in `.poteto/project.json`.
+3. Reconstruct operational state: `git status --porcelain`, `git log --oneline <base>..HEAD`, `git diff <base> --stat`, the worktree in use, and the commands in `.gifisi/project.json`.
 4. Diff done against pending: list each planned step as landed (with commit), in progress, or not started, and name the single resume point without re-running finished work.
 5. Recheck inherited claims on the current commit: rerun the checks the handoff lists as passing and `node scripts/verify-feature-map.mjs` for touched features, and record what still holds.
 6. Pick the verdict: continue the execution, ship a finished result, ratify or override a prior conclusion, or postmortem a failed run; log phase `handoff` with the resume point and evidence.
@@ -41,7 +41,7 @@ Done Predicate: resume point <step of playbook X> identified from .poteto/handof
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`.
 
 **Step 1.** Stay inside the current project. Do not glob across other projects' folders or a harness's private session storage; that reads unrelated private work. If the user named a branch, PR, or file, start there. If there is no handoff, the trail is the decision log plus git history; say so. `core/skills/recall/SKILL.md` describes how to search past work within these bounds.
 
@@ -62,7 +62,7 @@ Script paths are relative to the harness home: `.poteto/` in an installed projec
 
 Reversible choices do not wait for the user (`core/principles/never-block-on-the-human.md`). Ask only when the handoff lists a blocker that needs their decision.
 
-**Step 7.** This playbook ends at the hand-off. The routed playbook owns the rest, starting at the resume point, not step 1. Copy its remaining steps into your todo list and mark the finished ones done. Update `.poteto/handoff.md` only when you pause again.
+**Step 7.** This playbook ends at the hand-off. The routed playbook owns the rest, starting at the resume point, not step 1. Copy its remaining steps into your todo list and mark the finished ones done. Update `.gifisi/handoff.md` only when you pause again.
 
 ## Reply
 

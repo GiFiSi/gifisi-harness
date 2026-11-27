@@ -1,13 +1,13 @@
 # Task handoff for {{PROJECT_NAME}}
 
-<!-- Write this file at `.poteto/handoff.md` for unfinished work that another session must pick up (core/playbooks/pause-safely.md, core/playbooks/autonomous-run.md); core/playbooks/session-pickup.md and core/skills/recall/SKILL.md read it there. The installer copies this template as is: replace {{PROJECT_NAME}} with the project name and each HTML comment with content; delete a line that has nothing to say. If a handoff for the same task already exists, update it in place. Durable decisions belong in PRODUCT.md and docs/, not here. -->
+<!-- Write this file at `.gifisi/handoff.md` for unfinished work that another session must pick up (core/playbooks/pause-safely.md, core/playbooks/autonomous-run.md); core/playbooks/session-pickup.md and core/skills/recall/SKILL.md read it there. The installer copies this template as is: replace {{PROJECT_NAME}} with the project name and each HTML comment with content; delete a line that has nothing to say. If a handoff for the same task already exists, update it in place. Durable decisions belong in PRODUCT.md and docs/, not here. -->
 
 - Written: <!-- UTC date and time, and who wrote it (person or agent session) -->
 - Goal and Done Predicate: <!-- the requested outcome and the exact command or observation that proves it -->
 - Playbook and current step: <!-- the playbook path (relative to the harness home) and the step number reached -->
 - Verified state: <!-- branch, commit, uncommitted changes as seen in `git status`; separate what you rechecked after the last edit from what you only believe -->
 - Checks: <!-- each command run, its result and the commit it ran on; mark failures and checks not run ("last passed at <commit>") -->
-- Decision trail: <!-- the row range of .poteto/decisions.tsv for this task, by ts; point to it, do not copy it -->
+- Decision trail: <!-- the row range of .gifisi/decisions.tsv for this task, by ts; point to it, do not copy it -->
 - Pending: <!-- work not done yet, with its dependencies and known risks -->
 - Blockers: <!-- cause, the work that depends on it, the evidence, and the condition for resuming; "none" when there is none -->
 - Next action: <!-- the first command or step to run on resume -->

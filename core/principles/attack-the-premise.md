@@ -24,7 +24,7 @@ When two or more fixes that share one premise fail the same gate, suspect the pr
 3. Look at the distribution of failures, not only their size. Which inputs fail, which runs, which machines, which order?
 4. If the evidence contradicts the premise, list what the failures share that the premise did not predict. That shared factor is the new lead.
 5. If one part always lands on the losing side, change what puts it there. Do not add a mechanism that cleans up after it.
-6. Record the premise, the test, and the result in `.poteto/decisions.tsv` with `scripts/log-decision.mjs`, so the next attempt starts from evidence.
+6. Record the premise, the test, and the result in `.gifisi/decisions.tsv` with `scripts/log-decision.mjs`, so the next attempt starts from evidence.
 
 Worked example. A test fails one run in five. Fix one raises the timeout. Fix two adds a retry. Both fail. Premise: "the request is slow". Test: log the request duration on failing runs. Every failing run finished in under 50 ms, so the premise is false. The failures share one thing: they run right after a test that leaves a fake clock installed. The real fix restores the clock in that test's teardown. No timeout or retry is needed.
 

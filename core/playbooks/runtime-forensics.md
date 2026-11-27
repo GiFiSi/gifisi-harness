@@ -43,7 +43,7 @@ A hypothesis that no instrumented run confirmed is reported as the strongest hyp
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`. This playbook is read-only on product code except for temporary instrumentation, which step 7 removes.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`. This playbook is read-only on product code except for temporary instrumentation, which step 7 removes.
 
 **Step 1.** Collect what exists before touching anything: the stack trace, error rate, first-seen time, the deploys or commits around it (`git log --since`), and the environment where it happens. `core/skills/why/SKILL.md` finds the history of the suspect code. `core/skills/how/SKILL.md` maps an unfamiliar subsystem.
 
@@ -55,7 +55,7 @@ Script paths are relative to the harness home: `.poteto/` in an installed projec
 - Browser: the devtools Performance and Memory panels, or the console and network logs saved to a file.
 - Other runtimes: the platform profiler, a core dump, or the service's own tracing.
 
-Save every artifact under a path you can cite, such as `<project>/.poteto/forensics/<date>-<name>.cpuprofile`. Never attach to a production process without the user's go-ahead; prefer a staging or local copy of the same build and data shape.
+Save every artifact under a path you can cite, such as `<project>/.gifisi/forensics/<date>-<name>.cpuprofile`. Never attach to a production process without the user's go-ahead; prefer a staging or local copy of the same build and data shape.
 
 **Step 3.** An intermittent failure becomes tractable once it fires on demand. Loop a flaky test (`for i in $(seq 1 200); do <test command> || break; done`), add artificial delay at a suspected await, or replay the recorded request. If it will not fire, say what you tried and keep capturing; do not jump to a fix.
 

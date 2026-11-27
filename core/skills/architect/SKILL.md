@@ -32,7 +32,7 @@ Before writing code, trace every system the change touches. Then sketch two diff
 - The traced systems with state, owners, readers, and writers.
 - Shape A and shape B as code-level sketches (types and signatures), with the score of each against the test.
 - The chosen shape, one paragraph on why, and what was rejected.
-- A decision row in `.poteto/decisions.tsv`.
+- A decision row in `.gifisi/decisions.tsv`.
 - During implementation, any redesign with the repeated workaround that triggered it.
 
 ## Source

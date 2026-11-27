@@ -4,7 +4,7 @@ This document records why the harness is shaped the way it is. Each section stat
 
 ## Router design
 
-Choice: one always-on router, rendered from `core/harness/router.md`, at or below 149 lines. It tells the agent that every `scripts/`, `core/skills/`, `core/playbooks/`, `core/principles/` or `core/templates/` path written inside a harness file is relative to the harness home (empty in this repository, `.poteto/` in a project, `<home>/.poteto-harness/` globally), and it writes each script call with that prefix and in quotes, such as `node ".poteto/scripts/classify-task.mjs"`, so a home path with spaces stays one argument. It holds the classification rule, the routes table, the done-predicate rules, a one-line index of the 24 principles, the correction ladder, the decision-trail rule, project facts and autonomy limits. Nothing else loads at session start.
+Choice: one always-on router, rendered from `core/harness/router.md`, at or below 149 lines. It tells the agent that every `scripts/`, `core/skills/`, `core/playbooks/`, `core/principles/` or `core/templates/` path written inside a harness file is relative to the harness home (empty in this repository, `.gifisi/` in a project, `<home>/.gifisi-harness/` globally), and it writes each script call with that prefix and in quotes, such as `node ".gifisi/scripts/classify-task.mjs"`, so a home path with spaces stays one argument. It holds the classification rule, the routes table, the done-predicate rules, a one-line index of the 24 principles, the correction ladder, the decision-trail rule, project facts and autonomy limits. Nothing else loads at session start.
 
 Reason: every harness we target reads one always-on instruction file (`AGENTS.md`, `CLAUDE.md`, a Cursor rule with `alwaysApply: true`). Slash commands differ between harnesses and require the user to remember them. A router that the agent applies to every prompt needs no user action and behaves the same everywhere.
 
@@ -23,7 +23,7 @@ Cost: keyword signals miss paraphrases. The header makes a misroute visible, and
 Choice: before reading or editing code on a non-trivial task, the agent prints:
 
 ```text
-[POTETO-HARNESS] Task Type: <category> | Playbook: <selected playbook>
+[GIFISI-HARNESS] Task Type: <category> | Playbook: <selected playbook>
 Reason: <1 sentence why this playbook fits>
 Done Predicate: <exact verifiable condition on the real artifact>
 ```
@@ -44,7 +44,7 @@ Cost: the agent needs a tool to read files, which all three target harnesses hav
 
 ## Done predicates and live verification
 
-Choice: every non-trivial task names its real artifact and the command or observation that proves the outcome. Live behavior is checked on the user's surface through `.poteto/feature-map.json`, run by `node scripts/verify-feature-map.mjs`, which starts the app on a free port, waits for its ready path, runs HTTP or CLI checks and always stops the app. A predicate the agent cannot observe is reported as `INCONCLUSIVE`.
+Choice: every non-trivial task names its real artifact and the command or observation that proves the outcome. Live behavior is checked on the user's surface through `.gifisi/feature-map.json`, run by `node scripts/verify-feature-map.mjs`, which starts the app on a free port, waits for its ready path, runs HTTP or CLI checks and always stops the app. A predicate the agent cannot observe is reported as `INCONCLUSIVE`.
 
 Reason: "unit tests pass" is the most common false done signal. The Feature Map turns "it works" into a rerunnable command that any agent or reviewer can run.
 
@@ -56,7 +56,7 @@ Choice: when the user corrects the agent, or a mistake class happens twice, the 
 
 1. Architecture: make the mistake impossible (one owner per state, one supported path, delete the old way).
 2. Lint or test: a check whose failure message names the fix, proven to fail on the real past mistake.
-3. Text: a row in `.poteto/corrections.md` that pairs a judgment-call rule with what enforces it.
+3. Text: a row in `.gifisi/corrections.md` that pairs a judgment-call rule with what enforces it.
 
 Reason: a sentence in an instruction file is the weakest guard. It is easy to skip and costs context on every session. A lint or test runs every time and costs nothing until it fires. `core/principles/encode-lessons-in-structure.md` states the same rule.
 
@@ -64,7 +64,7 @@ Cost: tiers 1 and 2 take more work than writing a sentence. `core/skills/correct
 
 ## Decision trail
 
-Choice: non-trivial work appends rows to `.poteto/decisions.tsv` with six columns: `ts`, `phase`, `decision`, `why`, `evidence`, `result`. The signal header, each fork, each verification and each revert get a row. Evidence is a pointer (path, `file:line`, commit, command), never a paragraph. The file is append-only; a wrong row is corrected by a superseding row.
+Choice: non-trivial work appends rows to `.gifisi/decisions.tsv` with six columns: `ts`, `phase`, `decision`, `why`, `evidence`, `result`. The signal header, each fork, each verification and each revert get a row. Evidence is a pointer (path, `file:line`, commit, command), never a paragraph. The file is append-only; a wrong row is corrected by a superseding row.
 
 Reason: a reviewer reading the work later needs the reasoning, not a narrative. TSV opens in any spreadsheet and diffs cleanly. `scripts/log-decision.mjs` escapes tabs and newlines and guards cells that start with a formula character.
 

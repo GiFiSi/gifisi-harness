@@ -1,10 +1,19 @@
 {
-  "name": "poteto-harness",
+  "name": "gifisi-harness",
   "version": "1.0.0",
   "private": true,
   "description": "Harness-agnostic engineering harness for Claude Code, Codex and Cursor: an always-on router, 22 playbooks, 24 principles, on-demand skills, installer and validators.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GiFiSi/gifisi-harness.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GiFiSi/gifisi-harness/issues"
+  },
+  "homepage": "https://github.com/GiFiSi/gifisi-harness#readme",
+  "author": "GiFiSi",
   "engines": {
     "node": ">=18"
   },

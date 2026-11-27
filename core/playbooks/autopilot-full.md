@@ -23,7 +23,7 @@ Every PR the grant covers is merged with a clean verifier verdict on the patch t
 Template for the signal header:
 
 ```
-Done Predicate: gh pr view <n> --json state,mergeCommit shows MERGED for each granted PR; .poteto/decisions.tsv holds a clean verdict row for the merged patch-id of each; ungranted PRs reported at merge-ready.
+Done Predicate: gh pr view <n> --json state,mergeCommit shows MERGED for each granted PR; .gifisi/decisions.tsv holds a clean verdict row for the merged patch-id of each; ungranted PRs reported at merge-ready.
 ```
 
 ## Steps
@@ -49,7 +49,7 @@ Log every verdict, countersign, merge, and replacement with `node scripts/log-de
 
 **Step 3.** If your harness can spawn subagents or separate sessions, each owner is one. Otherwise run the owners sequentially in this session, one PR at a time, with the same separation between owner and verifier. Parallel owners never share a branch, worktree, or file (`core/principles/separate-before-serializing-shared-state.md`). Open each PR early so CI and review bots run alongside the work.
 
-**Step 4.** Code is ready only after `core/skills/unslop/SKILL.md` and `core/skills/no-comments/SKILL.md` have run, so verification runs on finished code. Rebase onto current trunk, run the repo's checks for the touched paths (commands in `.poteto/project.json`, plus `node scripts/quality-gate.mjs`), push, and report the code-ready head. Report every later head too. An owner force-pushes only its own branch with `git push --force-with-lease=<branch>:<last pushed sha>`; on any push it did not make, it stops and reports. Whoever spawns an agent records its id, state, and a stuck-after runtime in the trail.
+**Step 4.** Code is ready only after `core/skills/unslop/SKILL.md` and `core/skills/no-comments/SKILL.md` have run, so verification runs on finished code. Rebase onto current trunk, run the repo's checks for the touched paths (commands in `.gifisi/project.json`, plus `node scripts/quality-gate.mjs`), push, and report the code-ready head. Report every later head too. An owner force-pushes only its own branch with `git push --force-with-lease=<branch>:<last pushed sha>`; on any push it did not make, it stops and reports. Whoever spawns an agent records its id, state, and a stuck-after runtime in the trail.
 
 **Step 5.** Fan out independent verifiers at the code-ready SHA. The live lane drives the real surface: `node scripts/verify-feature-map.mjs` against the PR's checkout, or the project's verification skill (see `core/skills/create-verification-skill/SKILL.md`). The verdict is not clean without the live lane, and not before you audit the owner's merge-ready receipts, because no lane trusts a claim it has not checked. If the design itself is contested, run `core/skills/interrogate/SKILL.md` before the verdict.
 
@@ -65,7 +65,7 @@ Log every verdict, countersign, merge, and replacement with `node scripts/log-de
 
 ## Reply
 
-Catch the operator up: each PR's state and verdict with its link, what merged, every countersign and why, open operator gates, parked follow-ups, and a pointer to `.poteto/decisions.tsv`.
+Catch the operator up: each PR's state and verdict with its link, what merged, every countersign and why, open operator gates, parked follow-ups, and a pointer to `.gifisi/decisions.tsv`.
 
 ## Source
 

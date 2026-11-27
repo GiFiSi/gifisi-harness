@@ -10,14 +10,14 @@ It is size work only. For a general lint warning burndown use `core/prompts/09-l
 
 ```text
 Split the files that exceed this project's 350-line ceiling by following the
-poteto-harness router. This is behavior-preserving refactoring: no feature
-change, no rewrite. The harness files are under `.poteto/` in this project
-(or `~/.poteto-harness/` for a global install); paths below are relative to
+gifisi-harness router. This is behavior-preserving refactoring: no feature
+change, no rewrite. The harness files are under `.gifisi/` in this project
+(or `~/.gifisi-harness/` for a global install); paths below are relative to
 that home.
 
 1. Before reading or editing code, print the task-start signal exactly in
    this shape:
-   [POTETO-HARNESS] Task Type: Refactoring | Playbook: Refactoring
+   [GIFISI-HARNESS] Task Type: Refactoring | Playbook: Refactoring
    Reason: <one sentence on why this is a behavior-preserving split>
    Done Predicate: <the quality gate reports none of the batch's files over
    350 lines and no new violation, the characterization capture is
@@ -29,8 +29,8 @@ that home.
    `core/skills/blast-radius/SKILL.md` when you check callers, and
    `core/skills/no-comments/SKILL.md` before you commit.
 4. Ground truth now: take the lint, typecheck and test commands from
-   .poteto/project.json and run them, then run
-   `node .poteto/scripts/quality-gate.mjs` (and the project's max-lines lint
+   .gifisi/project.json and run them, then run
+   `node .gifisi/scripts/quality-gate.mjs` (and the project's max-lines lint
    rule if it has one). List every file over the ceiling with its real line
    count, largest first. Never use a count from memory or an earlier message.
 5. Batch: take the three largest files and no others. For each, before
@@ -55,7 +55,7 @@ that home.
    message naming the file and the seam. Fix any failure before the next
    file.
 9. Log baseline, pin, each split and the final verify with
-   `node .poteto/scripts/log-decision.mjs <phase> "<decision>" "<why>"
+   `node .gifisi/scripts/log-decision.mjs <phase> "<decision>" "<why>"
    "<evidence>" "<result>"`.
 10. After the batch, stop. Report the files split and their seams, the files
     left alone and why, and the quality gate output from a final run.
@@ -65,7 +65,7 @@ Do not push. Do not raise the ceiling or add an ignore to make a file pass.
 
 ## Expected result
 
-- The `[POTETO-HARNESS]` header and the refactoring steps as the todo list.
+- The `[GIFISI-HARNESS]` header and the refactoring steps as the todo list.
 - A ground-truth list of oversized files from a fresh run, largest first.
 - Up to three files split by responsibility, one local commit each, with original exports preserved.
 - An identical characterization capture before and after, and passing typecheck, tests and lint after every file.
@@ -74,4 +74,4 @@ Do not push. Do not raise the ceiling or add an ignore to make a file pass.
 ## Source
 
 - `docs/prompts/09-file-size-refactor.md`, Vibe Coding Toolkit by Matheus Gomes (MIT).
-- Adapted for poteto-harness: routed through `playbooks/refactoring.md`, with the characterization pin and the harness quality gate replacing the upstream command fields.
+- Adapted for gifisi-harness: routed through `playbooks/refactoring.md`, with the characterization pin and the harness quality gate replacing the upstream command fields.

@@ -32,13 +32,13 @@ Template:
 4. Rank candidate fixes by the performance mantras, cheapest first, and pick the earliest one that can meet the target.
 5. If the fix crosses a function or module boundary, shape it with `core/skills/architect/SKILL.md` first; otherwise make the smallest change that removes the cost.
 6. Measure each attempt with the same command, keep or revert it on the number, and log an `attempt-N` row with before and after medians via `scripts/log-decision.mjs`.
-7. Run the regression gate: tests and lint from `.poteto/project.json`, `node scripts/quality-gate.mjs`, and `node scripts/verify-feature-map.mjs` when `.poteto/feature-map.json` exists.
+7. Run the regression gate: tests and lint from `.gifisi/project.json`, `node scripts/quality-gate.mjs`, and `node scripts/verify-feature-map.mjs` when `.gifisi/feature-map.json` exists.
 8. Compare baseline and post-fix artifacts side by side, mark noisy or wrong-surface results inconclusive, and log a `verify` row with the final delta.
 9. Open the PR with `core/playbooks/opening-a-pr.md`, citing the command, baseline, post-fix number, and delta under Verification.
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the global harness home (for example `~/.poteto-harness/`) when only a global install exists, the repository root here. Run them as `node "<harness-home>/scripts/<name>.mjs"` from the project root, so `.poteto/decisions.tsv` lands in the project.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the global harness home (for example `~/.gifisi-harness/`) when only a global install exists, the repository root here. Run them as `node "<harness-home>/scripts/<name>.mjs"` from the project root, so `.gifisi/decisions.tsv` lands in the project.
 
 **Step 1.** Measure where the user feels it: page load in a browser, request latency through the real server, the build command the team runs. A micro-benchmark of one function is a proxy; use it only after the end-to-end number confirms that function matters (`core/principles/prove-it-works.md`).
 

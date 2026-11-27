@@ -87,7 +87,7 @@ export function messyFormatUtils() {
 }
 
 export const PACKAGE_JSON = `${JSON.stringify({
-  name: "poteto-smoke-app",
+  name: "gifisi-smoke-app",
   version: "1.0.0",
   private: true,
   type: "module",

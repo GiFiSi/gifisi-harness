@@ -11,7 +11,7 @@
 | Build | {{BUILD_COMMAND}} | The app compiles and bundles |
 | File-size gate | `node "{{HARNESS_HOME}}scripts/quality-gate.mjs"` | No source file above 350 lines; no `debugger` statements |
 | Live features | `node "{{HARNESS_HOME}}scripts/verify-feature-map.mjs"` | Each user-visible feature works on the running app |
-| Decision trail | `node "{{HARNESS_HOME}}scripts/log-decision.mjs" --check` | `.poteto/decisions.tsv` is well formed |
+| Decision trail | `node "{{HARNESS_HOME}}scripts/log-decision.mjs" --check` | `.gifisi/decisions.tsv` is well formed |
 
 <!-- Add typecheck, the lint-rule self-check (node scripts/verify-quality-rules.mjs, when installed) and the combined verify command. Say when to run a scoped test and when to run the whole suite. A row reading "not configured" means the project has no such script yet. -->
 
@@ -34,17 +34,17 @@
 
 ## Feature Map
 
-`.poteto/feature-map.json` lists every user-visible feature with checks against the live surface (HTTP requests or CLI runs). `node "{{HARNESS_HOME}}scripts/verify-feature-map.mjs"` starts the app, runs each check and exits 1 when any fails. A bug fix adds a check that fails before the fix and passes after it. A new feature adds its entry in the same change.
+`.gifisi/feature-map.json` lists every user-visible feature with checks against the live surface (HTTP requests or CLI runs). `node "{{HARNESS_HOME}}scripts/verify-feature-map.mjs"` starts the app, runs each check and exits 1 when any fails. A bug fix adds a check that fails before the fix and passes after it. A new feature adds its entry in the same change.
 
 <!-- List the features the map covers today and any surface it cannot express yet, with the manual check used instead. -->
 
 ## Decision trail
 
-`.poteto/decisions.tsv` is an append-only log with the columns `ts`, `phase`, `decision`, `why`, `evidence` and `result`. Append rows with `node "{{HARNESS_HOME}}scripts/log-decision.mjs" <phase> <decision> <why> <evidence> <result>`. Evidence is a pointer: a path, `file:line`, a commit or a command. A wrong row gets a superseding row; rows are never edited.
+`.gifisi/decisions.tsv` is an append-only log with the columns `ts`, `phase`, `decision`, `why`, `evidence` and `result`. Append rows with `node "{{HARNESS_HOME}}scripts/log-decision.mjs" <phase> <decision> <why> <evidence> <result>`. Evidence is a pointer: a path, `file:line`, a commit or a command. A wrong row gets a superseding row; rows are never edited.
 
 ## Corrections
 
-`.poteto/corrections.md` pairs each recurring mistake with what enforces it: architecture (tier 1), a lint rule or test (tier 2), or text (tier 3). A rule enforced only by text that recurs moves up a tier.
+`.gifisi/corrections.md` pairs each recurring mistake with what enforces it: architecture (tier 1), a lint rule or test (tier 2), or text (tier 3). A rule enforced only by text that recurs moves up a tier.
 
 ## Testing strategy
 

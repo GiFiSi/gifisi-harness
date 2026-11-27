@@ -1,5 +1,5 @@
 // Real runs used by scripts/run-autonomous-smoke-test.mjs. Every function here spawns the
-// installed copy of a harness script (under <app>/.poteto/scripts/) or a real Node process
+// installed copy of a harness script (under <app>/.gifisi/scripts/) or a real Node process
 // and returns what it observed. Nothing is simulated.
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -19,8 +19,8 @@ export function runNode(cwd, args, { env = {}, timeout = 120000 } = {}) {
   return { status: result.status, stdout: result.stdout ?? "", stderr: result.stderr ?? "", error: result.error };
 }
 
-export const installedScript = (app, name) => path.join(app, ".poteto", "scripts", name);
-export const decisionsFile = (app) => path.join(app, ".poteto", "decisions.tsv");
+export const installedScript = (app, name) => path.join(app, ".gifisi", "scripts", name);
+export const decisionsFile = (app) => path.join(app, ".gifisi", "decisions.tsv");
 
 function runInstalled(app, name, args, options) {
   const script = installedScript(app, name);
@@ -45,7 +45,7 @@ export function sha256(file) {
 // literal /tmp path and the cygpath conversion are exercised; falls back to the Node script
 // when bash is missing or installs somewhere else (for example a WSL bash on Windows).
 export function installHarness(app, harnessRoot, literalTarget) {
-  const marker = path.join(app, ".poteto", "core", "harness", "routes.json");
+  const marker = path.join(app, ".gifisi", "core", "harness", "routes.json");
   const bash = spawnSync("bash", [toPosix(path.join(harnessRoot, "install.sh")), "--project", literalTarget], {
     cwd: harnessRoot,
     encoding: "utf8",
@@ -97,7 +97,7 @@ export function classify(app, prompt) {
 
 // Extract the numbered `## Steps` list from the installed playbook.
 export function playbookSteps(app, playbook) {
-  const file = path.join(app, ".poteto", "core", "playbooks", `${playbook}.md`);
+  const file = path.join(app, ".gifisi", "core", "playbooks", `${playbook}.md`);
   const text = readFileSync(file, "utf8").replace(/\r\n/g, "\n");
   const section = /^## Steps\n([\s\S]*?)(?=^## |(?![\s\S]))/m.exec(text);
   if (!section) throw new Error(`${playbook}.md has no ## Steps section`);
@@ -123,7 +123,7 @@ export function validateProject(app) {
 // Print every export of a module applied to fixed inputs, from a fresh Node process.
 export function characterize(app, file) {
   const run = runNode(app, ["--input-type=module", "-e", CHARACTERIZE_SCRIPT], {
-    env: { POTETO_CHAR_FILE: path.join(app, file), POTETO_CHAR_INPUTS: JSON.stringify(CHARACTERIZATION_INPUTS) },
+    env: { GIFISI_CHAR_FILE: path.join(app, file), GIFISI_CHAR_INPUTS: JSON.stringify(CHARACTERIZATION_INPUTS) },
   });
   if (run.status !== 0) throw new Error(`characterization of ${file} failed: ${run.stderr.trim()}`);
   return run.stdout.trim();

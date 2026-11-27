@@ -37,7 +37,7 @@ Template:
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the global harness home (for example `~/.poteto-harness/`) when only a global install exists, the repository root here. Run them as `node "<harness-home>/scripts/<name>.mjs"` from the project root, so `.poteto/decisions.tsv` lands in the project.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the global harness home (for example `~/.gifisi-harness/`) when only a global install exists, the repository root here. Run them as `node "<harness-home>/scripts/<name>.mjs"` from the project root, so `.gifisi/decisions.tsv` lands in the project.
 
 **Step 1.** No decision means no prototype. "Build the settings page" is a feature. "Should settings be one long page or tabs?" is a prototype question. Write the decision as a question with the options you know of.
 

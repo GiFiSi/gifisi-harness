@@ -33,7 +33,7 @@ Keep three states apart: a file is present, a tool is configured, an integration
 
 | Component | Action and reason | Scope (project / client / user) | State and evidence |
 |---|---|---|---|
-| poteto-harness | Installed router, playbooks, skills and scripts | project | |
+| gifisi-harness | Installed router, playbooks, skills and scripts | project | |
 | ESLint quality rules | | project | |
 | Context7 | | client | |
 | Graphify | | client | |

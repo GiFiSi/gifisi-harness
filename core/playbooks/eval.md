@@ -50,7 +50,7 @@ Done Predicate: <N> candidates per variant ran the same organic prompt; the blin
 
 **Step 1.** Each criterion is concrete and observable in the output: "the fix adds a failing test before the code change", not "good engineering". Freeze the rubric before any candidate runs; a rubric edited after seeing outputs measures the outputs, not the variant.
 
-**Step 2.** Plant what a real task would have: a project skeleton, the harness files the candidate would naturally read, the bug or feature request. Use names like `invoice-service`, never names that mention the experiment. If the behavior under test touches a running app, give each directory a `.poteto/feature-map.json` (see `core/skills/create-verification-skill/SKILL.md`) so the grader can run `node scripts/verify-feature-map.mjs --root <dir>` instead of judging by eye.
+**Step 2.** Plant what a real task would have: a project skeleton, the harness files the candidate would naturally read, the bug or feature request. Use names like `invoice-service`, never names that mention the experiment. If the behavior under test touches a running app, give each directory a `.gifisi/feature-map.json` (see `core/skills/create-verification-skill/SKILL.md`) so the grader can run `node scripts/verify-feature-map.mjs --root <dir>` instead of judging by eye.
 
 **Step 3.** Write it the way the user would type it, including their usual terseness. Hold back anything that hints at what is measured.
 

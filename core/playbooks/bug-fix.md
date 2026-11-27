@@ -36,14 +36,14 @@ Unit tests alone are not the predicate. They show branch behavior, not that the 
 4. Add a behavior test that reproduces the bug, run it, observe it fail for the stated reason, and log phase `failing-test`.
 5. Fix the root cause with the smallest change the evidence justifies, revert anything a refuted hypothesis motivated, and log phase `fix`.
 6. Rerun the failing test and the original reproduction on the same surface, observe both pass, and log phase `verify` with the command and result.
-7. Check what else the fix can break with `core/skills/blast-radius/SKILL.md`, then run the project's lint and tests from `.poteto/project.json` and `node scripts/quality-gate.mjs`.
+7. Check what else the fix can break with `core/skills/blast-radius/SKILL.md`, then run the project's lint and tests from `.gifisi/project.json` and `node scripts/quality-gate.mjs`.
 8. Commit the failing test before the fix so history shows red then green, then run `core/playbooks/opening-a-pr.md` if the change ships as a PR.
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`. Evidence is a pointer (path, `file:line`, command, commit), never a paragraph.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`. Evidence is a pointer (path, `file:line`, command, commit), never a paragraph.
 
-**Step 1.** Drive the real surface yourself, even when a debugging protocol says to ask the user to reproduce. If the project has `.poteto/feature-map.json`, run `node scripts/verify-feature-map.mjs` and keep the failing row. If no check covers the behavior, add one (see `core/skills/create-verification-skill/SKILL.md`) so the same check proves the fix in step 6. Ask the user only with a specific reason the surface cannot be reached, and only after driving it as far as it goes. If the bug will not fire, synthesize the trigger, tighten conditions, or add instrumentation until it does.
+**Step 1.** Drive the real surface yourself, even when a debugging protocol says to ask the user to reproduce. If the project has `.gifisi/feature-map.json`, run `node scripts/verify-feature-map.mjs` and keep the failing row. If no check covers the behavior, add one (see `core/skills/create-verification-skill/SKILL.md`) so the same check proves the fix in step 6. Ask the user only with a specific reason the surface cannot be reached, and only after driving it as far as it goes. If the bug will not fire, synthesize the trigger, tighten conditions, or add instrumentation until it does.
 
 **Step 2.** Each pass, take the split that removes the most remaining problem space: input versus code, this commit versus its parent (`git bisect run <check>` when history has a good point), this layer versus the next. When program state is unclear, add logging and read it while the code runs; do not guess. Use `core/skills/how/SKILL.md` to trace an unfamiliar subsystem. If two fixes built on the same premise already failed, stop and test the premise itself (`core/principles/attack-the-premise.md`).
 
@@ -55,7 +55,7 @@ Script paths are relative to the harness home: `.poteto/` in an installed projec
 
 **Step 6.** "It compiles" and wrong-surface results are not a pass. Paste the failing output from step 1 next to the passing output now. If the live check cannot run, report `INCONCLUSIVE` with the reason.
 
-**Step 7.** Use the commands recorded in `.poteto/project.json`; do not guess them. `node scripts/quality-gate.mjs` enforces the 350-line limit when the project has no ESLint max-lines rule. If the same mistake class has now happened twice, climb the correction ladder with `core/skills/correct/SKILL.md`: a structural fix first, then a lint or test, then a row in `.poteto/corrections.md`.
+**Step 7.** Use the commands recorded in `.gifisi/project.json`; do not guess them. `node scripts/quality-gate.mjs` enforces the 350-line limit when the project has no ESLint max-lines rule. If the same mistake class has now happened twice, climb the correction ladder with `core/skills/correct/SKILL.md`: a structural fix first, then a lint or test, then a row in `.gifisi/corrections.md`.
 
 **Step 8.** Two commits at minimum: the failing test, then the fix (`core/principles/sequence-verifiable-units.md`). Each commit ends in a check you ran.
 

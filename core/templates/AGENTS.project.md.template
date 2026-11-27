@@ -11,7 +11,7 @@
 
 ## Commands
 
-Detected at install on {{DATE}}. A cell that reads "not configured" means the project has no such script. Do not invent one; add a real script first, rerun the harness installer so `.poteto/project.json` picks it up, then update this table to match. The installer writes this section only when it creates `AGENTS.md`; it never rewrites it.
+Detected at install on {{DATE}}. A cell that reads "not configured" means the project has no such script. Do not invent one; add a real script first, rerun the harness installer so `.gifisi/project.json` picks it up, then update this table to match. The installer writes this section only when it creates `AGENTS.md`; it never rewrites it.
 
 | Purpose | Command |
 |---|---|
@@ -41,7 +41,7 @@ Detected at install on {{DATE}}. A cell that reads "not configured" means the pr
 - A blocker stops only the work that depends on it. Finish the independent work that stays safe and authorized.
 - Do not repeat an identical attempt without new evidence. Respect cost, time and retry limits and earlier refusals.
 - When resuming, check the real files, Git state, checks and processes. A summary from an earlier session does not prove the current state.
-- For work that spans sessions, keep a short handoff in `.poteto/handoff.md`, written from `{{HARNESS_HOME}}core/templates/task-handoff.md.template`.
+- For work that spans sessions, keep a short handoff in `.gifisi/handoff.md`, written from `{{HARNESS_HOME}}core/templates/task-handoff.md.template`.
 
 ## Standards
 
@@ -58,8 +58,8 @@ Detected at install on {{DATE}}. A cell that reads "not configured" means the pr
 - Delegate only when context isolation, specialization or independent parallel work pays for the coordination. Each delegated task gets an objective, minimal context, allowed files, acceptance criteria and checks. One writer per file; parallel reviewers only read.
 - Check the diff and the checks before accepting delegated work.
 
-## poteto-harness
+## gifisi-harness
 
-The poteto-harness router follows this section in a block that the installer manages. Do not edit inside that block; the next install overwrites it. Edit the project facts in this section instead. Harness files live under `{{HARNESS_HOME}}`, detected commands in `.poteto/project.json`, live checks in `.poteto/feature-map.json`, the decision trail in `.poteto/decisions.tsv` and enforced rules in `.poteto/corrections.md`.
+The gifisi-harness router follows this section in a block that the installer manages. Do not edit inside that block; the next install overwrites it. Edit the project facts in this section instead. Harness files live under `{{HARNESS_HOME}}`, detected commands in `.gifisi/project.json`, live checks in `.gifisi/feature-map.json`, the decision trail in `.gifisi/decisions.tsv` and enforced rules in `.gifisi/corrections.md`.
 
 <!-- Adapted from templates/AGENTS.md.template, Vibe Coding Toolkit by Matheus Gomes (MIT). -->

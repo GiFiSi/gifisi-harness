@@ -25,7 +25,7 @@ Three commands define done for this repository. Each section below says what a c
 - Required files: every manifest template, script and doc, plus the top-level files, exist and are not trivially small.
 - Router: `node scripts/sync-harnesses.mjs --repo --check` reports no drift; the repo, project and global renders are each at most 149 lines with no unrendered tokens; `CLAUDE.md` imports `@AGENTS.md` and stays a bridge; the Cursor rule has `alwaysApply: true`.
 - Syntax: `node --check` on every script, `JSON.parse` on every JSON file, LF endings and `bash -n` on shell scripts.
-- Decision log: this repository's `.poteto/decisions.tsv` has the six-column header and well-formed rows.
+- Decision log: this repository's `.gifisi/decisions.tsv` has the six-column header and well-formed rows.
 - Content: no unfinished-work markers or filler; no vendor model names or vendor-only agent knobs in harness content; no slash-command invocations; template tokens only in `core/templates/`.
 - Links: every relative Markdown link and anchor resolves, and every backticked harness path resolves to a real file.
 - Unit tests: runs `node --test` with an explicit list of the test files under scripts/tests unless `--skip-tests` is given.
@@ -37,7 +37,7 @@ Every code file in this repository has at most 350 raw lines; the validator coun
 - With ESLint: `core/templates/eslint/eslint.config.mjs` sets `max-lines` to 350 (blank lines and comments skipped) plus local quality rules, and `core/templates/eslint/verify-quality-rules.mjs` proves each rule fires on a known-bad sample.
 - Without ESLint: `node scripts/quality-gate.mjs` counts lines the same way, flags `debugger` statements, prints the largest file and exits 1 on any violation.
 
-`.poteto/project.json` records whether the project's ESLint config already has a `max-lines` rule, so the agent knows which form to run.
+`.gifisi/project.json` records whether the project's ESLint config already has a `max-lines` rule, so the agent knows which form to run.
 
 ## Idempotency proof
 
@@ -47,11 +47,11 @@ Every code file in this repository has at most 350 raw lines; the validator coun
 - a brownfield project with a CRLF `AGENTS.md`, a `CLAUDE.md` with user text, `package.json` scripts, a test, an ESLint config with `max-lines`, a user-written architecture doc and a pnpm lockfile;
 - a home directory with an existing `.claude/CLAUDE.md`.
 
-For each fixture it runs the installer twice through `install.sh` and hashes every file after each run. It passes only when the hashes match, run 2 reports `writes=0`, each managed file has exactly one begin and one end marker, brownfield bytes outside the markers and every protected file are unchanged, `.poteto/project.json` detects pnpm and the `max-lines` rule, and `validate-project.mjs` passes on the result. It prints a PASS or FAIL table and removes the fixtures unless `--keep` is given.
+For each fixture it runs the installer twice through `install.sh` and hashes every file after each run. It passes only when the hashes match, run 2 reports `writes=0`, each managed file has exactly one begin and one end marker, brownfield bytes outside the markers and every protected file are unchanged, `.gifisi/project.json` detects pnpm and the `max-lines` rule, and `validate-project.mjs` passes on the result. It prints a PASS or FAIL table and removes the fixtures unless `--keep` is given.
 
 ## Smoke test
 
-`scripts/run-autonomous-smoke-test.mjs` writes a small HTTP app to `/tmp/poteto-smoke-app` with three planted problems: a cart total that concatenates strings instead of adding numbers, an ignored `coupon` parameter, and a formatter module over 350 lines. It installs the harness, writes a Feature Map, and records a before snapshot from real runs: live Feature Map checks, the quality gate and the existing tests.
+`scripts/run-autonomous-smoke-test.mjs` writes a small HTTP app to `/tmp/gifisi-smoke-app` with three planted problems: a cart total that concatenates strings instead of adding numbers, an ignored `coupon` parameter, and a formatter module over 350 lines. It installs the harness, writes a Feature Map, and records a before snapshot from real runs: live Feature Map checks, the quality gate and the existing tests.
 
 It then runs three tasks. For each one it classifies the prompt with the installed `classify-task.mjs`, prints the real header and the playbook steps as the todo list, and logs a `signal` row. The bug task reproduces the failure live, adds a failing test, fixes the parse at the input boundary and verifies. The feature task adds a failing test, implements coupons and verifies live. The refactor task captures characterization output, replaces the messy module with a table-driven one under the gate, and proves the output is identical.
 
@@ -72,7 +72,7 @@ Not verified by these commands:
 - That a given agent follows the router. The smoke test's code edits are scripted stand-ins for an agent's changes. Every check, run and log row around them is real, but no model is in the loop.
 - That Cursor loads the global rule file. The installer writes it; Cursor may need the rule added in its Settings.
 - External tools (Context7, Graphify, RTK). Their hooks are templates; nothing here installs or calls them.
-- Projects unlike the fixtures (monorepos, unusual lockfiles, non-Node stacks). Stack detection reads only lockfiles, `package.json` scripts and config files; a command it cannot find is recorded as `null` in `.poteto/project.json`.
+- Projects unlike the fixtures (monorepos, unusual lockfiles, non-Node stacks). Stack detection reads only lockfiles, `package.json` scripts and config files; a command it cannot find is recorded as `null` in `.gifisi/project.json`.
 
 ## Source
 

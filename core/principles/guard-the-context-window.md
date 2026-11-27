@@ -26,14 +26,14 @@ The main thread's context is the scarcest resource in a long task. Route bulk re
 3. **Cap output at the source.** Pipe long commands through a filter: failing tests only, the last 50 lines, a count. Write full output to a file and read the slice that matters.
 4. **Delegate bulk reading.** If your harness can spawn subagents, give each one a narrow question and ask for a short answer with file and line pointers. Otherwise, do the reading inline in small, bounded passes and write notes to a file.
 5. **Size phases and cap scope.** Limit the files per phase and set a turn budget. Write a short handoff before the context fills, using `core/templates/task-handoff.md.template`.
-6. **Keep decisions outside the context.** Record decisions in `.poteto/decisions.tsv` with `node scripts/log-decision.mjs`, so a fresh session can recover them without the transcript.
+6. **Keep decisions outside the context.** Record decisions in `.gifisi/decisions.tsv` with `node scripts/log-decision.mjs`, so a fresh session can recover them without the transcript.
 
 Worked example. A test suite prints 4,000 lines with 3 failures.
 
 ```text
 bad:  npm test                                  -> 4,000 lines in context
-good: npm test > .poteto/test-run.log 2>&1; echo exit=$?
-      grep -n -A 15 "FAIL\|not ok" .poteto/test-run.log | head -60
+good: npm test > .gifisi/test-run.log 2>&1; echo exit=$?
+      grep -n -A 15 "FAIL\|not ok" .gifisi/test-run.log | head -60
 ```
 
 The main thread sees the exit code and 60 lines covering the three failures. The full log stays on disk for later reads.

@@ -25,3 +25,4 @@ ts	phase	decision	why	evidence	result
 2026-11-26T19:21:09Z	verify	pin diff: router renders and project file list identical modulo core/	prove prefix-only change	diff vs scratchpad pin/	zero diff
 2026-11-26T19:21:09Z	verify	validate-harness, check-install, smoke	required checks	node scripts/*.mjs	exit 0; 41/41; 37/37; links=989
 2026-11-26T19:21:10Z	verify	install.sh --global twice	global home reflects new layout	~/.claude/CLAUDE.md	writes=256 then 0; outside-block bytes identical
+2026-11-27T19:18:53Z	fix	renamed poteto to gifisi and moved content under core/ and docs/; earlier rows keep their original paths	append-only trail: paths in earlier rows predate the move (harness/ is now core/harness/, CONTRIBUTING.md is docs/CONTRIBUTING.md); evidence naming scratchpad files was local and is not committed	git log; core/harness/manifest.json	validate-harness OK; check-install 41/41; smoke 37/37

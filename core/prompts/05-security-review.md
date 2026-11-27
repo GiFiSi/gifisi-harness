@@ -9,8 +9,8 @@ Repository mode is the default. For diff mode, write after the prompt: `diff mod
 ## Prompt
 
 ```text
-Run a security review by following the poteto-harness router. The harness
-files are under `.poteto/` in this project (or `~/.poteto-harness/` for a
+Run a security review by following the gifisi-harness router. The harness
+files are under `.gifisi/` in this project (or `~/.gifisi-harness/` for a
 global install); paths below are relative to that home.
 
 Mode: repository baseline, unless I give a diff range after this prompt. In
@@ -18,7 +18,7 @@ diff mode resolve base and head to commit IDs and keep the comparison I
 asked for; dirty changes are excluded unless I include them.
 
 1. Before reading code, print the task-start signal exactly in this shape:
-   [POTETO-HARNESS] Task Type: Security review | Playbook: Investigation
+   [GIFISI-HARNESS] Task Type: Security review | Playbook: Investigation
    Reason: <one sentence on why this is a read-only security review>
    Done Predicate: <a redacted report from the security review template
    saved outside this repository, every finding with severity, location,
@@ -49,7 +49,7 @@ asked for; dirty changes are excluded unless I include them.
 8. Before replying, re-check each finding against the source, confirm the
    report is redacted, and run git status --porcelain to show the review
    changed nothing.
-9. Log one row with `node .poteto/scripts/log-decision.mjs review "security
+9. Log one row with `node .gifisi/scripts/log-decision.mjs review "security
    review <mode>" "<scope>" "<report path; checks run>" "<counts by
    severity>"`. The row holds the path and counts only, never finding
    detail.
@@ -60,12 +60,12 @@ substantiated in the inspected scope, not that the project is secure.
 
 ## Expected result
 
-- The `[POTETO-HARNESS]` header and the investigation steps as the todo list.
+- The `[GIFISI-HARNESS]` header and the investigation steps as the todo list.
 - A private report outside the repository with scope, coverage, threat model, findings ordered by impact, and remaining validation.
 - A short reply with findings by severity, the report path, the checks actually run, coverage limits and the next useful validation.
-- One `review` row in `.poteto/decisions.tsv` holding the report path and counts, and an unchanged working tree.
+- One `review` row in `.gifisi/decisions.tsv` holding the report path and counts, and an unchanged working tree.
 
 ## Source
 
 - `docs/prompts/13-security-review.md`, `docs/tools/20-security-review.md` and `templates/security-review.md.template`, Vibe Coding Toolkit by Matheus Gomes (MIT).
-- Adapted for poteto-harness: routed through `playbooks/investigation.md` and `skills/security-review/SKILL.md`; the remote shortcut and vendor skill install were removed.
+- Adapted for gifisi-harness: routed through `playbooks/investigation.md` and `skills/security-review/SKILL.md`; the remote shortcut and vendor skill install were removed.

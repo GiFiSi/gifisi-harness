@@ -1,4 +1,4 @@
-# Contributing to poteto-harness
+# Contributing to gifisi-harness
 
 Every file in this repository is loaded by an agent at some point, so every file follows a fixed shape. `node scripts/validate-harness.mjs` enforces the rules below. Run it before you hand back any change.
 
@@ -8,7 +8,7 @@ Every file in this repository is loaded by an agent at some point, so every file
 |---|---|---|
 | Canonical lists of playbooks, principles, skills, prompts, templates, scripts | `core/harness/manifest.json` | validator checks |
 | Task routes (task type → playbook → skills, plus classifier signals) | `core/harness/routes.json` | router table, `scripts/classify-task.mjs` |
-| Router prose | `core/harness/router.md` | `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/poteto-harness.mdc`, installed copies |
+| Router prose | `core/harness/router.md` | `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/gifisi-harness.mdc`, installed copies |
 
 Never edit a generated block by hand. Edit the source, then run `node scripts/sync-harnesses.mjs --repo`.
 
@@ -18,7 +18,7 @@ Content in `core/playbooks/`, `core/principles/`, `core/skills/`, and `core/prom
 
 A path that only exists in a target project, not in this repository, starts with `<project>/`, for example `<project>/scripts/verify-quality-rules.mjs`. The validator skips paths that contain `<`.
 
-Project artifacts are written with their `.poteto/` prefix: `.poteto/decisions.tsv`, `.poteto/feature-map.json`, `.poteto/project.json`, `.poteto/corrections.md`.
+Project artifacts are written with their `.gifisi/` prefix: `.gifisi/decisions.tsv`, `.gifisi/feature-map.json`, `.gifisi/project.json`, `.gifisi/corrections.md`.
 
 ## Playbook format (`core/playbooks/<name>.md`)
 
@@ -87,7 +87,7 @@ origin: pstack
 ## Source
 ```
 
-- `origin` is `pstack`, `vibe-coding-toolkit`, or `poteto-harness`.
+- `origin` is `pstack`, `vibe-coding-toolkit`, or `gifisi-harness`.
 - Supporting files live in `skills/<name>/references/` or `skills/<name>/scripts/`. Every file a skill names must exist.
 
 ## Prompts and templates

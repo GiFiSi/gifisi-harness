@@ -12,7 +12,7 @@
 
 ## Core flows
 
-<!-- The essential flows for the current release. For each: the input, the action, and the expected result. Put first the flows that prove the objective. Each flow should map to one entry in .poteto/feature-map.json. -->
+<!-- The essential flows for the current release. For each: the input, the action, and the expected result. Put first the flows that prove the objective. Each flow should map to one entry in .gifisi/feature-map.json. -->
 
 | Flow | Input | Action | Expected result |
 |---|---|---|---|

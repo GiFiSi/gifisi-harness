@@ -34,10 +34,10 @@ A performance number is a claim. Most wrong claims come from measuring the wrong
 - The verdict first: faster, slower, no measurable difference, or inconclusive.
 - The number with its unit, the run count, the range, and the limiter. Example: "p50 41 ms to 33 ms, median of 7 runs per side, range 32 to 35 ms after, bound by JSON parsing on one core."
 - Inconclusive, with the gap named, when you claim a difference but cannot name the limiter, when a side ran untuned, or when you could not answer steps 7 and 10.
-- In a PR body, one primary number. The runs, range, and limiter evidence go in a linked notes file or the `.poteto/decisions.tsv` row.
+- In a PR body, one primary number. The runs, range, and limiter evidence go in a linked notes file or the `.gifisi/decisions.tsv` row.
 
 See `core/principles/explain-the-number.md` for why a number without a limiter is not yet a result.
 
 ## Source
 
-Adapted from pstack `skills/benchmark-checklist/SKILL.md` (Lauren Tan, cursor/plugins, MIT). Windows equivalents and decision logging are poteto-harness additions.
+Adapted from pstack `skills/benchmark-checklist/SKILL.md` (Lauren Tan, cursor/plugins, MIT). Windows equivalents and decision logging are gifisi-harness additions.

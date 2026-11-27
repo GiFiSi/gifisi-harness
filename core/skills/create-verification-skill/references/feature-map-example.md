@@ -17,7 +17,7 @@ This is a complete worked example of `core/skills/create-verification-skill/SKIL
 - **Observe:** status code and JSON body.
 - **Isolate:** yes. Each run gets its own port, and the app keeps no state on disk.
 
-## The map: `.poteto/feature-map.json`
+## The map: `.gifisi/feature-map.json`
 
 ```json
 {
@@ -81,13 +81,13 @@ Why each choice:
 - The rejected-input check exists because the root-cause fix parses prices at the boundary, and a parse needs a defined failure.
 - `coupon` is mapped before it exists. Its check must fail first. That failure is the evidence that the check can fail.
 
-## The verify notes: `<project>/.poteto/verify/README.md`
+## The verify notes: `<project>/.gifisi/verify/README.md`
 
 ```markdown
 # Verify the cart service
 
 ## Launch
-Run `node .poteto/scripts/verify-feature-map.mjs` from the project root. It starts
+Run `node .gifisi/scripts/verify-feature-map.mjs` from the project root. It starts
 `node src/server.mjs` on a free port, waits for `GET /health` to answer 200,
 runs every check, and stops the server. To drive by hand, run
 `PORT=4310 node src/server.mjs` (PowerShell: `$env:PORT=4310; node src/server.mjs`)
@@ -103,8 +103,8 @@ If the port answers but you did not start the process, do not drive it.
 - Coupon: add `&coupon=SAVE10`. Codes are upper case.
 
 ## Evidence
-Save the script output with `node .poteto/scripts/verify-feature-map.mjs --json`
-to `.poteto/verify/evidence/<feature-id>/<UTC timestamp>.json`.
+Save the script output with `node .gifisi/scripts/verify-feature-map.mjs --json`
+to `.gifisi/verify/evidence/<feature-id>/<UTC timestamp>.json`.
 Cleanup never deletes this directory.
 
 ## Cleanup
@@ -171,7 +171,7 @@ The script exits 0. Log it:
 node scripts/log-decision.mjs verify "cart-total and coupon pass live" "same checks that failed before" "verify-feature-map passed=4 failed=0" "pass"
 ```
 
-## Resulting `.poteto/decisions.tsv` rows
+## Resulting `.gifisi/decisions.tsv` rows
 
 ```text
 ts	phase	decision	why	evidence	result
@@ -183,7 +183,7 @@ The timestamps are illustrative. `scripts/log-decision.mjs` writes the real UTC 
 
 ## Other surfaces
 
-A command-line feature uses a `cli` check. The argv runs in the check's `cwd`, else in `app.cwd`, else in the project root, each resolved against the project root (the folder that holds `.poteto/`). Here `app.cwd` is `.`, so `bin/cli.mjs` is relative to the project root. Its `timeoutMs` defaults to 30000 and `exitCode` to 0:
+A command-line feature uses a `cli` check. The argv runs in the check's `cwd`, else in `app.cwd`, else in the project root, each resolved against the project root (the folder that holds `.gifisi/`). Here `app.cwd` is `.`, so `bin/cli.mjs` is relative to the project root. Its `timeoutMs` defaults to 30000 and `exitCode` to 0:
 
 ```json
 {
@@ -224,4 +224,4 @@ A browser journey uses a `cli` check that runs the project's own browser test fo
 
 ## Source
 
-Adapted from pstack `skills/create-verification-skill/references/feature-map-example/README.md`, `create-note.md`, and `search.md` (Lauren Tan, cursor/plugins, MIT). The cart service and the JSON map format are poteto-harness additions that mirror `scripts/run-autonomous-smoke-test.mjs`.
+Adapted from pstack `skills/create-verification-skill/references/feature-map-example/README.md`, `create-note.md`, and `search.md` (Lauren Tan, cursor/plugins, MIT). The cart service and the JSON map format are gifisi-harness additions that mirror `scripts/run-autonomous-smoke-test.mjs`.

@@ -1,12 +1,12 @@
 ---
 name: maintain-verification-skill
-description: Periodic upkeep pass that keeps .poteto/feature-map.json and the project verify notes true to the app. Read every feature from source, drive every feature live with scripts/verify-feature-map.mjs, fix drift in the map, report product regressions, and ship at most one change of proven corrections. Load for auditing or refreshing the feature map.
+description: Periodic upkeep pass that keeps .gifisi/feature-map.json and the project verify notes true to the app. Read every feature from source, drive every feature live with scripts/verify-feature-map.mjs, fix drift in the map, report product regressions, and ship at most one change of proven corrections. Load for auditing or refreshing the feature map.
 origin: pstack
 ---
 
 # Maintain a verification skill
 
-A feature map goes stale the moment the app changes. A stale map is worse than none: its checks keep passing on behavior nobody uses, or keep failing on behavior that changed on purpose. This skill is the upkeep loop for the Feature Map that `core/skills/create-verification-skill/SKILL.md` produces: `.poteto/feature-map.json` plus `<project>/.poteto/verify/README.md`.
+A feature map goes stale the moment the app changes. A stale map is worse than none: its checks keep passing on behavior nobody uses, or keep failing on behavior that changed on purpose. This skill is the upkeep loop for the Feature Map that `core/skills/create-verification-skill/SKILL.md` produces: `.gifisi/feature-map.json` plus `<project>/.gifisi/verify/README.md`.
 
 The unit of rigor is the feature, not the sentence. Cover every feature from source and drive every feature live. Do not hand-check every bullet of the notes.
 
@@ -20,7 +20,7 @@ The unit of rigor is the feature, not the sentence. Cover every feature from sou
 ## Procedure
 
 1. Pick the outcome vocabulary before you start, and report exactly one at the end: **clean** (every feature got source and live coverage and nothing needs to change; no branch, no PR), **changed** (one change ships proven corrections to the map, notes, or launcher), or **blocked** (coverage could not finish or a proven fix could not ship safely; name the blocker).
-2. Fix the scope. Edit only `.poteto/feature-map.json`, `<project>/.poteto/verify/`, and launcher scripts the map owns, such as `<project>/scripts/verify-launch.mjs`. Never edit product code in this pass. A behavior the map describes that the app no longer has is either drift (fix the map) or a regression (report it; do not paper over it in the map).
+2. Fix the scope. Edit only `.gifisi/feature-map.json`, `<project>/.gifisi/verify/`, and launcher scripts the map owns, such as `<project>/scripts/verify-launch.mjs`. Never edit product code in this pass. A behavior the map describes that the app no longer has is either drift (fix the map) or a regression (report it; do not paper over it in the map).
 3. Index hygiene. Parse the map. Every feature has a unique `id`, a user-terms `description`, a `surface` of `http` or `cli`, and at least one check. Every per-feature section in the notes matches a map entry and the reverse. Fix missing, extra, duplicate, or dead entries.
 4. Source wave. For each feature, read how it works in the current source: the route or command handler, its inputs, its observable outputs, and the commit history since the map last changed (`git log --oneline -- <handler paths>`). Note likely drift with a `file:line` citation and one live recipe. If your harness can spawn subagents, give each feature to a read-only subagent in parallel and have it return: summary, source entry points, likely drift or none, one recipe. Subagents never drive the app and never edit files. Otherwise do the wave inline, one feature at a time.
 5. Reconcile. Confirm every feature has a returned summary. Merge overlapping recipes. Spot-check each cited drift; do not re-prove clean claims. Sweep recent changes for user-visible surfaces the map does not list, and call one missing only with a concrete source path.
@@ -36,10 +36,10 @@ The unit of rigor is the feature, not the sentence. Cover every feature from sou
 - Each drift fixed, with the source citation and the before and after check result.
 - Each product regression, with the failing row and the commit that likely introduced it. These are reported, not fixed.
 - Each `verified-unreachable` feature with its prerequisite and the route attempted.
-- The final `verify-feature-map` summary line and the `.poteto/decisions.tsv` row.
+- The final `verify-feature-map` summary line and the `.gifisi/decisions.tsv` row.
 
 Keep working notes in the OS temp directory or the session scratch area. Do not commit them.
 
 ## Source
 
-Adapted from pstack `skills/maintain-verification-skill/SKILL.md` and `docs/guide/06-verify-and-ship.md` (Lauren Tan, cursor/plugins, MIT). The JSON Feature Map and `scripts/verify-feature-map.mjs` are poteto-harness additions.
+Adapted from pstack `skills/maintain-verification-skill/SKILL.md` and `docs/guide/06-verify-and-ship.md` (Lauren Tan, cursor/plugins, MIT). The JSON Feature Map and `scripts/verify-feature-map.mjs` are gifisi-harness additions.

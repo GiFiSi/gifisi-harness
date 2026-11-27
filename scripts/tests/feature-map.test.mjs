@@ -29,13 +29,13 @@ server.listen(Number(process.env.APP_PORT));
 `;
 
 function fixture(features, app = {}) {
-  const root = mkdtempSync(path.join(os.tmpdir(), "poteto-fmap-"));
-  mkdirSync(path.join(root, ".poteto"));
+  const root = mkdtempSync(path.join(os.tmpdir(), "gifisi-fmap-"));
+  mkdirSync(path.join(root, ".gifisi"));
   mkdirSync(path.join(root, "bin"));
   writeFileSync(path.join(root, "server.mjs"), SERVER);
   writeFileSync(path.join(root, "bin", "cli.mjs"), 'console.log("1.2.3");\n');
   const map = { app: { start: ["node", "server.mjs"], cwd: ".", portEnv: "APP_PORT", readyPath: "/health", timeoutMs: 8000, ...app }, features };
-  writeFileSync(path.join(root, ".poteto", "feature-map.json"), JSON.stringify(map));
+  writeFileSync(path.join(root, ".gifisi", "feature-map.json"), JSON.stringify(map));
   return root;
 }
 
@@ -48,8 +48,8 @@ test("dotted json paths and status are compared", () => {
   assert.deepEqual(compareCli({ exitCode: 0, stdoutIncludes: "1." }, { status: 0, stdout: "1.2.3", stderr: "" }), []);
 });
 
-test("the map's project root is the parent of .poteto", () => {
-  assert.equal(mapProjectRoot(path.join("x", "app", ".poteto", "feature-map.json")), path.resolve("x", "app"));
+test("the map's project root is the parent of .gifisi", () => {
+  assert.equal(mapProjectRoot(path.join("x", "app", ".gifisi", "feature-map.json")), path.resolve("x", "app"));
 });
 
 test("http checks run against the started app, cli checks run, and the app is stopped", async () => {
@@ -90,7 +90,7 @@ test("an app that never becomes ready fails every http check and the CLI exits 1
 });
 
 test("the CLI still runs when invoked through a symlinked or junctioned path", () => {
-  const dir = mkdtempSync(path.join(os.tmpdir(), "poteto-fmap-link-"));
+  const dir = mkdtempSync(path.join(os.tmpdir(), "gifisi-fmap-link-"));
   try {
     const link = path.join(dir, "linked-scripts");
     symlinkSync(path.dirname(VERIFY), link, process.platform === "win32" ? "junction" : "dir");

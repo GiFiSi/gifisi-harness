@@ -20,12 +20,12 @@ Earn the trust before the loop: the task has been done once by hand or under wat
 
 ## Done Predicate
 
-The exit condition written before the first iteration holds when its command runs against the real artifact at the final commit, and `.poteto/decisions.tsv` has one `attempt-N` row per iteration.
+The exit condition written before the first iteration holds when its command runs against the real artifact at the final commit, and `.gifisi/decisions.tsv` has one `attempt-N` row per iteration.
 
 Template for the signal header:
 
 ```
-Done Predicate: <command> on <artifact> reports <exit condition, for example "0 old callers" or "all tests pass">; .poteto/decisions.tsv has one attempt-N row per iteration.
+Done Predicate: <command> on <artifact> reports <exit condition, for example "0 old callers" or "all tests pass">; .gifisi/decisions.tsv has one attempt-N row per iteration.
 ```
 
 A dead end is a valid stop only with a written handoff that names the blocker and the evidence. It is reported as not done.
@@ -39,11 +39,11 @@ A dead end is a valid stop only with a written handoff that names the blocker an
 5. Log one row per iteration with `node scripts/log-decision.mjs` (phase `attempt-N`, N counting from 1): the change, the evidence pointer, and the predicate state, per `core/skills/show-me-your-work/SKILL.md`.
 6. Fix reversible discoveries that block the goal (flaky check, broken script, related bug) in their own commit or PR, then return to the predicate.
 7. On a plateau, pivot the approach instead of stopping, and never relax the predicate to declare victory.
-8. Stop when the predicate holds, or at a real dead end write `.poteto/handoff.md` from `core/templates/task-handoff.md.template`, log a `handoff` row, and stop.
+8. Stop when the predicate holds, or at a real dead end write `.gifisi/handoff.md` from `core/templates/task-handoff.md.template`, log a `handoff` row, and stop.
 
 ## Step notes
 
-Script paths are relative to the harness home (`.poteto/` in an installed project).
+Script paths are relative to the harness home (`.gifisi/` in an installed project).
 
 **Step 1.** A good contract has four parts: the goal, the exit condition, the permissions (for example "commit without asking"), and an escape hatch ("if truly stuck after a few hours, stop and write up why"). Write the command that checks the condition and run it once now to record the starting state. Log: `node scripts/log-decision.mjs signal "<goal>" "<why autonomous-run>" "<check command>" "<starting state>"`.
 
@@ -51,7 +51,7 @@ Script paths are relative to the harness home (`.poteto/` in an installed projec
 
 **Step 3.** If your harness has a scheduler, loop, or wake mechanism, use it. Otherwise poll in-session with a shell loop that checks the event (CI state, a merge, a ref advancing) and sleeps between checks. If your harness can spawn subagents, give a watcher the event and let it wake you; keep a long time-based heartbeat as a fallback in case the watcher dies. Make each iteration safe to repeat after a crash (`core/principles/make-operations-idempotent.md`): it reads state from the repository and the log, not from memory.
 
-**Step 4.** One change, one check, one row. A belt-and-suspenders change that "might help" gets reverted, not left to ride. Verify each unit before the next one starts instead of batching checks at the end (`core/principles/sequence-verifiable-units.md`). Run the project's lint and tests from `.poteto/project.json` and `node scripts/quality-gate.mjs` before each commit.
+**Step 4.** One change, one check, one row. A belt-and-suspenders change that "might help" gets reverted, not left to ride. Verify each unit before the next one starts instead of batching checks at the end (`core/principles/sequence-verifiable-units.md`). Run the project's lint and tests from `.gifisi/project.json` and `node scripts/quality-gate.mjs` before each commit.
 
 **Step 5.** Evidence is a pointer (commit, path, command and its exit code), never a paragraph. Rows are append-only; a wrong row gets a superseding row. Run `node scripts/log-decision.mjs --check` at the end.
 
@@ -59,7 +59,7 @@ Script paths are relative to the harness home (`.poteto/` in an installed projec
 
 **Step 7.** A plateau means the current approach is exhausted, not the goal. If two attempts built on one premise both failed, write the premise down and test it (`core/principles/attack-the-premise.md`). Use `core/skills/reflect/SKILL.md` steps 1 to 5 to list what the last iterations taught before choosing the next approach; mid-loop you need only the lesson list, so apply nothing there and queue the fixes for the end of the run, where its unattended branch in step 7 applies.
 
-**Step 8.** Write the handoff at `.poteto/handoff.md`, where `core/playbooks/session-pickup.md` looks for it, and fill every field of `core/templates/task-handoff.md.template`: goal and Done Predicate, verified state, checks, pending work, blockers, next action, key files, and gotchas. A dead end names what was tried, the evidence that each attempt failed, and what would unblock it.
+**Step 8.** Write the handoff at `.gifisi/handoff.md`, where `core/playbooks/session-pickup.md` looks for it, and fill every field of `core/templates/task-handoff.md.template`: goal and Done Predicate, verified state, checks, pending work, blockers, next action, key files, and gotchas. A dead end names what was tried, the evidence that each attempt failed, and what would unblock it.
 
 ## Reply
 

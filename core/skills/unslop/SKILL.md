@@ -11,8 +11,8 @@ Edit text to remove AI writing patterns. Scan for the patterns below, then rewri
 ## When to use
 
 - Any prose that leaves the session: docs, `PRODUCT.md`, PR descriptions, commit bodies, release notes, review comments.
-- Harness content: playbooks, skills, principles, prompts. `docs/CONTRIBUTING.md` in the poteto-harness repository requires it.
-- Rows written to `.poteto/decisions.tsv` and rule text in `.poteto/corrections.md`.
+- Harness content: playbooks, skills, principles, prompts. `docs/CONTRIBUTING.md` in the gifisi-harness repository requires it.
+- Rows written to `.gifisi/decisions.tsv` and rule text in `.gifisi/corrections.md`.
 - The user says unslop, tighten, de-AI, or "make it read like a person wrote it". Apply any extra rules they add, such as "no emdashes", on top of the list.
 - Not for code. Narrating comments in code belong to `core/skills/no-comments/SKILL.md`.
 
@@ -49,7 +49,7 @@ Rule numbers are stable ids that other skills cite. A removed rule leaves a gap.
 23. Cut filler. "In order to" becomes "to". Delete "it is important to note that".
 24. One hedge at most: "may".
 25. No generic conclusions. State specific plans or facts.
-26. No abstract metaphor nouns: substrate, wedge, vector, nexus, primitive, surface, scaffolding, paradigm, ratchet, north star, flywheel. Use the concrete word. A word that names a literal thing in this project is not a metaphor: the repository name poteto-harness, a test harness, and the live surface a feature map checks.
+26. No abstract metaphor nouns: substrate, wedge, vector, nexus, primitive, surface, scaffolding, paradigm, ratchet, north star, flywheel. Use the concrete word. A word that names a literal thing in this project is not a metaphor: the repository name gifisi-harness, a test harness, and the live surface a feature map checks.
 27. Say what it does, not how it feels. Name the mechanism or the number. Cut a sentence that could appear unchanged in another project's docs.
 28. One idea per sentence. Split a sentence the reader has to reread.
 29. Active voice. Name the actor unless it is unknown or does not matter.

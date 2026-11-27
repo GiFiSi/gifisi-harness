@@ -13,8 +13,8 @@
 //   - anything fails.
 // It never makes a permission decision: the client's normal permission flow
 // still applies to the rewritten command. It only returns updatedInput.
-// Extend the allowlist with POTETO_RTK_COMMANDS="git status,git diff,..."
-// (prefixes RTK documents as supported). Opt out with POTETO_RTK_REWRITE=0.
+// Extend the allowlist with GIFISI_RTK_COMMANDS="git status,git diff,..."
+// (prefixes RTK documents as supported). Opt out with GIFISI_RTK_REWRITE=0.
 // For full, unfiltered output the agent runs `rtk proxy <command>`.
 import { readFileSync } from "node:fs";
 import os from "node:os";
@@ -48,7 +48,7 @@ function nativeHookRegistered(root) {
 }
 
 function allowedPrefixes() {
-  const extra = String(process.env.POTETO_RTK_COMMANDS ?? "")
+  const extra = String(process.env.GIFISI_RTK_COMMANDS ?? "")
     .split(",").map((item) => item.trim().replace(/\s+/g, " ")).filter(Boolean);
   return [...DEFAULT_PREFIXES, ...extra];
 }
@@ -62,7 +62,7 @@ function rewrite(command, prefixes = DEFAULT_PREFIXES) {
 }
 
 await runHook(async (event) => {
-  if (process.env.POTETO_RTK_REWRITE === "0") return;
+  if (process.env.GIFISI_RTK_REWRITE === "0") return;
   const input = event.tool_input;
   if (!input || typeof input.command !== "string") return;
   const rewritten = rewrite(input.command, allowedPrefixes());

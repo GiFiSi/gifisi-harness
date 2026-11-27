@@ -9,7 +9,7 @@ import path from "node:path";
 import { findProjectRoot, isMain, resolveUserPath, toPosix } from "./lib/paths.mjs";
 
 export const SOURCE_EXTENSIONS = [".js", ".mjs", ".cjs", ".jsx", ".ts", ".tsx", ".mts", ".cts"];
-export const SKIPPED_DIRS = ["node_modules", ".git", "dist", "build", ".next", "coverage", "out", ".poteto", ".turbo"];
+export const SKIPPED_DIRS = ["node_modules", ".git", "dist", "build", ".next", "coverage", "out", ".gifisi", ".turbo"];
 export const DEFAULT_MAX_LINES = 350;
 
 const REGEX_AFTER = new Set(["", "(", ",", "=", ":", "[", "!", "&", "|", "?", "{", "}", ";", "+", "-", "*", "%", "<", ">", "~", "^"]);

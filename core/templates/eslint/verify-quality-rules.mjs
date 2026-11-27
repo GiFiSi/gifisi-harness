@@ -136,7 +136,7 @@ if (!configName) {
     const linter = new eslint.ESLint({ cwd: projectDir });
     let samplePath = null;
     for (const dir of ["src", "app", "components", "pages", "lib", "."]) {
-      const candidate = path.join(projectDir, dir, "poteto-jsx-sample.jsx");
+      const candidate = path.join(projectDir, dir, "gifisi-jsx-sample.jsx");
       if (!(await linter.isPathIgnored(candidate)) && (await linter.calculateConfigForFile(candidate))) {
         samplePath = candidate;
         break;

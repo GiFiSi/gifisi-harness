@@ -25,7 +25,7 @@ The human supervises asynchronously. On reversible work, make a reasonable decis
 3. **Present, do not ask.** Show what you did, why, and how to undo it. Offer the alternative in one sentence if it was close.
 4. **Confirm irreversible work.** Stop and ask, naming exactly what will happen and whether it can be undone. Continue other independent work while waiting.
 5. **Leave product direction to the human.** What to build and for whom is their call. How to build it is yours.
-6. **Make the trail self-healing.** Log each assumption with `node scripts/log-decision.mjs`, so `.poteto/decisions.tsv` shows what to revisit if the human disagrees.
+6. **Make the trail self-healing.** Log each assumption with `node scripts/log-decision.mjs`, so `.gifisi/decisions.tsv` shows what to revisit if the human disagrees.
 
 Worked example. The task is "add pagination to the orders list". The API supports cursor and offset paging.
 

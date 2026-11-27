@@ -20,12 +20,12 @@ Copy all Steps into the todo list and mark the steps of the branch you are not o
 
 ## Done Predicate
 
-The branch's deliverable exists and its check was observed. That is a plan file at `.poteto/plans/<slug>.md` with unit, live, and perf verification on every unit, or `node scripts/validate-project.mjs --root <project>` exiting 0 with project lint and tests passing, or an environment manifest whose versions came from running each tool.
+The branch's deliverable exists and its check was observed. That is a plan file at `.gifisi/plans/<slug>.md` with unit, live, and perf verification on every unit, or `node scripts/validate-project.mjs --root <project>` exiting 0 with project lint and tests passing, or an environment manifest whose versions came from running each tool.
 
 Template by branch:
 
-- Plan: `.poteto/plans/<slug>.md` lists units in landing order with a dependency graph, and each unit names its files, its change, the result a user sees, and checkable verification boxes. The user has the path.
-- New project or adoption: `node scripts/validate-project.mjs --root <project>` exits 0; the lint, test, and build commands in `<project>/.poteto/project.json` pass; `node scripts/quality-gate.mjs --root <project>` reports no violations; a before and after summary exists for adoption.
+- Plan: `.gifisi/plans/<slug>.md` lists units in landing order with a dependency graph, and each unit names its files, its change, the result a user sees, and checkable verification boxes. The user has the path.
+- New project or adoption: `node scripts/validate-project.mjs --root <project>` exits 0; the lint, test, and build commands in `<project>/.gifisi/project.json` pass; `node scripts/quality-gate.mjs --root <project>` reports no violations; a before and after summary exists for adoption.
 - Machine setup: a manifest shaped like `core/templates/environment-manifest.example.json` records each tool, its version as printed by the tool itself, its scope, and any backup taken. Tools that were skipped or failed are listed with the reason.
 
 ## Steps
@@ -36,14 +36,14 @@ Template by branch:
 4. Setup branch: execute the skill's phases in order, each ending in its own check, and log one row per phase with `scripts/log-decision.mjs` including the command that proved it.
 5. Setup branch: close with the branch check (`scripts/validate-project.mjs` plus project lint and tests, or the filled environment manifest) and a before and after summary.
 6. Plan branch: settle open questions by running something (`core/playbooks/prototype.md`) and settle types and boundaries with `core/skills/architect/SKILL.md`; ask the user only about product calls no run can settle.
-7. Plan branch: write `.poteto/plans/<slug>.md` opening with what changes, unit ids in landing order, the dependency graph, and the files each unit may touch.
+7. Plan branch: write `.gifisi/plans/<slug>.md` opening with what changes, unit ids in landing order, the dependency graph, and the files each unit may touch.
 8. Plan branch: give each unit one section with checkboxes for depends-on, files, the one change, the visible result, and verification (unit test, live check, perf check where relevant).
 9. Plan branch: make each live box a concrete Feature Map check for `scripts/verify-feature-map.mjs` and each perf box a metric, probe, trunk baseline, and failing number; mark units that change an interaction as review-gated.
 10. Plan branch: log the plan with `scripts/log-decision.mjs` as phase `design`, hand the path to the user, and stop until the user explicitly says go.
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the global harness home (for example `~/.poteto-harness/`) when only a global install exists, the repository root here. Run them as `node "<harness-home>/scripts/<name>.mjs"` from the project root, so `.poteto/decisions.tsv` lands in the project.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the global harness home (for example `~/.gifisi-harness/`) when only a global install exists, the repository root here. Run them as `node "<harness-home>/scripts/<name>.mjs"` from the project root, so `.gifisi/decisions.tsv` lands in the project.
 
 **Step 1.** The fallback route lands here for vague, large, cross-cutting, or unattended requests. `core/skills/figure-it-out/SKILL.md` turns the request into a goal, a Done Predicate, and a first verifiable unit. If that shows the work is one unit, re-route to the matching playbook and print a new header.
 
@@ -78,7 +78,7 @@ A phase is done when its check passed, not when its commands ran (`core/principl
 - [ ] Perf: invoice render median stays within 5% of trunk baseline
 ```
 
-**Step 9.** A live box drives the real surface with a scenario and a pass predicate, written so `core/skills/create-verification-skill/SKILL.md` can turn it into a `.poteto/feature-map.json` entry. A perf box names the metric, the probe command, the trunk baseline measured first, and the number that fails the unit. Units that change an interaction wait for the user's review before merge.
+**Step 9.** A live box drives the real surface with a scenario and a pass predicate, written so `core/skills/create-verification-skill/SKILL.md` can turn it into a `.gifisi/feature-map.json` entry. A perf box names the metric, the probe command, the trunk baseline measured first, and the number that fails the unit. Units that change an interaction wait for the user's review before merge.
 
 **Step 10.** Execution starts only on the user's explicit go. When it starts, each unit runs through its own playbook (usually `core/playbooks/feature.md` or `core/playbooks/refactoring.md`) and ends with `core/playbooks/opening-a-pr.md`. Delete the plan file once all units land.
 

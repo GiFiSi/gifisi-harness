@@ -9,14 +9,14 @@ It is machine scope only. Do not use it to create or configure an application; t
 ## Prompt
 
 ```text
-Prepare this machine for development by following the poteto-harness router.
-The harness files live in the harness home: `~/.poteto-harness/` after a global
-install, or `.poteto/` inside a project that has the harness installed. Paths
+Prepare this machine for development by following the gifisi-harness router.
+The harness files live in the harness home: `~/.gifisi-harness/` after a global
+install, or `.gifisi/` inside a project that has the harness installed. Paths
 below are relative to that home.
 
 1. Before running any command that changes the machine, print the task-start
    signal exactly in this shape:
-   [POTETO-HARNESS] Task Type: Machine setup | Playbook: Multi-phase plan
+   [GIFISI-HARNESS] Task Type: Machine setup | Playbook: Multi-phase plan
    Reason: <one sentence on why this is a machine-scope setup task>
    Done Predicate: <the environment manifest path with every component marked
    ready, blocked or unsupported, and the version command that proves each
@@ -59,13 +59,13 @@ below are relative to that home.
     bash <harness-checkout>/install.sh --global
     (without bash: node <harness-checkout>/scripts/sync-harnesses.mjs --global).
     Back up ~/.claude/CLAUDE.md, ~/.codex/AGENTS.md and
-    ~/.cursor/rules/poteto-harness.mdc first. Run the same command again and
+    ~/.cursor/rules/gifisi-harness.mdc first. Run the same command again and
     confirm its last line reports writes=0. Record the managed files in the
     manifest. Cursor may need the user rule added in its Settings, so mark
     it configured, not verified, until a new Cursor session shows the router.
 12. Log each phase with
     node scripts/log-decision.mjs --log ~/dev-setup/decisions.tsv setup "<component> <action>" "<why>" "<version output>" "<ready|blocked>"
-    (inside a project, omit --log so rows go to .poteto/decisions.tsv).
+    (inside a project, omit --log so rows go to .gifisi/decisions.tsv).
 
 Limits: never ask for, print or store a password, token or one-time code;
 authentication happens in each tool's own login flow and I complete it.
@@ -77,7 +77,7 @@ the exact intervention needed.
 
 ## Expected result
 
-- The `[POTETO-HARNESS]` header, then the multi-phase plan setup steps as the todo list.
+- The `[GIFISI-HARNESS]` header, then the multi-phase plan setup steps as the todo list.
 - An inventory and a written proposal, and no install before your OK.
 - The environment manifest outside every project, with `template` set to `false`, a `generated_at` timestamp, and each component marked `ready`, `blocked` or `unsupported` with a reason.
 - A private report beside it: previous and final versions, sources, backups with restore commands, fresh-shell verification output, and open interventions (browser login, system password, restart).
@@ -87,4 +87,4 @@ the exact intervention needed.
 ## Source
 
 - `docs/prompts/10-development-environment-setup.md` and `docs/03-environment-setup.md`, Vibe Coding Toolkit by Matheus Gomes (MIT).
-- Adapted for poteto-harness: routed through the router header and `playbooks/multi-phase-plan.md`; installs need approval instead of the upstream pre-granted authorization.
+- Adapted for gifisi-harness: routed through the router header and `playbooks/multi-phase-plan.md`; installs need approval instead of the upstream pre-granted authorization.

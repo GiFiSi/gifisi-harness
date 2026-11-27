@@ -2,7 +2,7 @@
 // Classify a task prompt against core/harness/routes.json and print the task-start signal header.
 // Usage: node scripts/classify-task.mjs "<prompt>" [--json] [--top N]
 // Reads routes, manifest and playbooks from the harness home this script runs from,
-// so an installed copy under <project>/.poteto/scripts/ reads <project>/.poteto/core/harness/routes.json.
+// so an installed copy under <project>/.gifisi/scripts/ reads <project>/.gifisi/core/harness/routes.json.
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { parseFrontmatter, sections } from "./lib/frontmatter.mjs";
@@ -83,7 +83,7 @@ export function buildSignal(ranked, { root = HARNESS_ROOT, cwd = process.cwd() }
   const reasonRunner = runnerUp ? `runner-up: ${runnerUp.taskType} (score ${runnerUp.score})` : "runner-up: none (score 0)";
   const home = homePrefix(root, cwd);
   const header = [
-    `[POTETO-HARNESS] Task Type: ${top.taskType} | Playbook: ${title}`,
+    `[GIFISI-HARNESS] Task Type: ${top.taskType} | Playbook: ${title}`,
     `Reason: ${reasonMatch}; ${reasonRunner}`,
     `Done Predicate: ${predicate ?? `see ## Done Predicate in ${home}${CORE}/playbooks/${top.playbook}.md`}`,
   ].join("\n");

@@ -23,7 +23,7 @@ The new behavior is observed on the surface users touch: its Feature Map check f
 Template for the signal header:
 
 ```
-Done Predicate: Feature Map check <feature id>/<check name> in .poteto/feature-map.json fails before and passes after; <test file> passes; lint, tests, and the 350-line gate pass.
+Done Predicate: Feature Map check <feature id>/<check name> in .gifisi/feature-map.json fails before and passes after; <test file> passes; lint, tests, and the 350-line gate pass.
 ```
 
 A feature with no live surface (a library function) uses its public API test as the observation and says so.
@@ -33,16 +33,16 @@ A feature with no live surface (a library function) uses its public API test as 
 1. Trace the affected subsystem with `core/skills/how/SKILL.md`: entry points, data shapes, callers, and the project docs the change touches.
 2. Shape the design with `core/skills/architect/SKILL.md`, choosing the data model (state machine, table, typed model) before any logic, and log the choice with phase `design`.
 3. Write the throughput checkpoint as four todo items: blocking first steps, independent workstreams, shared mutable state, smallest safe decomposition; mark a dimension `n/a: <reason>` instead of dropping it.
-4. Add the new behavior to `.poteto/feature-map.json` per `core/skills/create-verification-skill/SKILL.md`, run `node scripts/verify-feature-map.mjs`, and observe the new check fail.
+4. Add the new behavior to `.gifisi/feature-map.json` per `core/skills/create-verification-skill/SKILL.md`, run `node scripts/verify-feature-map.mjs`, and observe the new check fail.
 5. Write a behavior test per `core/skills/tdd/SKILL.md`, run it, observe it fail for the missing behavior, and log phase `failing-test`.
 6. Implement in small units with review separation: delegate the code (through `core/skills/arena/SKILL.md` when valid shapes compete) and review every diff yourself; log phase `implement`.
-7. Run the test, the project's lint and tests from `.poteto/project.json`, `node scripts/quality-gate.mjs`, and the Feature Map; observe all pass and log phase `verify`.
+7. Run the test, the project's lint and tests from `.gifisi/project.json`, `node scripts/quality-gate.mjs`, and the Feature Map; observe all pass and log phase `verify`.
 8. If the design is contested or a reviewer disagrees, stress it with `core/skills/interrogate/SKILL.md` before shipping and log the outcome.
 9. Rebase into small ordered commits that each end in a passing check, then run `core/playbooks/opening-a-pr.md`.
 
 ## Step notes
 
-Script paths are relative to the harness home (`.poteto/` in an installed project). Log rows with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`.
+Script paths are relative to the harness home (`.gifisi/` in an installed project). Log rows with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`.
 
 **Step 1.** Read `PRODUCT.md` and the one `docs/` file the change touches (usually architecture or design). Name every caller of the code you will change. If a requirement lands in an existing design, ask what the design would be had the requirement existed on day one (`core/principles/redesign-from-first-principles.md`).
 
@@ -56,13 +56,13 @@ Script paths are relative to the harness home (`.poteto/` in an installed projec
 
 Code-coupled work (one feature) goes to a single owner who fans out only after the blocking phase. Rewrite the checkpoint at phase boundaries.
 
-**Step 4.** Each check names a request or command and the exact observation (`status`, `json` key paths, `bodyIncludes`, `exitCode`, `stdoutIncludes`). See `core/templates/poteto/feature-map.example.json` for the schema. A check that passes before the feature exists is testing the wrong thing; fix the check.
+**Step 4.** Each check names a request or command and the exact observation (`status`, `json` key paths, `bodyIncludes`, `exitCode`, `stdoutIncludes`). See `core/templates/gifisi/feature-map.example.json` for the schema. A check that passes before the feature exists is testing the wrong thing; fix the check.
 
 **Step 5.** Assert observable behavior, not internals (`core/principles/test-behavior-not-implementation.md`). The failure message must point at the missing behavior, not at a typo or import error.
 
 **Step 6.** If your harness can spawn subagents, give the implementer a specific scope: file paths, the named data shape from step 2, and the failing test and Feature Map check as success criteria. When the implementation admits several valid shapes (error handling, abstraction layer, test structure), run `core/skills/arena/SKILL.md` so competing runners surface alternatives and a separate judge picks. Without subagents, write the code yourself and review it in a separate pass against the step 2 design. Port improvements to shared primitives to every consumer and verify each. Commit each unit once its check passes.
 
-**Step 7.** Use the commands in `.poteto/project.json`; do not guess them. Wrong-surface or inconclusive results are not a pass; report them as such. A repeated mistake class goes to `core/skills/correct/SKILL.md`.
+**Step 7.** Use the commands in `.gifisi/project.json`; do not guess them. Wrong-surface or inconclusive results are not a pass; report them as such. A repeated mistake class goes to `core/skills/correct/SKILL.md`.
 
 **Step 8.** Contested means two reasonable reviewers would pick different designs, or the change sets a precedent other code will copy.
 

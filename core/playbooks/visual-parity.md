@@ -34,17 +34,17 @@ A nonzero diff is a failure. A diff threshold above zero is allowed only when th
 ## Steps
 
 1. Build the baseline harness before any migration: a project script that renders each component in each state, screenshots it at fixed size, and diffs against stored images; capture the baseline and commit it.
-2. Register one `cli` check per component in `.poteto/feature-map.json` that runs the diff script and expects exit code 0, run `node scripts/verify-feature-map.mjs`, and confirm all pass on the unmigrated code.
+2. Register one `cli` check per component in `.gifisi/feature-map.json` that runs the diff script and expects exit code 0, run `node scripts/verify-feature-map.mjs`, and confirm all pass on the unmigrated code.
 3. State the anti-shortcut rules and hold them: no harness edits, no baseline edits, no restructuring a component to make a diff pass; if the baseline looks wrong, stop and ask.
 4. Migrate shared primitives first as a blocking phase, rerun every check, and land them before any component that uses them.
 5. Migrate one component at a time, one owner per component; if your harness can spawn subagents, give each its own worktree and component, otherwise work through them in sequence.
 6. Run the component's diff check after each change; on a nonzero diff, inspect the diff image, find the cause in the new code, and rerun until zero, logging phase `verify` with the result.
-7. Confirm the baseline is untouched with `git diff --stat <baseline dir>`, run project lint and tests from `.poteto/project.json` and `node scripts/quality-gate.mjs`, and check callers with `core/skills/blast-radius/SKILL.md`.
+7. Confirm the baseline is untouched with `git diff --stat <baseline dir>`, run project lint and tests from `.gifisi/project.json` and `node scripts/quality-gate.mjs`, and check callers with `core/skills/blast-radius/SKILL.md`.
 8. Ship per component or per safe batch through `core/playbooks/opening-a-pr.md`, with the diff results in the Verification section.
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`.
 
 **Step 1.** No baseline, no parity claim; the harness is a blocking prerequisite (`core/principles/build-the-lever.md`). Pin everything that makes screenshots nondeterministic: viewport, device scale factor, fonts loaded, animations disabled, a fixed clock, fixed data, and the same browser build. Prove determinism before trusting the harness: capture twice on the same commit and require a zero diff between the two runs (`core/skills/benchmark-checklist/SKILL.md` covers noise checks). The script lives in the project, for example `<project>/scripts/visual-diff.mjs`, and may use whatever browser automation and image library the project already has; adding one is a dependency decision to state and log. When matching a mock or a second implementation instead of the current code, the reference images are the baseline.
 

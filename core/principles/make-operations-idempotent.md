@@ -31,8 +31,8 @@ Every state-changing operation converges to the correct end state no matter how 
 Worked example. An installer appends a router block to `AGENTS.md`. Run twice, the file holds two copies. The fix wraps the block in markers and replaces between them:
 
 ```js
-const START = "<!-- poteto-harness:start -->";
-const END = "<!-- poteto-harness:end -->";
+const START = "<!-- gifisi-harness:start -->";
+const END = "<!-- gifisi-harness:end -->";
 const block = `${START}\n${router}\n${END}`;
 const text = existsSync(file) ? readFileSync(file, "utf8") : "";
 const pattern = new RegExp(`${START}[\\s\\S]*?${END}`);

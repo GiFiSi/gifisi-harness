@@ -11,13 +11,13 @@ A formal check proves a property of what it describes. When the code changes and
 ## When to use
 
 - Covered code changed through merges, refactors, or edits made without rerunning the check.
-- A scheduled pass, before a release, over every `<project>/.poteto/verify/formal-*.md` notes file.
+- A scheduled pass, before a release, over every `<project>/.gifisi/verify/formal-*.md` notes file.
 - The user asks whether a model is still true to the code.
 - Not when no formal check exists yet. Stop and use `core/skills/create-formal-verification-skill/SKILL.md`.
 
 ## Procedure
 
-1. Find the checks. Read every `<project>/.poteto/verify/formal-*.md`, or the one the user named. If the project keeps checks elsewhere, find them by what they do: a TLA+ or Alloy model, or a test that explores states or generates inputs against named code. For each, collect the property, the covered files and functions, the bounds and assumptions, the run command, and the sync commit. If no sync commit is recorded, use the last commit that changed the check files, and say so.
+1. Find the checks. Read every `<project>/.gifisi/verify/formal-*.md`, or the one the user named. If the project keeps checks elsewhere, find them by what they do: a TLA+ or Alloy model, or a test that explores states or generates inputs against named code. For each, collect the property, the covered files and functions, the bounds and assumptions, the run command, and the sync commit. If no sync commit is recorded, use the last commit that changed the check files, and say so.
 2. Fix the outcome vocabulary and give each check exactly one at the end: **in sync** (no change since the sync commit alters what the check describes, and it passes), **updated** (the check now describes the changed code and passes), **bug** (the check describes the current code and the code breaks the property), or **blocked** (the check could not be brought back in line or could not run; say why). A check can be both updated and bug.
 3. Fix the scope. Edit only models, explorers, property tests, and the notes. Never edit product code unless the user asks. Never weaken a property or a model to make a failing check pass.
 4. Run each check as it is, before changing anything, and record the result. A pass tells you only that the old description still holds. A failure can be drift or a bug. Do not decide which until step 7.
@@ -41,4 +41,4 @@ Say outright which failures were drift in the check and which were bugs in the c
 
 ## Source
 
-Adapted from pstack `skills/maintain-formal-verification-skill/SKILL.md` (Lauren Tan, cursor/plugins, MIT). The `.poteto/verify/` layout and decision logging are poteto-harness additions.
+Adapted from pstack `skills/maintain-formal-verification-skill/SKILL.md` (Lauren Tan, cursor/plugins, MIT). The `.gifisi/verify/` layout and decision logging are gifisi-harness additions.

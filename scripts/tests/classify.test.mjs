@@ -87,9 +87,9 @@ for (const [prompt, expected] of [
 test("donePredicateOf takes the first sentence of the first prose paragraph", () => {
   const text = [
     "---", "name: demo", "---", "", "# Demo", "", "## Done Predicate", "",
-    "The file `.poteto/plans/x.md` exists. It lists units.", "", "```", "Done Predicate: x", "```", "", "## Steps", "1. Go.",
+    "The file `.gifisi/plans/x.md` exists. It lists units.", "", "```", "Done Predicate: x", "```", "", "## Steps", "1. Go.",
   ].join("\n");
-  assert.equal(donePredicateOf(text), "The file `.poteto/plans/x.md` exists.");
+  assert.equal(donePredicateOf(text), "The file `.gifisi/plans/x.md` exists.");
   assert.equal(donePredicateOf("# No predicate\n"), null);
 });
 
@@ -98,7 +98,7 @@ test("buildSignal prints the three header lines and a load line", () => {
   const { header, load } = buildSignal(ranked, { root: ROOT, cwd: ROOT });
   const lines = header.split("\n");
   assert.equal(lines.length, 3);
-  assert.equal(lines[0], "[POTETO-HARNESS] Task Type: Bug fix | Playbook: Bug fix");
+  assert.equal(lines[0], "[GIFISI-HARNESS] Task Type: Bug fix | Playbook: Bug fix");
   assert.match(lines[1], /^Reason: matched "broken" \(score 1\); runner-up: /);
   assert.match(lines[2], /^Done Predicate: \S/);
   assert.match(load, /^Load: core\/playbooks\/bug-fix\.md; skills: core\/skills\/why\/SKILL\.md, /);
@@ -111,7 +111,7 @@ test("CLI --json returns ranked routes and the header", () => {
   assert.equal(data.ranked.length, 2);
   assert.deepEqual(Object.keys(data.ranked[0]).sort(), ["id", "matched", "playbook", "score", "skills", "taskType"]);
   assert.equal(data.ranked[0].id, "machine-setup");
-  assert.match(data.header, /^\[POTETO-HARNESS\] Task Type: Machine setup \| Playbook: Multi-phase plan\n/);
+  assert.match(data.header, /^\[GIFISI-HARNESS\] Task Type: Machine setup \| Playbook: Multi-phase plan\n/);
 });
 
 test("CLI without a prompt exits 2 with usage", () => {

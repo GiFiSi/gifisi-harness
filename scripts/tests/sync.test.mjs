@@ -17,7 +17,7 @@ const SYNC = path.join(ROOT, "scripts", "sync-harnesses.mjs");
 const run = (args) => spawnSync(process.execPath, [SYNC, ...args], { cwd: ROOT, encoding: "utf8" });
 
 test("rendered router stays within 149 lines for every target", () => {
-  const home = mkdtempSync(path.join(os.tmpdir(), "poteto-sync-home-"));
+  const home = mkdtempSync(path.join(os.tmpdir(), "gifisi-sync-home-"));
   try {
     for (const target of ["repo", "project", "global"]) {
       const result = run(["--print-router", target, "--home", home]);
@@ -35,11 +35,11 @@ test("rendered router stays within 149 lines for every target", () => {
 
 test("HOME prefix differs per target and global uses forward slashes", () => {
   assert.equal(homeFor("repo"), "");
-  assert.equal(homeFor("project"), ".poteto/");
+  assert.equal(homeFor("project"), ".gifisi/");
   const global = homeFor("global", path.join(os.tmpdir(), "fake-home"));
-  assert.ok(global.endsWith("/fake-home/.poteto-harness/"), global);
+  assert.ok(global.endsWith("/fake-home/.gifisi-harness/"), global);
   assert.ok(!global.includes("\\"), global);
-  assert.match(renderBlock(".poteto/"), /`\.poteto\/core\/playbooks\/bug-fix\.md`/);
+  assert.match(renderBlock(".gifisi/"), /`\.gifisi\/core\/playbooks\/bug-fix\.md`/);
   assert.match(renderBlock(""), /\| Bug fix \| [^|]+ \| Bug fix — `core\/playbooks\/bug-fix\.md` \|/);
 });
 
@@ -55,10 +55,10 @@ test("splice appends once, then replaces in place", () => {
 
 test("splice keeps CRLF files CRLF and bytes outside the markers intact", () => {
   const original = "# Team rules\r\n\r\nKeep the API stable.\r\n";
-  const spliced = spliceBlock(original, renderBlock(".poteto/"));
+  const spliced = spliceBlock(original, renderBlock(".gifisi/"));
   assert.ok(spliced.startsWith(original));
   assert.doesNotMatch(spliced.replace(/\r\n/g, ""), /\n/, "every newline must be CRLF");
-  assert.equal(spliceBlock(spliced, renderBlock(".poteto/")), spliced);
+  assert.equal(spliceBlock(spliced, renderBlock(".gifisi/")), spliced);
   const withTail = `${spliced}After block.\r\n`;
   const updated = spliceBlock(withTail, wrapBlock("changed"));
   assert.ok(updated.startsWith(`${original}\r\n${BEGIN}\r\nchanged\r\n${END}`));
@@ -73,8 +73,8 @@ test("splice refuses files with broken or duplicate markers", () => {
 });
 
 test("owned .mdc has frontmatter with alwaysApply and one block", () => {
-  const text = renderOwnedMdc(renderBlock(".poteto/"));
-  assert.match(text, /^---\ndescription: poteto-harness always-on router\nalwaysApply: true\n---\n<!-- poteto-harness:begin/);
+  const text = renderOwnedMdc(renderBlock(".gifisi/"));
+  assert.match(text, /^---\ndescription: gifisi-harness always-on router\nalwaysApply: true\n---\n<!-- gifisi-harness:begin/);
   assert.deepEqual(countMarkers(text), { begin: 1, end: 1 });
 });
 
@@ -110,11 +110,11 @@ test("argument parsing rejects ambiguous or incomplete input", () => {
 
 test("the generated note names a command that exists where the block lands", () => {
   assert.match(renderBlock(""), /Regenerate with node scripts\/sync-harnesses\.mjs --repo\./);
-  const project = renderBlock(".poteto/");
+  const project = renderBlock(".gifisi/");
   const global = renderBlock(homeFor("global", path.join(os.tmpdir(), "h")));
   for (const block of [project, global]) assert.doesNotMatch(block, /node scripts\/sync-harnesses/);
-  assert.match(project, /re-running install\.sh --project <this project> from the poteto-harness checkout/);
-  assert.match(global, /re-running install\.sh --global from the poteto-harness checkout/);
+  assert.match(project, /re-running install\.sh --project <this project> from the gifisi-harness checkout/);
+  assert.match(global, /re-running install\.sh --global from the gifisi-harness checkout/);
 });
 
 test("a global home with a space renders every script command with a quoted path", () => {
@@ -138,7 +138,7 @@ test("splice keeps a leading BOM and accepts a trailing-space end marker", () =>
 });
 
 test("a case-only rename in the source leaves the new file installed and the next run idempotent", (t) => {
-  const dir = mkdtempSync(path.join(os.tmpdir(), "poteto-case-"));
+  const dir = mkdtempSync(path.join(os.tmpdir(), "gifisi-case-"));
   t.after(() => rmSync(dir, { recursive: true, force: true }));
   const src = path.join(dir, "src");
   const dest = path.join(dir, "dest");

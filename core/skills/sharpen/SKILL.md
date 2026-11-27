@@ -20,7 +20,7 @@ A shallow prompt gets a shallow result, and adding scope does not fix it. Sharpe
 
 1. Say what a top professional in this field would do here that the prompt does not ask for. Name the practice, not a quality ("bisect the regression to a commit", not "be thorough").
 2. Name the rawest material they would start from instead of what has already been digested: source over docs, traces over dashboards, the failing input over the bug title, the user's data over a fixture.
-3. Name the specific methods and tools they would use: a profiler, `git bisect`, a property test, a model checker, a live check in `.poteto/feature-map.json` run by `scripts/verify-feature-map.mjs`.
+3. Name the specific methods and tools they would use: a profiler, `git bisect`, a property test, a model checker, a live check in `.gifisi/feature-map.json` run by `scripts/verify-feature-map.mjs`.
 4. Say what, other than the agent or the user, would show the result is right: a failing-then-passing check, a measurement vetted with `core/skills/benchmark-checklist/SKILL.md`, a counterexample trace, a reviewer who did not write it.
 5. Rewrite the prompt to ask for exactly that, at the same scope. Do not add features, phases, or deliverables the user did not want.
 6. In the rewritten prompt, ask the agent to prototype any choice an experiment can settle and recommend an option from what it observed. Leave product and preference choices that no experiment can settle to the user, and list them.

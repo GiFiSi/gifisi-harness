@@ -41,13 +41,13 @@ Done Predicate: <query script> over <artifact path> shows <finding with its shar
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the repository root here. Log a row with `node scripts/log-decision.mjs <phase> "<decision>" "<why>" "<evidence>" "<result>"`.
 
 **Step 1.** A profile of a debug build, a cold start, or a one-second window answers a different question than the one asked. Write the capture conditions down before reading numbers (`core/principles/explain-the-number.md`, `core/skills/benchmark-checklist/SKILL.md`). If the conditions are unknown, say so in the reply.
 
 **Step 2.** Bulk artifacts exhaust the context window fast (`core/principles/guard-the-context-window.md`). If your harness can spawn subagents, give one the path and a precise question, and keep its reduced answer. Otherwise read the artifact only through a script that prints a bounded summary (top 20 rows, one retainer path). Never paste a raw trace into the conversation.
 
-**Step 3.** Build the lever before reading (`core/principles/build-the-lever.md`). A Node script with zero dependencies can stream a `.cpuprofile` (nodes with `callFrame` and `hitCount`, plus `samples` and `timeDeltas`) into one JSON line per node with self time and parent id. A `.heapsnapshot` flattens the same way from its `nodes` and `edges` arrays using the `snapshot.meta` field layout. If the `sqlite3` CLI is installed, import the TSV and query with SQL; otherwise query the JSON lines with a second script. Save the scripts under `<project>/.poteto/forensics/` so the query can be rerun by a reviewer. For agent transcripts and `.poteto/decisions.tsv`, the queryable shape is one row per event with timestamp, phase, and claim.
+**Step 3.** Build the lever before reading (`core/principles/build-the-lever.md`). A Node script with zero dependencies can stream a `.cpuprofile` (nodes with `callFrame` and `hitCount`, plus `samples` and `timeDeltas`) into one JSON line per node with self time and parent id. A `.heapsnapshot` flattens the same way from its `nodes` and `edges` arrays using the `snapshot.meta` field layout. If the `sqlite3` CLI is installed, import the TSV and query with SQL; otherwise query the JSON lines with a second script. Save the scripts under `<project>/.gifisi/forensics/` so the query can be rerun by a reviewer. For agent transcripts and `.gifisi/decisions.tsv`, the queryable shape is one row per event with timestamp, phase, and claim.
 
 **Step 4.** Typical narrowing queries:
 

@@ -186,12 +186,12 @@ export function tableDrivenFormatUtils() {
 // Inputs for the characterization run: ordinary values, rounding edges, signs, text, junk.
 export const CHARACTERIZATION_INPUTS = [0, 1, -1, 0.5, 0.005, 12.345, 999.995, 1234.5, -9876.543, 1234567.891, "42", " 7.1 ", "abc", null, -0.004];
 
-// Child-process script: imports the module named by POTETO_CHAR_FILE and prints every
+// Child-process script: imports the module named by GIFISI_CHAR_FILE and prints every
 // export applied to every input as JSON. A fresh process avoids the ESM module cache.
 export const CHARACTERIZE_SCRIPT = `
 import { pathToFileURL } from "node:url";
-const inputs = JSON.parse(process.env.POTETO_CHAR_INPUTS);
-const mod = await import(pathToFileURL(process.env.POTETO_CHAR_FILE).href);
+const inputs = JSON.parse(process.env.GIFISI_CHAR_INPUTS);
+const mod = await import(pathToFileURL(process.env.GIFISI_CHAR_FILE).href);
 const out = {};
 for (const name of Object.keys(mod).sort()) {
   const value = mod[name];

@@ -23,7 +23,7 @@ Every PR in the queue is open, green on its current head, and carries a clean ve
 Template for the signal header:
 
 ```
-Done Predicate: gh pr checks <n> passes on the current head of each PR; .poteto/decisions.tsv has a clean verdict row whose patch-id matches each head; gh pr view shows every PR OPEN.
+Done Predicate: gh pr checks <n> passes on the current head of each PR; .gifisi/decisions.tsv has a clean verdict row whose patch-id matches each head; gh pr view shows every PR OPEN.
 ```
 
 ## Steps
@@ -47,7 +47,7 @@ Log grants, verdicts, restacks, and handoffs with `node scripts/log-decision.mjs
 
 **Step 3.** If your harness can spawn subagents or separate sessions, each owner is one; otherwise run owners one at a time in this session, keeping owner and verifier separate. Independent PRs base on trunk so each can land alone. A stacked PR names its parent in the body. Owners never share a branch, worktree, or file (`core/principles/separate-before-serializing-shared-state.md`).
 
-**Step 4.** The live proof runs `node scripts/verify-feature-map.mjs` against the PR's checkout, or the project's verification skill (see `core/skills/create-verification-skill/SKILL.md`). Before reporting code-ready, the owner runs `core/skills/unslop/SKILL.md` and `core/skills/no-comments/SKILL.md`, the project's checks from `.poteto/project.json`, and `node scripts/quality-gate.mjs`.
+**Step 4.** The live proof runs `node scripts/verify-feature-map.mjs` against the PR's checkout, or the project's verification skill (see `core/skills/create-verification-skill/SKILL.md`). Before reporting code-ready, the owner runs `core/skills/unslop/SKILL.md` and `core/skills/no-comments/SKILL.md`, the project's checks from `.gifisi/project.json`, and `node scripts/quality-gate.mjs`.
 
 **Step 5.** Use `git rebase --onto <new parent head> <old parent head> <branch>` for stacked branches, then `git push --force-with-lease=<branch>:<last pushed sha>`. An owner force-pushes only its own branch; on a push it did not make, it stops and reports.
 
@@ -59,7 +59,7 @@ Log grants, verdicts, restacks, and handoffs with `node scripts/log-decision.mjs
 
 ## Reply
 
-List each PR with its link, base, head SHA, verdict, CI state, and open follow-ups, in stack order. Point at `.poteto/decisions.tsv` for the trail.
+List each PR with its link, base, head SHA, verdict, CI state, and open follow-ups, in stack order. Point at `.gifisi/decisions.tsv` for the trail.
 
 ## Source
 

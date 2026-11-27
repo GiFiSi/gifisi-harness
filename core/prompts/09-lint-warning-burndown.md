@@ -9,14 +9,14 @@ Name the rule after the prompt, for example `complexity` or `quality/max-lines`,
 ## Prompt
 
 ```text
-Burn down lint warnings by following the poteto-harness router. Scope: the
+Burn down lint warnings by following the gifisi-harness router. Scope: the
 rule I name after this prompt, or every warning if I name none. This is
-behavior-preserving work. The harness files are under `.poteto/` in this
-project (or `~/.poteto-harness/` for a global install); paths below are
+behavior-preserving work. The harness files are under `.gifisi/` in this
+project (or `~/.gifisi-harness/` for a global install); paths below are
 relative to that home.
 
 1. Before editing code, print the task-start signal exactly in this shape:
-   [POTETO-HARNESS] Task Type: Quality gates | Playbook: Refactoring
+   [GIFISI-HARNESS] Task Type: Quality gates | Playbook: Refactoring
    Reason: <one sentence on why this is a behavior-preserving burndown>
    Done Predicate: <the lint command reports 0 warnings for the scoped rule
    (or the count agreed at the decision gate), and typecheck, tests and
@@ -26,7 +26,7 @@ relative to that home.
 3. Load `core/skills/quality-gates/SKILL.md` for the burndown and ratchet rules,
    `core/skills/blast-radius/SKILL.md` before changing shared code, and
    `core/skills/correct/SKILL.md` when the same mistake class shows up twice.
-4. Ground truth: take commands from .poteto/project.json, run lint now with
+4. Ground truth: take commands from .gifisi/project.json, run lint now with
    full per-line output, and report the count by rule and by file. Never
    reuse a number from memory, a commit message or an earlier run.
 5. Decision gate, before fixing the risky area: name the single riskiest or
@@ -58,7 +58,7 @@ relative to that home.
 10. Ratchet: when a count drops, lower the recorded baseline in the same
     change; at zero, set the rule back to error.
 11. Log baseline, the gate decision, each wave and the final verify with
-    `node .poteto/scripts/log-decision.mjs <phase> "<decision>" "<why>"
+    `node .gifisi/scripts/log-decision.mjs <phase> "<decision>" "<why>"
     "<evidence>" "<result>"`.
 12. Final checklist, each box ticked only from a command you just reran:
     lint count, typecheck, tests, build, the list of every suppression added
@@ -71,7 +71,7 @@ wave; do not push.
 
 ## Expected result
 
-- The `[POTETO-HARNESS]` header and the refactoring steps as the todo list.
+- The `[GIFISI-HARNESS]` header and the refactoring steps as the todo list.
 - A fresh per-rule and per-file count, then a decision gate naming the riskiest slice with real numbers and options A, B and C.
 - File-disjoint waves, each reviewed, with pitfalls copied into every brief.
 - A lowered baseline or the rule back at error, plus decision-log rows for each phase.
@@ -80,4 +80,4 @@ wave; do not push.
 ## Source
 
 - `docs/prompts/02-eslint-warning-burndown.md` and `docs/prompts/05-parallel-wave-dispatch.md`, Vibe Coding Toolkit by Matheus Gomes (MIT).
-- Adapted for poteto-harness: routed through `playbooks/refactoring.md` (the quality gates route) with `skills/quality-gates/SKILL.md`.
+- Adapted for gifisi-harness: routed through `playbooks/refactoring.md` (the quality gates route) with `skills/quality-gates/SKILL.md`.

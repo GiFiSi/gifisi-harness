@@ -23,7 +23,7 @@ function sync(args) {
 }
 
 function tempDir(t, prefix) {
-  const dir = mkdtempSync(path.join(os.tmpdir(), `poteto-${prefix}-`));
+  const dir = mkdtempSync(path.join(os.tmpdir(), `gifisi-${prefix}-`));
   t.after(() => rmSync(dir, { recursive: true, force: true }));
   return dir;
 }
@@ -53,16 +53,16 @@ test("project install into an empty dir is complete and the second run writes no
   const target = path.join(tempDir(t, "proj"), "new-app");
   const first = sync(["--project", target]);
   assert.match(first, /writes=[1-9]\d*/);
-  for (const p of manifest.playbooks) assert.ok(existsSync(path.join(target, ".poteto", "core", "playbooks", `${p.name}.md`)), p.name);
-  for (const s of manifest.projectScripts) assert.ok(existsSync(path.join(target, ".poteto", "scripts", s)), s);
+  for (const p of manifest.playbooks) assert.ok(existsSync(path.join(target, ".gifisi", "core", "playbooks", `${p.name}.md`)), p.name);
+  for (const s of manifest.projectScripts) assert.ok(existsSync(path.join(target, ".gifisi", "scripts", s)), s);
   for (const doc of manifest.docs) assert.ok(existsSync(path.join(target, "docs", doc)), doc);
   assert.ok(existsSync(path.join(target, "PRODUCT.md")));
-  assert.equal(read(target, ".poteto/decisions.tsv"), `${manifest.decisionColumns.join("\t")}\n`);
+  assert.equal(read(target, ".gifisi/decisions.tsv"), `${manifest.decisionColumns.join("\t")}\n`);
   assert.deepEqual(countMarkers(read(target, "AGENTS.md")), { begin: 1, end: 1 });
   assert.match(read(target, "CLAUDE.md"), /^@AGENTS\.md$/m);
-  assert.match(read(target, ".cursor/rules/poteto-harness.mdc"), /^alwaysApply: true$/m);
+  assert.match(read(target, ".cursor/rules/gifisi-harness.mdc"), /^alwaysApply: true$/m);
   assert.doesNotMatch(read(target, "AGENTS.md"), /\{\{[A-Z_]+\}\}/);
-  const project = JSON.parse(read(target, ".poteto/project.json"));
+  const project = JSON.parse(read(target, ".gifisi/project.json"));
   assert.equal(project.packageManager, "none");
   assert.equal(project.name, "new-app");
 
@@ -98,7 +98,7 @@ test("brownfield project keeps CRLF AGENTS.md, user files and stack files byte-f
   for (const rel of ["CLAUDE.md", "package.json", "pnpm-lock.yaml", "eslint.config.mjs", "test/app.test.mjs", "docs/architecture.md", "PRODUCT.md"]) {
     assert.equal(read(target, rel), files[rel], `${rel} must be untouched`);
   }
-  const project = JSON.parse(read(target, ".poteto/project.json"));
+  const project = JSON.parse(read(target, ".gifisi/project.json"));
   assert.equal(project.packageManager, "pnpm");
   assert.deepEqual(project.commands, { test: "pnpm test", lint: "pnpm lint", build: null, dev: null });
   assert.deepEqual(project.eslint, { config: "eslint.config.mjs", maxLinesRule: true });
@@ -113,12 +113,12 @@ test("CLAUDE.md without the import gets a managed import block; unmanaged .mdc i
   const target = tempDir(t, "claude");
   put(target, "CLAUDE.md", "Always answer in English.\n");
   const mdc = "---\nalwaysApply: true\n---\nTeam-owned rule.\n";
-  put(target, ".cursor/rules/poteto-harness.mdc", mdc);
+  put(target, ".cursor/rules/gifisi-harness.mdc", mdc);
   const out = sync(["--project", target]);
-  assert.match(out, /skip +\.cursor\/rules\/poteto-harness\.mdc \(not managed\)/);
-  assert.equal(read(target, ".cursor/rules/poteto-harness.mdc"), mdc);
+  assert.match(out, /skip +\.cursor\/rules\/gifisi-harness\.mdc \(not managed\)/);
+  assert.equal(read(target, ".cursor/rules/gifisi-harness.mdc"), mdc);
   const claude = read(target, "CLAUDE.md");
-  assert.ok(claude.startsWith("Always answer in English.\n\n<!-- poteto-harness:begin"));
+  assert.ok(claude.startsWith("Always answer in English.\n\n<!-- gifisi-harness:begin"));
   assert.match(claude, /^@AGENTS\.md$/m);
   assert.match(sync(["--project", target]), /writes=0\b/);
 });
@@ -126,16 +126,16 @@ test("CLAUDE.md without the import gets a managed import block; unmanaged .mdc i
 test("files dropped from the harness are pruned; files never installed are kept", (t) => {
   const target = tempDir(t, "prune");
   sync(["--project", target]);
-  const listFile = path.join(target, ".poteto", ".installed.json");
+  const listFile = path.join(target, ".gifisi", ".installed.json");
   const list = JSON.parse(readFileSync(listFile, "utf8"));
   list.files.push("core/playbooks/retired-playbook.md");
   writeFileSync(listFile, `${JSON.stringify(list, null, 2)}\n`);
-  put(target, ".poteto/core/playbooks/retired-playbook.md", "old\n");
-  put(target, ".poteto/notes/mine.md", "user notes\n");
+  put(target, ".gifisi/core/playbooks/retired-playbook.md", "old\n");
+  put(target, ".gifisi/notes/mine.md", "user notes\n");
   const out = sync(["--project", target]);
-  assert.match(out, /remove +\.poteto\/core\/playbooks\/retired-playbook\.md/);
-  assert.ok(!existsSync(path.join(target, ".poteto", "core", "playbooks", "retired-playbook.md")));
-  assert.equal(read(target, ".poteto/notes/mine.md"), "user notes\n");
+  assert.match(out, /remove +\.gifisi\/core\/playbooks\/retired-playbook\.md/);
+  assert.ok(!existsSync(path.join(target, ".gifisi", "core", "playbooks", "retired-playbook.md")));
+  assert.equal(read(target, ".gifisi/notes/mine.md"), "user notes\n");
   assert.ok(!JSON.parse(readFileSync(listFile, "utf8")).files.includes("core/playbooks/retired-playbook.md"));
   assert.match(sync(["--project", target]), /writes=0\b/);
 });
@@ -158,14 +158,14 @@ test("global install into a fake home preserves the user's CLAUDE.md and is idem
   const claude = read(home, ".claude/CLAUDE.md");
   assert.ok(claude.startsWith(userRules));
   assert.deepEqual(countMarkers(claude), { begin: 1, end: 1 });
-  const harnessHome = `${home.split(path.sep).join("/")}/.poteto-harness/`;
+  const harnessHome = `${home.split(path.sep).join("/")}/.gifisi-harness/`;
   assert.ok(claude.includes(`\`${harnessHome}core/playbooks/bug-fix.md\``), "router must point at the global harness home");
   assert.deepEqual(countMarkers(read(home, ".codex/AGENTS.md")), { begin: 1, end: 1 });
-  assert.match(read(home, ".cursor/rules/poteto-harness.mdc"), /^alwaysApply: true$/m);
+  assert.match(read(home, ".cursor/rules/gifisi-harness.mdc"), /^alwaysApply: true$/m);
   assert.equal(read(home, ".claude/settings.json"), "{\"theme\":\"dark\"}\n");
-  assert.ok(existsSync(path.join(home, ".poteto-harness", "scripts", "sync-harnesses.mjs")));
-  assert.ok(existsSync(path.join(home, ".poteto-harness", "core", "harness", "routes.json")));
-  assert.ok(!existsSync(path.join(home, ".poteto-harness", "scripts", "tests")));
+  assert.ok(existsSync(path.join(home, ".gifisi-harness", "scripts", "sync-harnesses.mjs")));
+  assert.ok(existsSync(path.join(home, ".gifisi-harness", "core", "harness", "routes.json")));
+  assert.ok(!existsSync(path.join(home, ".gifisi-harness", "scripts", "tests")));
 
   const before = snapshot(home);
   assert.match(sync(["--global", "--home", home]), /writes=0\b/);
@@ -179,7 +179,7 @@ const runRaw = (args, opts = {}) => spawnSync(process.execPath, [SYNC, ...args],
 // A junction (Windows) or directory symlink (POSIX) to the repo, created straight under os.tmpdir().
 // Only the link itself is removed afterwards: never a recursive rm through it.
 function linkRepo(t) {
-  const link = path.join(os.tmpdir(), `poteto-link-${process.pid}-${Date.now()}`);
+  const link = path.join(os.tmpdir(), `gifisi-link-${process.pid}-${Date.now()}`);
   symlinkSync(ROOT, link, process.platform === "win32" ? "junction" : "dir");
   assert.ok(lstatSync(link).isSymbolicLink(), "the link must be a link, not a copy");
   t.after(() => unlinkSync(link));
@@ -193,7 +193,7 @@ test("sync-harnesses run through a junction or symlink really installs", (t) => 
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /writes=[1-9]\d*/, "main() must run when invoked through the link");
   assert.ok(existsSync(path.join(target, "AGENTS.md")));
-  assert.ok(existsSync(path.join(target, ".poteto", "core", "harness", "routes.json")));
+  assert.ok(existsSync(path.join(target, ".gifisi", "core", "harness", "routes.json")));
 });
 
 test("package.json with a UTF-8 BOM installs and stays byte-identical", (t) => {
@@ -201,7 +201,7 @@ test("package.json with a UTF-8 BOM installs and stays byte-identical", (t) => {
   const pkg = `\uFEFF${JSON.stringify({ name: "bom-app", scripts: { test: "node --test" } }, null, 2)}\n`;
   put(target, "package.json", pkg);
   sync(["--project", target]);
-  const project = JSON.parse(read(target, ".poteto/project.json"));
+  const project = JSON.parse(read(target, ".gifisi/project.json"));
   assert.equal(project.name, "bom-app");
   assert.equal(project.commands.test, "npm test");
   assert.equal(read(target, "package.json"), pkg);
@@ -209,11 +209,11 @@ test("package.json with a UTF-8 BOM installs and stays byte-identical", (t) => {
 
 test("a refused splice or unreadable package.json writes nothing", (t) => {
   const broken = tempDir(t, "broken-markers");
-  put(broken, "AGENTS.md", "<!-- poteto-harness:begin x -->\n<!-- poteto-harness:begin y -->\n<!-- poteto-harness:end -->\n");
+  put(broken, "AGENTS.md", "<!-- gifisi-harness:begin x -->\n<!-- gifisi-harness:begin y -->\n<!-- gifisi-harness:end -->\n");
   const first = runRaw(["--project", broken]);
   assert.equal(first.status, 1);
   assert.match(first.stderr, /one managed block/);
-  assert.ok(!existsSync(path.join(broken, ".poteto")), "no partial install");
+  assert.ok(!existsSync(path.join(broken, ".gifisi")), "no partial install");
   const badJson = tempDir(t, "bad-json");
   put(badJson, "package.json", "{ not json");
   assert.equal(runRaw(["--project", badJson]).status, 1);
@@ -226,12 +226,12 @@ test("a managed AGENTS.md that gained a BOM re-installs with writes=0 and keeps 
   sync(["--project", target]);
   const agents = path.join(target, "AGENTS.md");
   writeFileSync(agents, `\uFEFF${readFileSync(agents, "utf8")}`);
-  const mdc = path.join(target, ".cursor", "rules", "poteto-harness.mdc");
-  writeFileSync(mdc, readFileSync(mdc, "utf8").replace("<!-- poteto-harness:end -->", "<!-- poteto-harness:end --> \t"));
+  const mdc = path.join(target, ".cursor", "rules", "gifisi-harness.mdc");
+  writeFileSync(mdc, readFileSync(mdc, "utf8").replace("<!-- gifisi-harness:end -->", "<!-- gifisi-harness:end --> \t"));
   sync(["--project", target]);
   assert.match(sync(["--project", target]), /writes=0\b/);
-  assert.ok(readFileSync(agents, "utf8").startsWith("\uFEFF<!-- poteto-harness:begin"));
-  const check = spawnSync(process.execPath, [path.join(target, ".poteto", "scripts", "validate-project.mjs"), "--root", target], { encoding: "utf8" });
+  assert.ok(readFileSync(agents, "utf8").startsWith("\uFEFF<!-- gifisi-harness:begin"));
+  const check = spawnSync(process.execPath, [path.join(target, ".gifisi", "scripts", "validate-project.mjs"), "--root", target], { encoding: "utf8" });
   assert.equal(check.status, 0, check.stdout + check.stderr);
 });
 
@@ -258,11 +258,11 @@ test("global install honours CODEX_HOME when --home is absent, and ignores it wi
 test("global copy holds runtime scripts only and prunes repo-only tooling from an older install", (t) => {
   const home = tempDir(t, "global-subset");
   sync(["--global", "--home", home]);
-  const scripts = path.join(home, ".poteto-harness", "scripts");
+  const scripts = path.join(home, ".gifisi-harness", "scripts");
   for (const s of ["sync-harnesses.mjs", "classify-task.mjs", "log-decision.mjs", "lib/managed-blocks.mjs"]) assert.ok(existsSync(path.join(scripts, s)), s);
   const repoOnly = ["check-install.mjs", "validate-harness.mjs", "run-autonomous-smoke-test.mjs", "run-tests.mjs", "smoke/steps.mjs"];
   for (const s of repoOnly) assert.ok(!existsSync(path.join(scripts, s)), `${s} must not be copied`);
-  const listFile = path.join(home, ".poteto-harness", ".installed.json");
+  const listFile = path.join(home, ".gifisi-harness", ".installed.json");
   const list = JSON.parse(readFileSync(listFile, "utf8"));
   for (const s of repoOnly) {
     list.files.push(`scripts/${s}`);
@@ -271,7 +271,7 @@ test("global copy holds runtime scripts only and prunes repo-only tooling from a
   writeFileSync(listFile, JSON.stringify(list));
   const out = sync(["--global", "--home", home]);
   for (const s of repoOnly) {
-    assert.ok(out.split(/\r?\n/).includes(`remove    .poteto-harness/scripts/${s}`), `${s} must be pruned`);
+    assert.ok(out.split(/\r?\n/).includes(`remove    .gifisi-harness/scripts/${s}`), `${s} must be pruned`);
     assert.ok(!existsSync(path.join(scripts, s)));
   }
   assert.match(sync(["--global", "--home", home]), /writes=0\b/);

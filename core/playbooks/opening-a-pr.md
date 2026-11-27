@@ -22,13 +22,13 @@ Template:
 
 - Artifact: the pull request on the remote, plus the branch's commits.
 - Observation: the `gh pr view` output above; `git log <base>..HEAD --oneline` shows small commits that each describe one change; the Verification section lists commands and their observed results.
-- Without the `gh` CLI or a remote, the artifact is the local branch and the predicate is `git status` clean outside `.poteto/` with the commits in place; report the PR as not opened and why.
+- Without the `gh` CLI or a remote, the artifact is the local branch and the predicate is `git status` clean outside `.gifisi/` with the commits in place; report the PR as not opened and why.
 
 ## Steps
 
 1. Confirm a PR is wanted in this task; if it was not asked for, commit locally, report the branch, and ask before any push.
 2. Put the change on its own branch off trunk (a separate worktree when other work shares the checkout) and move unrelated edits out of it.
-3. Run the project lint and tests from `.poteto/project.json`, `node scripts/quality-gate.mjs`, and `node scripts/verify-feature-map.mjs` when `.poteto/feature-map.json` exists; fix failures before going on.
+3. Run the project lint and tests from `.gifisi/project.json`, `node scripts/quality-gate.mjs`, and `node scripts/verify-feature-map.mjs` when `.gifisi/feature-map.json` exists; fix failures before going on.
 4. Clean the diff with `core/skills/unslop/SKILL.md` and `core/skills/no-comments/SKILL.md`, and remove debug output, dead code, and edits outside the task's scope.
 5. Rebase into small landable commits that each build and pass tests on their own, staging with `git add <files>` and never `git add -A`.
 6. Run `core/skills/blast-radius/SKILL.md` on the changed symbols and keep its verdicts for the Blast Radius section.
@@ -38,7 +38,7 @@ Template:
 
 ## Step notes
 
-Script paths are relative to the harness home: `.poteto/` in an installed project, the global harness home (for example `~/.poteto-harness/`) when only a global install exists, the repository root here. Run them as `node "<harness-home>/scripts/<name>.mjs"` from the project root, so `.poteto/decisions.tsv` lands in the project.
+Script paths are relative to the harness home: `.gifisi/` in an installed project, the global harness home (for example `~/.gifisi-harness/`) when only a global install exists, the repository root here. Run them as `node "<harness-home>/scripts/<name>.mjs"` from the project root, so `.gifisi/decisions.tsv` lands in the project.
 
 **Step 1.** A request to fix, build, or refactor is not by itself a request to publish. "Commit this" means a local commit. "Open a PR", "push this", or a playbook run the user started with a PR in scope means push and open.
 

@@ -5,7 +5,7 @@
 //
 // Silent (exit 0, no output) when Context7 is not registered in any known
 // client config, when the prompt needs no reminder, or on any error.
-// Opt out with POTETO_CONTEXT7_REMINDER=0.
+// Opt out with GIFISI_CONTEXT7_REMINDER=0.
 import { readFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -60,7 +60,7 @@ function namedDependencies(prompt, names) {
 }
 
 await runHook(async (event) => {
-  if (process.env.POTETO_CONTEXT7_REMINDER === "0") return;
+  if (process.env.GIFISI_CONTEXT7_REMINDER === "0") return;
   const prompt = typeof event.prompt === "string" ? event.prompt : "";
   if (!prompt.trim()) return;
   const root = projectDir(event);

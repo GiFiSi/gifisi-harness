@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Feature Map verifier: runs every check in `.poteto/feature-map.json` against the live surface.
+// Feature Map verifier: runs every check in `.gifisi/feature-map.json` against the live surface.
 // HTTP features start the app on a free port (unless --base-url is given), wait for its ready
 // path, send each request with fetch, and always stop the app. CLI features run a command.
 // Usage: node scripts/verify-feature-map.mjs [--map FILE] [--root DIR] [--base-url URL] [--json]
@@ -13,13 +13,13 @@ import { findProjectRoot, isMain, resolveUserPath } from "./lib/paths.mjs";
 const POLL_MS = 150;
 
 export function defaultMapPath(root = findProjectRoot()) {
-  return path.join(root, ".poteto", "feature-map.json");
+  return path.join(root, ".gifisi", "feature-map.json");
 }
 
-// The project root for a map at <root>/.poteto/feature-map.json is <root>; otherwise the map's directory.
+// The project root for a map at <root>/.gifisi/feature-map.json is <root>; otherwise the map's directory.
 export function mapProjectRoot(mapFile) {
   const dir = path.dirname(path.resolve(mapFile));
-  return path.basename(dir) === ".poteto" ? path.dirname(dir) : dir;
+  return path.basename(dir) === ".gifisi" ? path.dirname(dir) : dir;
 }
 
 export function loadMap(mapFile) {

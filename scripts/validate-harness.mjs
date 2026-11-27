@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Validate the poteto-harness repository: canonical sets, file shapes, references,
+// Validate the gifisi-harness repository: canonical sets, file shapes, references,
 // router size and drift, harness-agnostic content, scripts, templates, and the decision log.
 // Usage: node scripts/validate-harness.mjs [--skip-tests]
 import { spawnSync } from "node:child_process";
@@ -143,7 +143,7 @@ function checkFilesExist() {
     ...manifest.scripts.map((s) => `scripts/${s}`),
     ...manifest.docs.map((d) => `docs/${d}`),
     "README.md", "docs/PRODUCT.md", "LICENSE", "docs/THIRD_PARTY_NOTICES.md", "docs/CONTRIBUTING.md", "install.sh",
-    "AGENTS.md", "CLAUDE.md", ".cursor/rules/poteto-harness.mdc", "package.json",
+    "AGENTS.md", "CLAUDE.md", ".cursor/rules/gifisi-harness.mdc", "package.json",
   ];
   for (const file of required) {
     const abs = path.join(ROOT, file);
@@ -172,7 +172,7 @@ function checkRouter() {
   const claude = read("CLAUDE.md");
   if (!/^@AGENTS\.md\s*$/m.test(claude)) fail("CLAUDE.md", "must import the router with @AGENTS.md");
   if (claude.split("\n").length > 20) fail("CLAUDE.md", "must stay an import bridge, not a second router");
-  if (!/^alwaysApply: true$/m.test(read(".cursor/rules/poteto-harness.mdc"))) fail(".cursor/rules/poteto-harness.mdc", "needs alwaysApply: true");
+  if (!/^alwaysApply: true$/m.test(read(".cursor/rules/gifisi-harness.mdc"))) fail(".cursor/rules/gifisi-harness.mdc", "needs alwaysApply: true");
 }
 
 function walk(dir, out = []) {
@@ -207,7 +207,7 @@ function checkSyntax(files) {
 }
 
 function checkDecisionLog() {
-  const file = ".poteto/decisions.tsv";
+  const file = ".gifisi/decisions.tsv";
   if (!existsSync(path.join(ROOT, file))) return fail(file, "the repo keeps its own decision trail");
   const lines = read(file).replace(/\n$/, "").split("\n");
   if (lines[0] !== manifest.decisionColumns.join("\t")) fail(file, "header must be the six decision columns");
